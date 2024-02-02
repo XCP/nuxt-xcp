@@ -4,9 +4,9 @@
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
         <th scope="col" class="py-2 pl-0 font-semibold">Asset</th>
-        <th scope="col" class="py-2 pl-0 font-semibold">Quantity</th>
+        <th scope="col" class="py-2 pl-0 font-semibold">Amount</th>
         <th scope="col" class="py-2 pl-0 font-semibold">Event</th>
-        <th scope="col" class="py-2 pl-0 font-semibold text-right">Timestamp</th>
+        <th scope="col" class="py-2 pl-0 font-semibold text-right">Block #</th>
         <th scope="col" class="py-2 pl-0"><span class="sr-only">View</span></th>
       </tr>
     </template>
@@ -17,7 +17,7 @@
             <Badge :category="item.category" />
           </div>
         </td>
-        <td class="whitespace-nowrap py-3 pl-0 pr-4 sm:table-cell sm:pr-8">
+        <td class="whitespace-nowrap py-3 pl-0 pr-4">
           <NuxtLink :to="`/asset/${formatAssetName(item.asset_name, item.asset)}`" class="leading-6 font-medium text-white">
             {{ formatAssetName(item.asset_name, item.asset) }}
           </NuxtLink>
@@ -25,11 +25,11 @@
         <td class="whitespace-nowrap py-3 pl-0 pr-4 text-sm leading-6 text-gray-300">
           {{ formatBalance(item.bindings.quantity, item.asset) }}
         </td>
-        <td class="whitespace-nowrap py-3 pl-0 pr-8 text-sm leading-6 text-gray-300 md:table-cell">
+        <td class="whitespace-nowrap py-3 pl-0 pr-8 text-sm leading-6 text-gray-300">
           {{ item.bindings.action }}
         </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-right text-sm leading-6 text-gray-300 sm:table-cell">
-          <time :datetime="item.created_at">{{ new Date(item.confirmed_at).toLocaleString() }}</time>
+        <td class="whitespace-nowrap py-3 pl-0 text-right text-sm leading-6 text-gray-300">
+          {{ item.block_index.toLocaleString() }}
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-right text-sm font-medium">
           <NuxtLink :to="`/tx/${item.bindings.event}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>

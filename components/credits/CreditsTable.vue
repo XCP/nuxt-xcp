@@ -4,9 +4,9 @@
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
         <th scope="col" class="py-2 pl-0 font-semibold">Asset</th>
-        <th scope="col" class="py-2 pl-0 font-semibold">Quantity</th>
+        <th scope="col" class="py-2 pl-0 font-semibold">Amount</th>
         <th scope="col" class="py-2 pl-0 font-semibold">Event</th>
-        <th scope="col" class="py-2 pl-0 font-semibold text-right">Timestamp</th>
+        <th scope="col" class="py-2 pl-0 font-semibold text-right">Block #</th>
         <th scope="col" class="py-2 pl-0"><span class="sr-only">View</span></th>
       </tr>
     </template>
@@ -29,7 +29,7 @@
           {{ item.bindings.action }}
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-right text-sm leading-6 text-gray-300 sm:table-cell">
-          <time :datetime="item.created_at">{{ new Date(item.confirmed_at).toLocaleString() }}</time>
+          {{ item.block_index.toLocaleString() }}
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-right text-sm font-medium">
           <NuxtLink :to="`/tx/${item.bindings.event}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>

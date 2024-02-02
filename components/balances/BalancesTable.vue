@@ -14,8 +14,9 @@
     </colgroup>
     <thead class="border-b border-white/10 text-sm leading-6 text-white">
       <tr>
-        <th scope="col" class="py-2 pr-8 font-semibold">Asset</th>
-        <th scope="col" class="py-2 pl-0 text-right font-semibold">Balance</th>
+        <th scope="col" class="py-2 pr-0 font-semibold">Asset</th>
+        <th scope="col" class="py-2 pl-0 font-semibold">Amount</th>
+        <th scope="col" class="py-2 pl-0 font-semibold">% of Supply</th>
       </tr>
     </thead>
     <tbody class="divide-y divide-white/5">
@@ -23,8 +24,11 @@
         <td class="whitespace-nowrap py-3 pr-3 text-sm font-medium text-white">
           <NuxtLink :to="`/asset/${balance.asset}`">{{ balance.asset }}</NuxtLink>
         </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-right text-sm leading-6 text-gray-300">
+        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(balance.quantity, balance) }}
+        </td>
+        <td class="whitespace-nowrap py-3 pl-0  text-sm leading-6 text-gray-300">
+          {{ balance.quantity / balance.supply }}
         </td>
       </tr>
     </tbody>

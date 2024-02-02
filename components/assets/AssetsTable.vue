@@ -8,8 +8,8 @@ import type { LockClosedIcon } from '@heroicons/vue/24/outline';
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Lock</th>
         <th scope="col" class="py-2 font-semibold">Asset</th>
-        <th scope="col" class="py-2 font-semibold">Type</th>
         <th scope="col" class="py-2 font-semibold">Supply</th>
+        <th scope="col" class="py-2 font-semibold">Type</th>
         <th scope="col" class="py-2 font-semibold text-right">Block #</th>
         <th scope="col" class="py-2"><span class="sr-only">View</span></th>
       </tr>
@@ -31,11 +31,11 @@ import type { LockClosedIcon } from '@heroicons/vue/24/outline';
             {{ formatAssetName(item.asset_name, item) }}
           </NuxtLink>
         </td>
-        <td class="whitespace-nowrap py-3 text-sm leading-6 text-gray-300 capitalize">
-          {{ item.type }}{{ item.divisible ? ', Divisible' : '' }}
-        </td>
         <td class="whitespace-nowrap py-3 text-sm leading-6 text-gray-300">
           {{ formatBalance(item.supply, item) }}
+        </td>
+        <td class="whitespace-nowrap py-3 text-sm leading-6 text-gray-300 capitalize">
+          {{ item.type }}{{ item.divisible ? ', Divisible' : '' }}
         </td>
         <td class="whitespace-nowrap py-3 text-sm leading-6 text-gray-300 text-right">
           {{ item.block_index.toLocaleString() }}

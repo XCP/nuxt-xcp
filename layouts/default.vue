@@ -20,7 +20,7 @@
               <!-- Sidebar component, swap this element with another sidebar if you like -->
               <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 ring-1 ring-white/10">
                 <div class="flex h-16 shrink-0 items-center">
-                  <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+                  <img class="h-7 w-auto" src="/img/xcpio.png" alt="XCP" />
                 </div>
                 <nav class="flex flex-1 flex-col">
                   <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -112,6 +112,11 @@
         </button>
 
         <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+          <div class="hidden sm:flex h-16 shrink-0 items-center">
+            <a href="/">
+              <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" />
+            </a>
+          </div>
           <form class="flex flex-1" action="#" method="GET">
             <label for="search-field" class="sr-only">Search</label>
             <div class="relative w-full">
