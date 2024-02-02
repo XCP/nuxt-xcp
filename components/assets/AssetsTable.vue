@@ -19,10 +19,10 @@ import type { LockClosedIcon } from '@heroicons/vue/24/outline';
         <td class="whitespace-nowrap py-3 pr-8">
           <div class="flex items-center gap-x-4 leading-6">
             <span v-if="item.locked" class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-green-400/10 text-green-400 ring-green-400/20">
-              <LockClosedIcon class="h-5 w-5 flex-shrink-0 text-green-500" aria-hidden="true" />
+              <LockClosedIcon class="h-4 w-4 flex-shrink-0 text-green-500" aria-hidden="true" />
             </span>
             <span v-else class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-yellow-400/10 text-yellow-400 ring-yellow-400/20">
-              <LockOpenIcon class="h-5 w-5 flex-shrink-0 text-yellow-500" aria-hidden="true" />
+              <LockOpenIcon class="h-4 w-4 flex-shrink-0 text-yellow-500" aria-hidden="true" />
             </span>
           </div>
         </td>
