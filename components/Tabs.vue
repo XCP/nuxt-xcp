@@ -36,6 +36,7 @@
 
 <script setup>
 import { defineProps, defineEmits } from 'vue';
+const { trackEvent } = useFathom();
 
 const props = defineProps({
   tabs: Array,
@@ -45,6 +46,7 @@ const props = defineProps({
 const emit = defineEmits(['tab-change']);
 
 const emitTabChange = (selectedTab) => {
+  trackEvent(selectedTab);
   emit('tab-change', selectedTab);
 };
 </script>
