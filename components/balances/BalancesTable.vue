@@ -21,14 +21,17 @@
     </thead>
     <tbody class="divide-y divide-white/5">
       <tr v-for="balance in state.balances" :key="balance.asset">
-        <td class="whitespace-nowrap py-3 pr-3 text-sm font-medium text-white">
-          <NuxtLink :to="`/asset/${balance.asset}`">{{ balance.asset }}</NuxtLink>
+        <td class="whitespace-nowrap py-3 pr-3">
+          <div class="flex items-center gap-x-4">
+              <img :src="`https://xchain.io/icon/${balance.asset}.png`" :alt="balance.asset" class="h-5 w-5 bg-gray-800" />
+              <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-white">{{ balance.asset }}</NuxtLink>
+            </div>
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(balance.quantity, balance) }}
         </td>
         <td class="whitespace-nowrap py-3 pl-0  text-sm leading-6 text-gray-300">
-          {{ balance.quantity / balance.supply }}
+          {{ ((balance.quantity / balance.supply) * 100).toFixed(8) }}%
         </td>
       </tr>
     </tbody>

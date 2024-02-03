@@ -6,12 +6,12 @@ import type { LockClosedIcon } from '@heroicons/vue/24/outline';
   <Table apiUrl="https://api.xcp.io/api/assets" :queryParams="{ address: props.address }" :initialPage="props.initialPage">
     <template v-slot:table-headers>
       <tr>
-        <th scope="col" class="py-2 pl-2 font-semibold">Lock</th>
+        <th scope="col" class="py-2 pl-2 font-semibold w-20">Lock</th>
         <th scope="col" class="py-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 font-semibold">Supply</th>
         <th scope="col" class="py-2 font-semibold">Type</th>
-        <th scope="col" class="py-2 font-semibold text-right">Block #</th>
-        <th scope="col" class="py-2"><span class="sr-only">View</span></th>
+        <th scope="col" class="py-2 font-semibold w-20 text-right">Block #</th>
+        <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
       </tr>
     </template>
     <template v-slot:table-rows="{ data }">
