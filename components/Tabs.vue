@@ -50,4 +50,3 @@ const emitTabChange = (selectedTab) => {
   emit('tab-change', selectedTab);
 };
 </script>
-
