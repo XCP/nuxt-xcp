@@ -2,7 +2,7 @@
   <Table apiUrl="https://api.xcp.io/api/messages" :queryParams="{ address: props.address, category: props.category }" :initialPage="props.initialPage">
     <template v-slot:table-headers>
       <tr>
-        <th scope="col" class="py-2 pl-2 font-semibold w-20">Type</th>
+        <th scope="col" class="py-2 pr-2 font-semibold w-20">Type</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Amount</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Event</th>

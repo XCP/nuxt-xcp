@@ -133,7 +133,7 @@
 
       <footer class="p-4 sm:p-6 lg:p-8">
         <div class="border-t border-white/10 pt-8">
-          <p class="text-xs leading-5 text-gray-400">&copy; 21e14.com. All rights reserved.</p>
+          <p class="text-xs leading-5 text-gray-400">&copy; 21e14.com. Data provided 'as-is' without warranty of accuracy.</p>
         </div>
       </footer>
     </div>

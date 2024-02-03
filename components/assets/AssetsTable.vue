@@ -2,7 +2,7 @@
   <Table apiUrl="https://api.xcp.io/api/assets" :queryParams="{ address: props.address }" :initialPage="props.initialPage">
     <template v-slot:table-headers>
       <tr>
-        <th scope="col" class="py-2 pl-2 font-semibold w-20">Lock</th>
+        <th scope="col" class="py-2 pr-2 font-semibold w-20">Lock</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Supply</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Type</th>
