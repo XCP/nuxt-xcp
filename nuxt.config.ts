@@ -8,4 +8,8 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  modules: ["nuxt-fathom"],
+  fathom: {
+    siteId: "FVFGOFSG",
+  },
 })
