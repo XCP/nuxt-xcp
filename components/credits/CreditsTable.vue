@@ -3,10 +3,10 @@
     <template v-slot:table-headers>
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold w-20">Type</th>
-        <th scope="col" class="py-2 pl-0 font-semibold">Asset</th>
-        <th scope="col" class="py-2 pl-0 font-semibold">Amount</th>
-        <th scope="col" class="py-2 pl-0 font-semibold">Event</th>
-        <th scope="col" class="py-2 pl-0 font-semibold w-20 text-right">Block #</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">Amount</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">Event</th>
+        <th scope="col" class="py-2 pr-2 font-semibold w-20 text-right">Block #</th>
         <th scope="col" class="py-2 pl-0 w-20"><span class="sr-only">View</span></th>
       </tr>
     </template>

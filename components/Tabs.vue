@@ -7,7 +7,7 @@
       class="block w-full rounded-md bg-black text-white border-transparent focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
       @change="emitTabChange($event.target.value)"
     >
-      <option v-for="tab in tabs" :key="tab.name" :value="tab.name">{{ tab.name }}</option>
+      <option v-for="tab in tabs" :key="tab.name" :value="tab.name" :selected="tab.name === activeTab">{{ tab.name }}</option>
     </select>
   </div>
 

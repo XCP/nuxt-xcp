@@ -1,6 +1,6 @@
 <template>
   <!-- Pagination -->
-  <nav class="flex items-center justify-between" aria-label="Pagination">
+  <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="hidden sm:block">
       <p class="text-sm text-gray-300">
         Showing
@@ -12,39 +12,51 @@
         results
       </p>
     </div>
-    <div class="flex flex-1 justify-between sm:justify-end">
-      <!-- First Page Button -->
-      <button
-        @click="goToPage(1)"
-        class="inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
-        :disabled="state.currentPage === 1"
-      >
-        &laquo;
-      </button>
-      <!-- Previous Page Button -->
-      <button
-        @click="goToPage(state.currentPage - 1)"
-        class="ml-2 inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
-        :disabled="state.currentPage <= 1"
-      >
-        &lsaquo;
-      </button>
-      <!-- Next Page Button -->
-      <button
-        @click="goToPage(state.currentPage + 1)"
-        class="ml-2 inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
-        :disabled="state.currentPage >= state.lastPage"
-      >
-        &rsaquo;
-      </button>
-      <!-- Last Page Button -->
-      <button
-        @click="goToPage(state.lastPage)"
-        class="ml-2 inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
-        :disabled="state.currentPage === state.lastPage"
-      >
-        &raquo;
-      </button>
+    <div class="flex flex-1 items-center justify-between sm:justify-end">
+      <div>
+        <!-- First Page Button -->
+        <button
+          @click="goToPage(1)"
+          class="inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
+          :disabled="state.currentPage === 1"
+        >
+          &laquo;
+        </button>
+        <!-- Previous Page Button -->
+        <button
+          @click="goToPage(state.currentPage - 1)"
+          class="ml-2 inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
+          :disabled="state.currentPage <= 1"
+        >
+          &lsaquo;
+        </button>
+      </div>
+      <div class="sm:hidden text-center flex-1">
+        <p class="text-sm text-gray-300">
+          Page
+          <span class="font-medium">{{ state.currentPage }}</span>
+          of
+          <span class="font-medium">{{ state.lastPage }}</span>
+        </p>
+      </div>
+      <div>
+        <!-- Next Page Button -->
+        <button
+          @click="goToPage(state.currentPage + 1)"
+          class="ml-2 inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
+          :disabled="state.currentPage >= state.lastPage"
+        >
+          &rsaquo;
+        </button>
+        <!-- Last Page Button -->
+        <button
+          @click="goToPage(state.lastPage)"
+          class="ml-2 inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
+          :disabled="state.currentPage === state.lastPage"
+        >
+          &raquo;
+        </button>
+      </div>
     </div>
   </nav>
   
@@ -63,7 +75,7 @@
 
   <!-- Table -->
   <div v-else class="mt-6 overflow-x-auto sm:overflow-x-visible">
-    <table class="table-auto w-full whitespace-nowrap text-left">
+    <table class="table-auto w-full whitespace-nowrap text-left border-b border-white/10">
       <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
         <slot name="table-headers"></slot>
       </thead>
