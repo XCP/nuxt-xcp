@@ -5,11 +5,28 @@
         {{ message.bindings.bet_hash }}
       </NuxtLink>
     </span>
-    <span v-else-if="message.category === 'bet_match_expirations'">{{ message.bindings.tx1_address }}</span>
-    <span v-else-if="message.category === 'bet_match_resolutions'">{{ message.bindings.winner }}</span>
+    <span v-else-if="message.category === 'bet_match_expirations'">
+      <NuxtLink :to="`/tx/${message.bindings.bet_match_id}`" class="leading-6 font-medium text-white">
+        {{ message.bindings.bet_match_id }}
+      </NuxtLink>
+    </span>
+    <span v-else-if="message.category === 'bet_match_resolutions'">
+      Winner: {{ message.bindings.winner }}
+    </span>
     <span v-else-if="message.category === 'bet_matches'">{{ message.bindings.tx1_address }}</span>
-    <span v-else-if="message.category === 'bets'">Bet placed by {{ message.bindings.source }}</span>
-    <span v-else-if="message.category === 'broadcasts'">{{ message.bindings.text }}</span>
+    <span v-else-if="message.category === 'bets'">
+      Wager {{ formatBalance(message.bindings.wager_quantity, {divisible: true}) }}
+      <NuxtLink :to="`/asset/XCP`" class="leading-6 font-medium text-white">
+        XCP
+      </NuxtLink>
+      on
+      <NuxtLink :to="`/address/${message.bindings.feed_address}`" class="leading-6 font-medium text-white">
+        {{ message.bindings.feed_address }}
+      </NuxtLink>
+    </span>
+    <span v-else-if="message.category === 'broadcasts'">
+      {{ message.bindings.text }}
+    </span>
     <span v-else-if="message.category === 'btcpays'">
       {{ formatBalance(message.bindings.btc_amount, {divisible: true}) }} BTC sent to
       <NuxtLink :to="`/address/${message.bindings.destination}`" class="leading-6 font-medium text-white">
@@ -28,19 +45,19 @@
     </span>
     <span v-else-if="message.category === 'order_match_expirations'">{{ message.bindings.tx1_address }}</span>
     <span v-else-if="message.category === 'order_matches'">
-      <strong>{{ formatBalance(message.bindings.forward_quantity, message.bindings.forward_asset) }}</strong>
-      <span>{{ message.bindings.forward_asset }}</span>
-      exchanged for
-      <strong>{{ formatBalance(message.bindings.backward_quantity, message.bindings.backward_asset) }}</strong>
-      <span>{{ message.bindings.backward_asset }}</span>
-      between
-      <NuxtLink :to="`/address/${message.bindings.tx0_address}`" class="leading-6 font-medium text-white">
-        {{ message.bindings.tx0_address }}
+      {{ formatBalance(message.bindings.forward_quantity, message.asset_two) }}
+      <NuxtLink :to="`/asset/${formatAssetName(message.bindings.forward_asset, message.asset_two)}`" class="leading-6 font-medium text-white">
+        {{ formatAssetName(message.bindings.forward_asset, message.asset_two) }}
       </NuxtLink>
-      and
+      for
+      {{ formatBalance(message.bindings.backward_quantity, message.asset) }}
+      <NuxtLink :to="`/asset/${formatAssetName(message.bindings.backward_asset, message.asset)}`" class="leading-6 font-medium text-white">
+        {{ formatAssetName(message.bindings.backward_asset, message.asset) }}
+      </NuxtLink>
+      with
       <NuxtLink :to="`/address/${message.bindings.tx1_address}`" class="leading-6 font-medium text-white">
         {{ message.bindings.tx1_address }}
-      </NuxtLink>.
+      </NuxtLink>
     </span>
     <span v-else-if="message.category === 'orders'">
       <span v-if="message.bindings.status === 'open'">
@@ -49,9 +66,9 @@
           {{ formatAssetName(message.bindings.give_asset, message.asset) }}
         </NuxtLink>
         for
-        {{ formatBalance(message.bindings.get_quantity, message.bindings.get_asset) }}
-        <NuxtLink :to="`/asset/${formatAssetName(message.bindings.get_asset, message.asset)}`" class="leading-6 font-medium text-white">
-          {{ formatAssetName(message.bindings.get_asset, message.asset) }}
+        {{ formatBalance(message.bindings.get_quantity, message.asset_two) }}
+        <NuxtLink :to="`/asset/${formatAssetName(message.bindings.get_asset, message.asset_two)}`" class="leading-6 font-medium text-white">
+          {{ formatAssetName(message.bindings.get_asset, message.asset_two) }}
         </NuxtLink>
       </span>
       <span v-else-if="message.bindings.status === 'expired'">
@@ -70,32 +87,49 @@
     <span v-else-if="message.category === 'rps_match_expirations'">RPS match expired between {{ message.bindings.tx0_address }} and {{ message.bindings.tx1_address }}</span>
     <span v-else-if="message.category === 'rps_matches'">RPS match between addresses</span>
     <span v-else-if="message.category === 'rpsresolves'">RPS resolved with move {{ message.bindings.move }}</span>
-    <span v-else-if="message.category === 'sweeps'">{{ message.bindings.destination }}</span>
+    <span v-else-if="message.category === 'sweeps'">
+      Sweep 
+      <NuxtLink :to="`/address/${message.bindings.source}`" class="leading-6 font-medium text-white">
+        {{ message.bindings.source }}
+      </NuxtLink>
+      to 
+      <NuxtLink :to="`/address/${message.bindings.destination}`" class="leading-6 font-medium text-white">
+        {{ message.bindings.destination }}
+      </NuxtLink>
+    </span>
     <span v-else-if="message.category === 'credits'">{{ message.address }}</span>
     <span v-else-if="message.category === 'debits'">{{ message.address }}</span>
     <span v-else-if="message.category === 'issuances'">
       <span v-if="message.bindings.transfer">
-        Ownership of
+        Transfer
         <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
           {{ formatAssetName(message.bindings.asset, message.asset) }}
         </NuxtLink>
-        transferred.
+        to
+        <NuxtLink :to="`/address/${message.bindings.issuer}`" class="leading-6 font-medium text-white">
+          {{ message.bindings.issuer }}
+        </NuxtLink>
       </span>
       <span v-else-if="message.bindings.locked">
-        Locked asset
+        Lock asset
         <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
           {{ formatAssetName(message.bindings.asset, message.asset) }}
         </NuxtLink>
       </span>
       <span v-else-if="message.bindings.reset">
-        Supply of
+        Reset asset
         <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
           {{ formatAssetName(message.bindings.asset, message.asset) }}
         </NuxtLink>
-        reset.
+      </span>
+      <span v-else-if="message.bindings.quantity === 0">
+        Update info
+        <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
+          {{ formatAssetName(message.bindings.asset, message.asset) }}
+        </NuxtLink>
       </span>
       <span v-else>
-        Issued
+        Issue
         {{ formatBalance(message.bindings.quantity, message.asset) }}
         <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
           {{ formatAssetName(message.bindings.asset, message.asset) }}
@@ -134,17 +168,14 @@
       </NuxtLink>
     </span>
     <span v-else-if="message.category === 'dividends'">
-      Dividend distributed:
-      <strong>{{ formatBalance(message.bindings.quantity_per_unit, message.bindings.dividend_asset) }}</strong>
-      <span>{{ message.bindings.dividend_asset }}</span>
-      per unit of
-      <NuxtLink :to="`/asset/${message.bindings.asset}`" class="leading-6 font-medium text-white">
-        {{ message.bindings.asset }}
+      {{ formatBalance(message.bindings.quantity_per_unit, message.asset_two) }}
+      <NuxtLink :to="`/asset/${formatAssetName(message.bindings.dividend_asset, message.asset_two)}`" class="leading-6 font-medium text-white">
+        {{ formatAssetName(message.bindings.dividend_asset, message.asset_two) }}
       </NuxtLink>
-      by
-      <NuxtLink :to="`/address/${message.bindings.source}`" class="leading-6 font-medium text-white">
-        {{ message.bindings.source }}
-      </NuxtLink>.
+      per unit of
+      <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
+        {{ formatAssetName(message.bindings.asset, message.asset) }}
+      </NuxtLink>
     </span>
     <span v-else-if="message.category === 'destructions'">
       {{ formatBalance(message.bindings.quantity, message.asset) }}
@@ -153,7 +184,17 @@
       </NuxtLink>
     </span>
     <span v-else-if="message.category === 'dispenser_refills'">Dispenser refilled by {{ message.bindings.source }}</span>
-    <span v-else-if="message.category === 'burns'">Burn of {{ message.bindings.burned }} BTC</span>
+    <span v-else-if="message.category === 'burns'">
+      Burned {{ formatBalance(message.bindings.burned, {divisible: true}) }}
+      <NuxtLink :to="`/asset/BTC`" class="leading-6 font-medium text-white">
+        BTC
+      </NuxtLink>
+      for
+      {{ formatBalance(message.bindings.earned, {divisible: true}) }}
+      <NuxtLink :to="`/asset/XCP`" class="leading-6 font-medium text-white">
+        XCP
+      </NuxtLink>
+    </span>
     <span v-else>Unknown category: {{ message.category }}</span>
   </div>
 </template>

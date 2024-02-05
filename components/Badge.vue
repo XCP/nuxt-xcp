@@ -78,9 +78,9 @@ export default {
     badgeClass() {
       switch (this.category) {
         case 'sends':
-          return 'bg-pink-400/10 text-pink-400 ring-pink-400/20';
+          return 'bg-orange-400/10 text-orange-400 ring-orange-400/20';
         case 'orders':
-          return 'bg-green-400/10 text-green-400 ring-green-400/20';
+          return 'bg-yellow-400/10 text-yellow-400 ring-yellow-400/20';
         case 'bet_expirations':
           return 'bg-red-400/10 text-red-400 ring-red-400/20';
         case 'bet_match_expirations':

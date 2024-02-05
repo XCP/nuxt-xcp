@@ -37,7 +37,7 @@
       <tr v-for="balance in state.balances" :key="balance.asset">
         <td class="whitespace-nowrap py-3 pr-3">
           <div class="flex items-center gap-x-4">
-              <img :src="`https://xchain.io/icon/${balance.asset}.png`" :alt="balance.asset" class="h-5 w-5 bg-gray-800" />
+              <NuxtImg :src="`https://api.xcp.io/img/icon/${balance.asset_name}`" :alt="balance.asset" class="h-5 w-5 bg-gray-800" loading="lazy" />
               <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-white">{{ balance.asset }}</NuxtLink>
             </div>
         </td>
@@ -82,27 +82,30 @@ const fetchData = async () => {
   if (state.loading || state.allDataLoaded) return;
 
   state.loading = true;
-  const query = `address=${props.address}&page=${state.balances.length / 100 + 1}`;
+  const query = `address=${props.address}&page=${Math.floor(state.balances.length / 100) + 1}`;
 
   try {
     const response = await fetch(`https://api.xcp.io/api/balances?${query}`);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
 
-    if (data.length === 0) {
+    if (data.length < 100) {
       state.allDataLoaded = true;
-    } else {
-      state.balances.push(...data);
     }
+
+    state.balances.push(...data);
   } catch (error) {
     console.error('Fetch error:', error);
   } finally {
     state.loading = false;
+    if (state.allDataLoaded) {
+      observer.value?.disconnect();
+    }
   }
 };
 
-const handleIntersect = (entries, observer) => {
-  if (entries[0].isIntersecting) {
+const handleIntersect = (entries) => {
+  if (entries[0].isIntersecting && !state.allDataLoaded) {
     fetchData();
   }
 };
