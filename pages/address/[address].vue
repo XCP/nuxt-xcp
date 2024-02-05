@@ -61,8 +61,8 @@
     <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
 
     <!-- Tab content -->
-    <div v-if="activeTab === 'History'">
-      <HistoryTable :address="address" />
+    <div v-if="activeTab === 'Activity'">
+      <ActivityTable :address="address" />
     </div>
     <div v-if="activeTab === 'Assets'">
       <AssetsTable :address="address" />
@@ -96,13 +96,13 @@ const address = ref(route.params.address);
 const apiData = ref({ tx_count: 0, bitcoinValue: 0 });
 
 const tabs = [
-  { name: 'History' },
+  { name: 'Activity' },
   { name: 'Assets' },
   { name: 'Balances' },
   { name: 'Credits' },
   { name: 'Debits' },
 ];
-const activeTab = ref('History');
+const activeTab = ref('Activity');
 
 const handleTabChange = (selectedTab) => {
   activeTab.value = selectedTab;
