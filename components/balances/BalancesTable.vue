@@ -64,6 +64,7 @@
 <script setup>
 import { FolderArrowDownIcon } from '@heroicons/vue/20/solid'
 import { ref, onMounted, onUnmounted, reactive, watch } from 'vue';
+const { trackEvent } = useFathom();
 
 const props = defineProps({
   address: String,
@@ -125,6 +126,8 @@ watch(lastElement, (el) => {
 });
 
 const downloadCsv = () => {
+  trackEvent('Download');
+
   let csvContent = "data:text/csv;charset=utf-8,";
   csvContent += "Asset,Amount,% of Supply\n";
 
