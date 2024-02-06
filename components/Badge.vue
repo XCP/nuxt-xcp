@@ -72,7 +72,7 @@ export default {
         case 'dispenser_refills':
           return 'Dispenser Refill';
         default:
-          return 'Unknown';
+          return this.category;
       }
     },
     badgeClass() {

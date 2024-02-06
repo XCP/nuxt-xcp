@@ -1,8 +1,9 @@
 <template>
-  <Table apiUrl="https://api.xcp.io/api/messages" :queryParams="{ address: props.address }" :initialPage="props.initialPage">
+  <Table apiUrl="https://api.xcp.io/api/messages" :queryParams="{ tx_hash: props.tx }" :initialPage="props.initialPage">
     <template v-slot:table-headers>
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">Action</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Summary</th>
         <th scope="col" class="py-2 pr-2 font-semibold w-20 text-right">Block #</th>
         <th scope="col" class="py-2 pl-3"><span class="sr-only">View</span></th>
@@ -13,6 +14,11 @@
         <td class="py-3 pr-8">
           <div class="flex items-center gap-x-4 leading-6">
             <Badge :category="item.category" />
+          </div>
+        </td>
+        <td class="py-3 pr-8">
+          <div class="flex items-center gap-x-4 leading-6 capitalize">
+            <Badge :category="item.command" />
           </div>
         </td>
         <td class="py-3 pl-0 pr-8 text-sm leading-6 text-gray-300">
@@ -30,13 +36,11 @@
 </template>
 
 <script setup>
-
 const props = defineProps({
-  address: String,
+  tx: String,
   initialPage: {
     type: Number,
     default: 1
   }
 })
-
 </script>

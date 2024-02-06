@@ -11,18 +11,33 @@
       </NuxtLink>
     </span>
     <span v-else-if="message.category === 'bet_match_resolutions'">
-      Winner: {{ message.bindings.winner }}
+      Winner: {{ formatBetWinner(message.bindings.winner) }}
     </span>
-    <span v-else-if="message.category === 'bet_matches'">{{ message.bindings.tx1_address }}</span>
+    <span v-else-if="message.category === 'bet_matches'">
+      <span v-if="message.command === 'update'" class="capitalize">
+        {{ message.bindings.status }}
+      </span>
+      <span v-else>
+        <NuxtLink :to="`/tx/${message.bindings.tx0_hash}`" class="leading-6 font-medium text-white">
+          {{ message.bindings.tx0_hash }}
+        </NuxtLink>
+      </span>
+    </span>
     <span v-else-if="message.category === 'bets'">
-      Wager {{ formatBalance(message.bindings.wager_quantity, {divisible: true}) }}
-      <NuxtLink :to="`/asset/XCP`" class="leading-6 font-medium text-white">
-        XCP
-      </NuxtLink>
-      on
-      <NuxtLink :to="`/address/${message.bindings.feed_address}`" class="leading-6 font-medium text-white">
-        {{ message.bindings.feed_address }}
-      </NuxtLink>
+      <span v-if="message.command === 'update'" class="capitalize">
+        Status: {{ message.bindings.status }}
+      </span>
+      <span v-else>
+        Wager {{ formatBalance(message.bindings.wager_quantity, {divisible: true}) }}
+        <NuxtLink :to="`/asset/XCP`" class="leading-6 font-medium text-white">
+          XCP
+        </NuxtLink>
+        on
+        <NuxtLink :to="`/address/${message.bindings.feed_address}`" class="leading-6 font-medium text-white">
+          {{ message.bindings.feed_address }}
+        </NuxtLink>
+        ({{ formatBetType(message.bindings.bet_type) }})
+      </span>
     </span>
     <span v-else-if="message.category === 'broadcasts'">
       {{ message.bindings.text }}
@@ -60,7 +75,10 @@
       </NuxtLink>
     </span>
     <span v-else-if="message.category === 'orders'">
-      <span v-if="message.bindings.status === 'open'">
+      <span v-if="message.command === 'update'" class="capitalize">
+        Status: {{ message.bindings.status }}
+      </span>
+      <span v-else-if="message.bindings.status === 'open'">
         {{ formatBalance(message.bindings.give_quantity, message.asset) }}
         <NuxtLink :to="`/asset/${formatAssetName(message.bindings.give_asset, message.asset)}`" class="leading-6 font-medium text-white">
           {{ formatAssetName(message.bindings.give_asset, message.asset) }}
@@ -147,15 +165,24 @@
       </NuxtLink>
     </span>
     <span v-else-if="message.category === 'dispensers'">
-      {{ formatBalance(message.bindings.give_quantity, message.asset) }}
-      <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
-        {{ formatAssetName(message.bindings.asset, message.asset) }}
-      </NuxtLink>
-      for
-      {{ formatBalance(message.bindings.satoshirate, {divisible: true}) }}
-      <NuxtLink :to="`/asset/BTC`" class="leading-6 font-medium text-white">
-        BTC
-      </NuxtLink>
+      <span v-if="message.command === 'update'">
+        Remaining: {{ formatBalance(message.bindings.give_remaining, message.asset) }}
+        <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
+          {{ formatAssetName(message.bindings.asset, message.asset) }}
+        </NuxtLink>
+      </span>
+      <span v-else>
+        Dispensing:
+        {{ formatBalance(message.bindings.give_remaining, message.asset) }}
+        <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
+          {{ formatAssetName(message.bindings.asset, message.asset) }}
+        </NuxtLink>
+        ({{ formatBalance(message.bindings.give_quantity, message.asset) }}
+        <span class="leading-6 font-medium text-white">{{ formatAssetName(message.bindings.asset, message.asset) }}</span>)
+        per
+        {{ formatBalance(message.bindings.satoshirate, {divisible: true}) }}
+        <span class="leading-6 font-medium text-white">BTC</span>)
+      </span>
     </span>
     <span v-else-if="message.category === 'dispenses'">
       {{ formatBalance(message.bindings.dispense_quantity, message.asset) }}

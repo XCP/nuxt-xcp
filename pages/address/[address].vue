@@ -122,7 +122,6 @@ const fetchData = async () => {
 
 watchEffect(() => {
   address.value = route.params.address;
-  fetchData();
 });
 
 onMounted(() => {

@@ -1,11 +1,11 @@
 <template>
-  <Table apiUrl="https://api.xcp.io/api/messages" :queryParams="{ address: props.address, category: props.category }" :initialPage="props.initialPage">
+  <Table apiUrl="https://api.xcp.io/api/messages" :queryParams="queryParams" :initialPage="props.initialPage">
     <template v-slot:table-headers>
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold w-20">Type</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Amount</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Event</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">{{ props.tx ? 'Address' : 'Event' }}</th>
         <th scope="col" class="py-2 pr-2 font-semibold w-20 text-right">Block #</th>
         <th scope="col" class="py-2 pl-0 w-20"><span class="sr-only">View</span></th>
       </tr>
@@ -26,7 +26,10 @@
           {{ formatBalance(item.bindings.quantity, item.asset) }}
         </td>
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-sm leading-6 text-gray-300 md:table-cell">
-          {{ item.bindings.action }}
+          <NuxtLink v-if="props.tx" :to="`/address/${item.bindings.address}`" class="leading-6 font-medium text-white">
+            {{ item.bindings.address }}
+          </NuxtLink>
+          <span v-else>{{ item.bindings.action }}</span>
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-right text-sm leading-6 text-gray-300 sm:table-cell">
           {{ item.block_index.toLocaleString() }}
@@ -43,9 +46,19 @@
 const props = defineProps({
   address: String,
   category: String,
+  tx: String,
   initialPage: {
     type: Number,
     default: 1
   }
 })
+
+const queryParams = computed(() => {
+  const params = {};  
+  if (props.address) params.address = props.address;
+  if (props.tx) params.tx_hash = props.tx;
+  params.category = props.category;
+
+  return params;
+});
 </script>
