@@ -1,19 +1,45 @@
 <template>
   <!-- Pagination -->
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
-    <p v-if="state.balances.length < 100" class="text-sm text-gray-300 leading-9">
-      Showing
-      <span class="font-medium">1</span>
-      to
-      <span class="font-medium">{{ state.balances.length }}</span>
-      of
-      <span class="font-medium">{{ state.balances.length }}</span>
-      results
-    </p>
-    <p v-else class="text-sm text-gray-300 leading-9">
-      Scroll down to load balances
-    </p>
+    <div class="flex items-center">
+      <p v-if="state.balances.length < 100" class="text-sm text-gray-300 leading-9">
+        Showing
+        <span class="font-medium">1</span>
+        to
+        <span class="font-medium">{{ state.balances.length }}</span>
+        of
+        <span class="font-medium">{{ state.balances.length }}</span>
+        results
+      </p>
+      <p v-else class="text-sm text-gray-300 leading-9">
+        Scroll down to load balances
+      </p>
+    </div>
+    <!-- Table/Grid Toggle Buttons -->
+    <div class="flex">
+      <!-- Table View Button -->
+      <button
+        @click="viewMode = 'table'"
+        class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none"
+        :class="{ 'bg-gray-700 text-white': viewMode === 'table', 'bg-gray-800 text-gray-300': viewMode === 'grid' }"
+      >
+        <ListBulletIcon class="h-4 w-4" />
+      </button>
+      <!-- Grid View Button -->
+      <button
+        @click="viewMode = 'grid'"
+        class="ml-2 inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none"
+        :class="{ 'bg-gray-700 text-white ': viewMode === 'grid', 'bg-gray-800 text-gray-300': viewMode === 'table' }"
+      >
+        <ViewColumnsIcon class="h-4 w-4" />
+      </button>
+    </div>
   </nav>
+
+  <!-- Loading -->
+  <div v-if="state.loading" class="flex justify-center items-center my-20 py-20 text-gray-300">
+    <ArrowPathIcon class="animate-spin h-8 w-8 text-gray-500" aria-hidden="true" />
+  </div>
 
   <!-- No Data -->
   <div v-if="state.balances.length === 0" class="my-10 flex justify-center items-center">
@@ -23,7 +49,25 @@
     </div>
   </div>
 
-  <!-- Table -->
+  <!-- Grid View -->
+  <div v-if="viewMode === 'grid'" class="grid grid-cols-4 gap-4 mt-6">
+    <div v-for="balance in state.balances" :key="balance.asset" class="flex flex-col overflow-hidden border border-gray-700 rounded bg-gray-800">
+      
+      <!-- Aspect Ratio Block -->
+      <div class="aspect-w-5 aspect-h-7 w-full">
+        <!-- Using object-cover to ensure the image covers the area -->
+        <img :src="`https://api.xcp.io/img/full/${balance.asset_name}`" :alt="balance.asset" class="object-cover w-full h-full" />
+      </div>
+      
+      <div class="p-4">
+        <div class="font-medium leading-6 text-white">{{ balance.asset }}</div>
+        <div class="text-sm leading-6 text-gray-300">{{ formatBalance(balance.quantity, balance) }}</div>
+        <div class="text-sm leading-6 text-gray-300">{{ ((balance.quantity / balance.supply) * 100).toFixed(8) }}%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table View -->
   <table v-else class="mt-6 w-full whitespace-nowrap text-left border-b border-white/10">
     <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
       <tr>
@@ -44,7 +88,7 @@
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(balance.quantity, balance) }}
         </td>
-        <td class="whitespace-nowrap py-3 pl-0  text-sm leading-6 text-gray-300">
+        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ ((balance.quantity / balance.supply) * 100).toFixed(8) }}%
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
@@ -62,7 +106,7 @@
 </template>
 
 <script setup>
-import { FolderArrowDownIcon } from '@heroicons/vue/20/solid'
+import { ArrowPathIcon, FolderArrowDownIcon, ListBulletIcon, ViewColumnsIcon, } from '@heroicons/vue/20/solid'
 import { ref, onMounted, onUnmounted, reactive, watch } from 'vue';
 const { trackEvent } = useFathom();
 
@@ -74,10 +118,12 @@ const state = reactive({
   balances: [],
   loading: false,
   allDataLoaded: false,
+  initialLoad: true,
 });
 
 const observer = ref(null);
 const lastElement = ref(null);
+const viewMode = ref('table');
 
 const fetchData = async () => {
   if (state.loading || state.allDataLoaded) return;
@@ -99,6 +145,7 @@ const fetchData = async () => {
     console.error('Fetch error:', error);
   } finally {
     state.loading = false;
+    state.initialLoad = false;
     if (state.allDataLoaded) {
       observer.value?.disconnect();
     }
