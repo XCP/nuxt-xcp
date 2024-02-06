@@ -19,7 +19,7 @@
     <div class="flex">
       <!-- Table View Button -->
       <button
-        @click="viewMode = 'table'"
+        @click="viewMode = 'table'; trackEvent('List View')"
         class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none"
         :class="{ 'bg-gray-700 text-white': viewMode === 'table', 'bg-gray-800 text-gray-300': viewMode === 'grid' }"
       >
@@ -27,7 +27,7 @@
       </button>
       <!-- Grid View Button -->
       <button
-        @click="viewMode = 'grid'"
+        @click="viewMode = 'grid'; trackEvent('Grid View')"
         class="ml-2 inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none"
         :class="{ 'bg-gray-700 text-white ': viewMode === 'grid', 'bg-gray-800 text-gray-300': viewMode === 'table' }"
       >
@@ -50,20 +50,28 @@
   </div>
 
   <!-- Grid View -->
-  <div v-if="viewMode === 'grid'" class="grid grid-cols-4 gap-4 mt-6">
-    <div v-for="balance in state.balances" :key="balance.asset" class="flex flex-col overflow-hidden border border-gray-700 rounded bg-gray-800">
+  <div v-if="viewMode === 'grid'" class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+    <div v-for="balance in state.balances" :key="balance.asset" class="flex flex-col overflow-hidden rounded-2xl border border-gray-700 rounded bg-gray-800">
       
-      <!-- Aspect Ratio Block -->
-      <div class="aspect-w-5 aspect-h-7 w-full">
-        <!-- Using object-cover to ensure the image covers the area -->
-        <img :src="`https://api.xcp.io/img/full/${balance.asset_name}`" :alt="balance.asset" class="object-cover w-full h-full" />
-      </div>
+      <!-- Nuxt Link Wrapping the Image and Asset Name -->
+      <NuxtLink :to="`/asset/${balance.asset}`">
+        
+        <!-- Aspect Ratio Block -->
+        <div class="aspect-w-5 aspect-h-7 w-full">
+          <NuxtImg :src="`https://api.xcp.io/img/full/${balance.asset_name}`" :alt="balance.asset" class="rounded-2xl object-cover w-full h-full" loading="lazy" />
+        </div>
+
+        <div class="p-4 pb-0">
+          <!-- Asset Name -->
+          <div class="font-medium leading-6 text-white">{{ balance.asset }}</div>
+        </div>
+      </NuxtLink>
       
-      <div class="p-4">
-        <div class="font-medium leading-6 text-white">{{ balance.asset }}</div>
+      <div class="p-4 pt-0">
         <div class="text-sm leading-6 text-gray-300">{{ formatBalance(balance.quantity, balance) }}</div>
         <div class="text-sm leading-6 text-gray-300">{{ ((balance.quantity / balance.supply) * 100).toFixed(8) }}%</div>
       </div>
+      
     </div>
   </div>
 

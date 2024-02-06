@@ -76,7 +76,16 @@
     </span>
     <span v-else-if="message.category === 'orders'">
       <span v-if="message.command === 'update'" class="capitalize">
-        Status: {{ message.bindings.status }}
+        <span v-if="message.bindings.status === 'open'">
+          Remaining: 
+          {{ formatBalance(message.bindings.give_remaining, message.asset) }}
+          <NuxtLink :to="`/asset/${formatAssetName(message.bindings.give_asset, message.asset)}`" class="leading-6 font-medium text-white">
+            {{ formatAssetName(message.bindings.give_asset, message.asset) }}
+          </NuxtLink>
+        </span>
+        <span v-else>
+          Status: {{ message.bindings.status }}
+        </span>
       </span>
       <span v-else-if="message.bindings.status === 'open'">
         {{ formatBalance(message.bindings.give_quantity, message.asset) }}
