@@ -58,7 +58,7 @@
         
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full">
-          <NuxtImg :src="`https://api.xcp.io/img/full/${balance.asset_name}`" :alt="balance.asset" class="rounded-2xl object-cover w-full h-full" loading="lazy" />
+          <NuxtImg :src="`https://api.xcp.io/img/full/${balance.asset_name}`" :alt="balance.asset" class="rounded-2xl object-contain w-full h-full" loading="lazy" />
         </div>
 
         <div class="p-4 pb-0">
