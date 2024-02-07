@@ -50,7 +50,7 @@
   </div>
 
   <!-- Grid View -->
-  <div v-if="viewMode === 'grid'" class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+  <div v-if="viewMode === 'grid' && state.balances.length > 0" class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
     <div v-for="balance in state.balances" :key="balance.asset" class="flex flex-col overflow-hidden rounded-2xl border border-gray-700 rounded bg-gray-800">
       
       <!-- Nuxt Link Wrapping the Image and Asset Name -->
@@ -58,7 +58,7 @@
         
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full">
-          <NuxtImg :src="`https://api.xcp.io/img/full/${balance.asset_name}`" :alt="balance.asset" class="rounded-2xl object-contain w-full h-full" loading="lazy" />
+          <NuxtImg :src="`https://api.xcp.io/img/full/${balance.asset_name}`" :alt="balance.asset" class="rounded-2xl object-contain w-full h-full" :style="balance.asset.startsWith('A') ? 'image-rendering: pixelated' : null" loading="lazy" />
         </div>
 
         <div class="p-4 pb-0">
@@ -76,7 +76,7 @@
   </div>
 
   <!-- Table View -->
-  <table v-else class="mt-6 w-full whitespace-nowrap text-left border-b border-white/10">
+  <table v-else-if="state.balances.length > 0" class="mt-6 w-full whitespace-nowrap text-left border-b border-white/10">
     <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
