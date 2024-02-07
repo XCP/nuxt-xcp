@@ -50,7 +50,7 @@
   </div>
 
   <!-- Grid View -->
-  <div v-if="viewMode === 'grid' && state.balances.length > 0" class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+  <div v-if="viewMode === 'grid' && state.balances.length > 0" class="grid grid-cols-2 sm:grid-cols-4 2xl:grid-cols-6 gap-4 mt-6">
     <div v-for="balance in state.balances" :key="balance.asset" class="flex flex-col overflow-hidden rounded-2xl border border-gray-700 rounded bg-gray-800">
       
       <!-- Nuxt Link Wrapping the Image and Asset Name -->

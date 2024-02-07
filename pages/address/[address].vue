@@ -50,6 +50,11 @@
                   <img src="/img/xcpdev.png" alt="xcp.dev logo" class="mr-2 h-4 w-4"> xcp.dev
                 </a>
               </MenuItem>
+              <MenuItem v-slot="{ active }">
+                <a :href="`https://xcp.ninja/profile/${address}`" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-700">
+                  <img src="/img/xcpninja.png" alt="xcp.ninja logo" class="mr-2 h-4 w-4"> xcp.ninja
+                </a>
+              </MenuItem>
             </MenuItems>
           </transition>
         </Menu>
