@@ -174,8 +174,14 @@
       </NuxtLink>
     </span>
     <span v-else-if="message.category === 'dispensers'">
-      <span v-if="message.command === 'update'">
+      <span v-if="message.command === 'update' && message.bindings.give_remaining">
         Remaining: {{ formatBalance(message.bindings.give_remaining, message.asset) }}
+        <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
+          {{ formatAssetName(message.bindings.asset, message.asset) }}
+        </NuxtLink>
+      </span>
+      <span v-else-if="message.command === 'update' && message.bindings.status">
+        Status: {{ formatDispenserStatus(message.bindings.status) }}
         <NuxtLink :to="`/asset/${formatAssetName(message.bindings.asset, message.asset)}`" class="leading-6 font-medium text-white">
           {{ formatAssetName(message.bindings.asset, message.asset) }}
         </NuxtLink>
