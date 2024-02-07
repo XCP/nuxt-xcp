@@ -88,12 +88,15 @@
 
 <script setup>
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
-import { reactive, onMounted } from 'vue';
+import { defineEmits, reactive, onMounted } from 'vue';
+
+const emit = defineEmits(['last-message']);
 
 const props = defineProps({
   apiUrl: String,
   queryParams: Object,
-  initialPage: Number
+  initialPage: Number,
+  emit: Boolean,
 });
 
 const state = reactive({
@@ -114,6 +117,10 @@ async function fetchData(page = state.currentPage) {
     state.currentPage = data.current_page;
     state.lastPage = data.last_page;
     state.totalItems = data.total
+
+    if (props.emit && state.currentPage === 1 && state.items.length > 0) {
+      emit('last-message', state.items[0]);
+    }
   } catch (error) {
     console.error('Fetch error:', error);
   } finally {

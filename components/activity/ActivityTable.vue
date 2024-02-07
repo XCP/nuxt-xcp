@@ -1,5 +1,5 @@
 <template>
-  <Table apiUrl="https://api.xcp.io/api/messages" :queryParams="{ address: props.address }" :initialPage="props.initialPage">
+  <Table apiUrl="https://api.xcp.io/api/messages" :queryParams="{ address: props.address }" :initialPage="props.initialPage" :emit="true" @last-message="handleLastMessage">
     <template v-slot:table-headers>
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
@@ -30,6 +30,13 @@
 </template>
 
 <script setup>
+import { defineEmits } from 'vue'
+
+const emit = defineEmits(['last-message']);
+
+function handleLastMessage(message) {
+  emit('last-message', message);
+}
 
 const props = defineProps({
   address: String,
