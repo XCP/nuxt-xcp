@@ -11,7 +11,7 @@
         </div>
         <div class="mt-2 flex items-center text-sm text-gray-300">
           <LinkIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
-          {{ apiData.valid ? 'Confirmed' : 'Unconfirmed' }}
+          {{ tx }}
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@
             <div class="h-2 w-2 rounded-full bg-current" />
           </div>
           <h2 class="flex gap-x-3 text-base leading-7">
-            <span class="font-semibold text-white">{{ tx }}</span>
+            <span class="font-semibold text-white">{{ apiData.valid ? 'Confirmed Valid' : 'Unconfirmed TX' }}</span>
           </h2>
         </div>
         <p class="mt-2 text-xs leading-6 text-gray-400">{{ timestamp }}</p>

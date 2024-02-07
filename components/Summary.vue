@@ -187,7 +187,7 @@
           {{ formatAssetName(message.bindings.asset, message.asset) }}
         </NuxtLink>
         ({{ formatBalance(message.bindings.give_quantity, message.asset) }}
-        <span class="leading-6 font-medium text-white">{{ formatAssetName(message.bindings.asset, message.asset) }}</span>)
+        <span class="leading-6 font-medium text-white">{{ formatAssetName(message.bindings.asset, message.asset) }}</span>
         per
         {{ formatBalance(message.bindings.satoshirate, {divisible: true}) }}
         <span class="leading-6 font-medium text-white">BTC</span>)
