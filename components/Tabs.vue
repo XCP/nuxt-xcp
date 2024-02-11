@@ -21,8 +21,8 @@
             :class="[
               'px-4 py-2 mr-[1px] text-sm font-medium rounded-none',
               tab.name === activeTab
-                ? 'bg-gray-700 text-white'
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
+                ? 'bg-white/10 text-white'
+                : 'bg-gray-700/10 text-gray-300 hover:bg-white/20 hover:text-white'
             ]"
             class="first:rounded-tl-md last:rounded-tr-md"
           >

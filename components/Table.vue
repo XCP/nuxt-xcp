@@ -17,7 +17,7 @@
         <!-- First Page Button -->
         <button
           @click="goToPage(1)"
-          class="inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
+          class="inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
           :disabled="state.currentPage === 1"
         >
           &laquo;
@@ -25,7 +25,7 @@
         <!-- Previous Page Button -->
         <button
           @click="goToPage(state.currentPage - 1)"
-          class="ml-2 inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
+          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
           :disabled="state.currentPage <= 1"
         >
           &lsaquo;
@@ -43,7 +43,7 @@
         <!-- Next Page Button -->
         <button
           @click="goToPage(state.currentPage + 1)"
-          class="ml-2 inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
+          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
           :disabled="state.currentPage >= state.lastPage"
         >
           &rsaquo;
@@ -51,7 +51,7 @@
         <!-- Last Page Button -->
         <button
           @click="goToPage(state.lastPage)"
-          class="ml-2 inline-flex items-center justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 focus:outline-none disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
+          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
           :disabled="state.currentPage === state.lastPage"
         >
           &raquo;
@@ -75,7 +75,7 @@
 
   <!-- Table -->
   <div v-else class="mt-6 overflow-x-auto sm:overflow-x-visible">
-    <table class="table-auto w-full whitespace-nowrap text-left border-b border-white/10">
+    <table class="table-auto w-full whitespace-nowrap text-left border-white/10">
       <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
         <slot name="table-headers"></slot>
       </thead>
@@ -110,13 +110,22 @@ const state = reactive({
 async function fetchData(page = state.currentPage) {
   state.loading = true;
   try {
-    const response = await fetch(`${props.apiUrl}?page=${page}&${new URLSearchParams(props.queryParams).toString()}`);
+    // Filter out undefined query parameters
+    const filteredQueryParams = Object.fromEntries(Object.entries(props.queryParams).filter(([_, value]) => value !== undefined));
+
+    // Construct the query string with filtered parameters
+    const queryString = new URLSearchParams({
+      ...filteredQueryParams,
+      page,
+    }).toString();
+
+    const response = await fetch(`${props.apiUrl}?${queryString}`);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
     state.items = data.data;
     state.currentPage = data.current_page;
     state.lastPage = data.last_page;
-    state.totalItems = data.total
+    state.totalItems = data.total;
 
     if (props.emit && state.currentPage === 1 && state.items.length > 0) {
       emit('last-message', state.items[0]);

@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/asset",
+      "destination": "/assets",
+      "permanent": true
+    }
+  ]
+}

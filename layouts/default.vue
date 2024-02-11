@@ -155,8 +155,8 @@ import {
 import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const navigation = [
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-  { name: 'Deployments', href: '#', icon: ServerIcon, current: true },
+  { name: 'Assets', href: '/assets', path: 'asset', icon: FolderIcon, current: false },
+  { name: 'Addresses', href: '/addresses', path: 'address', icon: ServerIcon, current: false },
   { name: 'Activity', href: '#', icon: SignalIcon, current: false },
   { name: 'Domains', href: '#', icon: GlobeAltIcon, current: false },
   { name: 'Usage', href: '#', icon: ChartBarSquareIcon, current: false },
@@ -183,4 +183,18 @@ const stats = [
 const statuses = { Completed: 'text-green-400 bg-green-400/10', Error: 'text-rose-400 bg-rose-400/10' }
 
 const sidebarOpen = ref(false)
+
+const route = useRoute()
+
+watchEffect(() => {
+  navigation.forEach(item => {
+    item.current = false;
+  });
+  // Check if the current route path contains the substring of any navigation item href
+  // If so, set that item's current property to true
+  const activeItem = navigation.find(item => route.path.includes(item.path));
+  if (activeItem) {
+    activeItem.current = true;
+  }
+});
 </script>

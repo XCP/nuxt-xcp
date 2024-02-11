@@ -1,4 +1,17 @@
 <template>
+  <div class="lg:flex lg:items-center lg:justify-between">
+    <div class="min-w-0 flex-1">
+      <h1 class="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
+        {{ asset }}
+      </h1>
+      <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
+      </div>
+    </div>
+    <div class="hidden sm:block mt-5 flex lg:ml-4 lg:mt-0">
+      <Dropdown :items="dropdownItems" />
+    </div>
+  </div>
+
   <header>
     <!-- Secondary navigation -->
     <nav class="flex overflow-x-auto border-b border-white/10 py-4">
@@ -39,17 +52,89 @@
     </div>
   </header>
 
-  <!-- Activity list -->
-  <MessagesTable :asset="asset" />
+  <div class="rounded-md bg-green-50 p-4">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <h3 class="text-sm font-medium text-green-800">Order completed</h3>
+        <div class="mt-2 text-sm text-green-700">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam.</p>
+        </div>
+        <div class="mt-4">
+          <div class="-mx-2 -my-1.5 flex">
+            <button type="button" class="rounded-md bg-green-50 px-2 py-1.5 text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50">View status</button>
+            <button type="button" class="ml-3 rounded-md bg-green-50 px-2 py-1.5 text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50">Dismiss</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-6">
+    <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
+
+    <!-- Tab content -->
+    <div v-if="activeTab === 'Messages'">
+      <MessagesTable :asset="asset" />
+    </div>
+    <div v-if="activeTab === 'Credits'">
+      <CreditsTable :asset="asset" category="credits" />
+    </div>
+    <div v-if="activeTab === 'Debits'">
+      <DebitsTable :asset="asset" category="debits" />
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, ref, watchEffect } from 'vue';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const router = useRouter();
 const asset = ref(route.params.asset);
+
+const dropdownItems = computed(() => [
+  {
+    href: `https://pepe.wtf/asset/${asset.value}`,
+    imgSrc: '/img/pepewtf.png',
+    title: 'pepe.wtf',
+  },
+  {
+    href: `https://scarce.city/marketplace/digital/${asset.value}`,
+    imgSrc: '/img/scarcecity.png',
+    title: 'scarce.city',
+  },
+  {
+    href: `https://www.xchain.io/asset/${asset.value}`,
+    imgSrc: '/img/xchainio.png',
+    title: 'xchain.io',
+  },
+  {
+    href: `https://www.xcp.dev/asset/${asset.value}`,
+    imgSrc: '/img/xcpdev.png',
+    title: 'xcp.dev',
+  },
+  {
+    href: `https://xcp.ninja/asset/${asset.value}`,
+    imgSrc: '/img/xcpninja.png',
+    title: 'xcp.ninja',
+  }
+]);
+
+const tabs = [
+  { name: 'Messages' },
+  { name: 'Credits' },
+  { name: 'Debits' },
+];
+const activeTab = ref('Messages');
+
+const handleTabChange = (selectedTab) => {
+  activeTab.value = selectedTab;
+};
 
 watchEffect(() => {
   asset.value = route.params.asset;

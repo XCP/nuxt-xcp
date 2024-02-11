@@ -6,6 +6,7 @@
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Amount</th>
         <th scope="col" class="py-2 pr-2 font-semibold">{{ props.tx ? 'Address' : 'Event' }}</th>
+        <th v-if="props.asset" scope="col" class="py-2 pr-2 font-semibold">Address</th>
         <th scope="col" class="py-2 pr-2 font-semibold w-20 text-right">Block #</th>
         <th scope="col" class="py-2 pl-0 w-20"><span class="sr-only">View</span></th>
       </tr>
@@ -31,6 +32,11 @@
           </NuxtLink>
           <span v-else>{{ item.bindings.action }}</span>
         </td>
+        <td v-if="props.asset" class="whitespace-nowrap py-3 pl-0 pr-4 sm:table-cell sm:pr-8">
+          <NuxtLink :to="`/address/${item.bindings.address}`" class="leading-6 font-medium text-white">
+            {{ item.bindings.address }}
+          </NuxtLink>
+        </td>
         <td class="whitespace-nowrap py-3 pl-0 text-right text-sm leading-6 text-gray-300 sm:table-cell">
           {{ item.block_index.toLocaleString() }}
         </td>
@@ -44,6 +50,7 @@
 
 <script setup>
 const props = defineProps({
+  asset: String,
   address: String,
   category: String,
   tx: String,
@@ -56,6 +63,7 @@ const props = defineProps({
 const queryParams = computed(() => {
   const params = {};  
   if (props.address) params.address = props.address;
+  if (props.asset) params.asset_name = props.asset;
   if (props.tx) params.tx_hash = props.tx;
   params.category = props.category;
 

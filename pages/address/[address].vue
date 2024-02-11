@@ -20,45 +20,7 @@
       </div>
     </div>
     <div class="hidden sm:block mt-5 flex lg:ml-4 lg:mt-0">
-      <!-- Dropdown -->
-      <ClientOnly>
-        <Menu as="div" class="relative ml-3">
-          <MenuButton class="inline-flex items-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20">
-            <ArrowTopRightOnSquareIcon class="-ml-1 mr-1.5 h-4 w-4" aria-hidden="true" />
-            Explorers
-            <ChevronDownIcon class="-mr-1 ml-1.5 h-5 w-5" aria-hidden="true" />
-          </MenuButton>
-          <transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-            <MenuItems class="absolute right-0 z-10 -ml-1 mt-2 w-48 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <MenuItem v-slot="{ active }">
-                <a :href="`https://mempool.space/address/${address}`" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-700">
-                  <img src="/img/mempoolspace.png" alt="pepe.wtf logo" class="mr-2 h-4 w-4"> mempool.space
-                </a>
-              </MenuItem>
-              <MenuItem v-slot="{ active }">
-                <a :href="`https://pepe.wtf/${address}/collection`" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-700">
-                  <img src="/img/pepewtf.png" alt="pepe.wtf logo" class="mr-2 h-4 w-4"> pepe.wtf
-                </a>
-              </MenuItem>
-              <MenuItem v-slot="{ active }">
-                <a :href="`https://www.xchain.io/address/${address}`" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-700">
-                  <img src="/img/xchainio.png" alt="xchain.io logo" class="mr-2 h-4 w-4"> xchain.io
-                </a>
-              </MenuItem>
-              <MenuItem v-slot="{ active }">
-                <a :href="`https://www.xcp.dev/address/${address}`" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-700">
-                  <img src="/img/xcpdev.png" alt="xcp.dev logo" class="mr-2 h-4 w-4"> xcp.dev
-                </a>
-              </MenuItem>
-              <MenuItem v-slot="{ active }">
-                <a :href="`https://xcp.ninja/profile/${address}`" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-700">
-                  <img src="/img/xcpninja.png" alt="xcp.ninja logo" class="mr-2 h-4 w-4"> xcp.ninja
-                </a>
-              </MenuItem>
-            </MenuItems>
-          </transition>
-        </Menu>
-      </ClientOnly>
+      <Dropdown :items="dropdownItems" />
     </div>
   </div>
 
@@ -109,18 +71,43 @@
 <script setup>
 import {
   BriefcaseIcon,
-  ArrowTopRightOnSquareIcon,
-  ChevronDownIcon,
   CurrencyDollarIcon,
   LinkIcon,
-} from '@heroicons/vue/20/solid'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
+} from '@heroicons/vue/20/solid';
 import { useRoute } from 'vue-router';
-import { ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 
 const route = useRoute();
 const address = ref(route.params.address);
 const apiData = ref({ tx_count: 0, bitcoinValue: 0 });
+
+const dropdownItems = computed(() => [
+  {
+    href: `https://mempool.space/address/${address.value}`,
+    imgSrc: '/img/mempoolspace.png',
+    title: 'mempool.space',
+  },
+  {
+    href: `https://pepe.wtf/${address.value}/collection`,
+    imgSrc: '/img/pepewtf.png',
+    title: 'pepe.wtf',
+  },
+  {
+    href: `https://www.xchain.io/address/${address.value}`,
+    imgSrc: '/img/xchainio.png',
+    title: 'xchain.io',
+  },
+  {
+    href: `https://www.xcp.dev/address/${address.value}`,
+    imgSrc: '/img/xcpdev.png',
+    title: 'xcp.dev',
+  },
+  {
+    href: `https://xcp.ninja/profile/${address.value}`,
+    imgSrc: '/img/xcpninja.png',
+    title: 'xcp.ninja',
+  }
+]);
 
 const tabs = [
   { name: 'Activity' },

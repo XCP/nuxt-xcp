@@ -16,39 +16,11 @@
       </div>
     </div>
     <div class="hidden sm:block mt-5 flex lg:ml-4 lg:mt-0">
-      <!-- Dropdown -->
-      <ClientOnly>
-        <Menu as="div" class="relative ml-3">
-          <MenuButton class="inline-flex items-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20">
-            <ArrowTopRightOnSquareIcon class="-ml-1 mr-1.5 h-4 w-4" aria-hidden="true" />
-            Explorers
-            <ChevronDownIcon class="-mr-1 ml-1.5 h-5 w-5" aria-hidden="true" />
-          </MenuButton>
-          <transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-            <MenuItems class="absolute right-0 z-10 -ml-1 mt-2 w-48 origin-top-left rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <MenuItem v-slot="{ active }">
-                <a :href="`https://mempool.space/tx/${tx}`" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-700">
-                  <img src="/img/mempoolspace.png" alt="pepe.wtf logo" class="mr-2 h-4 w-4"> mempool.space
-                </a>
-              </MenuItem>
-              <MenuItem v-slot="{ active }">
-                <a :href="`https://www.xchain.io/tx/${tx}`" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-700">
-                  <img src="/img/xchainio.png" alt="xchain.io logo" class="mr-2 h-4 w-4"> xchain.io
-                </a>
-              </MenuItem>
-              <MenuItem v-slot="{ active }">
-                <a :href="`https://www.xcp.dev/tx/${tx}`" target="_blank" class="flex items-center px-4 py-2 text-sm text-gray-700">
-                  <img src="/img/xcpdev.png" alt="xcp.dev logo" class="mr-2 h-4 w-4"> xcp.dev
-                </a>
-              </MenuItem>
-            </MenuItems>
-          </transition>
-        </Menu>
-      </ClientOnly>
+      <Dropdown :items="dropdownItems" />
     </div>
   </div>
 
-  <header class="mt-6">
+  <header class="mt-6 mb-8">
     <!-- Heading -->
     <div class="flex flex-col items-start justify-between gap-x-8 gap-y-4 bg-gray-700/10 px-4 py-4 sm:flex-row sm:items-center sm:px-6 lg:px-8">
       <div>
@@ -69,7 +41,7 @@
     </div>
 
     <!-- Stats -->
-    <div v-if="apiData.valid" class="grid grid-cols-1 bg-gray-700/10 sm:grid-cols-2 lg:grid-cols-4">
+    <div v-if="apiData.valid" class="grid grid-cols-1 bg-gray-700/10 lg:grid-cols-3">
       <div v-for="(stat, statIdx) in stats" :key="stat.name" :class="[statIdx % 2 === 1 ? 'sm:border-l' : statIdx === 2 ? 'lg:border-l' : '', 'border-t border-white/5 py-6 px-4 sm:px-6 lg:px-8']">
         <p class="text-sm font-medium leading-6 text-gray-400">{{ stat.name }}</p>
         <p class="mt-2 flex items-baseline gap-x-2">
@@ -98,12 +70,9 @@
 
 <script setup>
 import {
-  ArrowTopRightOnSquareIcon,
-  ChevronDownIcon,
   BriefcaseIcon,
   LinkIcon,
 } from '@heroicons/vue/20/solid'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { useRoute } from 'vue-router';
 import { computed, ref, watchEffect } from 'vue';
 
@@ -111,6 +80,23 @@ const route = useRoute();
 const tx = ref(route.params.tx);
 const apiData = ref({ block_index: 0, tx_index: 0, type: '', valid: 0, source: '', destination: ''});
 
+const dropdownItems = computed(() => [
+  {
+    href: `https://mempool.space/tx/${tx.value}`,
+    imgSrc: '/img/mempoolspace.png',
+    title: 'mempool.space',
+  },
+  {
+    href: `https://www.xchain.io/tx/${tx.value}`,
+    imgSrc: '/img/xchainio.png',
+    title: 'xchain.io',
+  },
+  {
+    href: `https://www.xcp.dev/tx/${tx.value}`,
+    imgSrc: '/img/xcpdev.png',
+    title: 'xcp.dev',
+  }
+]);
 const blockIndex = computed(() => apiData.value.block_index);
 const txIndex = computed(() => apiData.value.tx_index);
 const timestamp = computed(() => {
@@ -217,8 +203,8 @@ onMounted(() => {
 });
 
 useSeoMeta({
-  title: tx.value,
-  ogTitle: tx.value,
+  title: `Transaction: ${tx.value}`,
+  ogTitle: `Transaction: ${tx.value}`,
   description: 'This is my amazing site, let me tell you all about it.',
   ogDescription: 'This is my amazing site, let me tell you all about it.',
   ogImage: 'https://example.com/image.png',
