@@ -1,5 +1,5 @@
 <template>
-  <Table apiUrl="https://api.xcp.io/api/messages" :queryParams="{ address: props.address }" :initialPage="props.initialPage" :emit="true" @last-message="handleLastMessage">
+  <Table apiUrl="https://api.xcp.io/api/messages" :queryParams="queryParams" :initialPage="props.initialPage" :emit="true" @last-message="handleLastMessage">
     <template v-slot:table-headers>
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
@@ -45,5 +45,13 @@ const props = defineProps({
     default: 1
   }
 })
+
+const queryParams = computed(() => {
+  const params = {};  
+  if (props.address) params.address = props.address;
+  if (props.collection) params.collection = props.collection;
+
+  return params;
+});
 
 </script>

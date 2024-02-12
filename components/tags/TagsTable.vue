@@ -3,7 +3,7 @@
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="flex items-center">
       <p class="text-sm text-gray-300 leading-9">
-        <p>Discovered <span class="font-medium">{{ totalAssetsCount.toLocaleString() }}</span> assets in <span class="font-medium">{{ state.tags.length.toLocaleString() }}</span> collections.</p>
+        <p>Tracking <span class="font-medium">{{ totalAssetsCount.toLocaleString() }}</span> assets in <span class="font-medium">{{ state.tags.length.toLocaleString() }}</span> collections.</p>
       </p>
     </div>
     <!-- Table/Grid Toggle Buttons -->
@@ -49,7 +49,7 @@
         
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full">
-          <NuxtImg :src="`https://api.xcp.io/img/full/${tag.slug}`" :alt="tag.name" class="rounded-2xl object-contain w-full h-full" loading="lazy" />
+          <NuxtImg :src="`https://api.xcp.io/img/full/${tag.slug}`" :alt="tag.name" class="rounded-2xl object-contain w-full h-full" :style="tag.stamp ? 'image-rendering: pixelated' : null" loading="lazy" />
         </div>
 
         <div class="p-4 pb-0">
