@@ -86,7 +86,7 @@
       <MessagesTable :asset="asset" />
     </div>
     <div v-if="activeTab === 'Balances'">
-      <BalancesTable :asset="asset" />
+      <HoldersTable :asset="asset" />
     </div>
     <div v-if="activeTab === 'Credits'">
       <CreditsTable :asset="asset" category="credits" />

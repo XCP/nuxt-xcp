@@ -116,6 +116,7 @@
             <a href="/">
               <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" />
             </a>
+            <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium">Counterparty</a>
           </div>
           <form class="flex flex-1" action="#" method="GET">
             <label for="search-field" class="sr-only">Search</label>
