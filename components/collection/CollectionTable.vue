@@ -81,6 +81,7 @@
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Supply</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">Type</th>
         <th scope="col" class="py-2 pr-2 font-semibold w-20 text-right">Block #</th>
         <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
       </tr>
@@ -95,6 +96,9 @@
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(asset.supply, asset) }}
+        </td>
+        <td class="whitespace-nowrap py-3 pr-2 text-sm leading-6 text-gray-300 capitalize">
+          {{ asset.type }}{{ asset.divisible ? ', Divisible' : '' }}
         </td>
         <td class="py-3 pl-0 text-right text-sm leading-6 text-gray-300">
           {{ asset.block_index.toLocaleString() }}
@@ -114,7 +118,7 @@
 </template>
 
 <script setup>
-import { ArrowPathIcon, FolderArrowDownIcon, ListBulletIcon, ViewColumnsIcon, } from '@heroicons/vue/20/solid'
+import { ArrowPathIcon, FolderArrowDownIcon, ListBulletIcon, ViewColumnsIcon } from '@heroicons/vue/20/solid'
 import { ref, onMounted, onUnmounted, reactive, watch } from 'vue';
 const { trackEvent } = useFathom();
 
