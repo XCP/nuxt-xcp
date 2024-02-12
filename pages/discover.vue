@@ -1,12 +1,13 @@
 <template>
-  <div v-if="loading" class="flex justify-center items-center">
-    <span>Loading...</span>
+  <div v-if="loading" class="flex justify-center items-center my-20 py-20 text-gray-300">
+    <ArrowPathIcon class="animate-spin h-8 w-8 text-gray-500" aria-hidden="true" />
   </div>
 </template>
 
 <script setup>
+import { ArrowPathIcon } from '@heroicons/vue/20/solid'
 import { onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const loading = ref(true)
 const router = useRouter()
