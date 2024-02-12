@@ -76,4 +76,9 @@ onMounted(() => {
   fetchData();
 });
 
+useSeoMeta({
+  title: apiData.name,
+  ogTitle: apiData.name,
+})
+
 </script>
