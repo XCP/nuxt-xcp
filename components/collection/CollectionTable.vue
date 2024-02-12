@@ -12,7 +12,7 @@
         results
       </p>
       <p v-else class="text-sm text-gray-300 leading-9">
-        Scroll down to load collection
+        Scroll down to load more
       </p>
     </div>
     <!-- Table/Grid Toggle Buttons -->
