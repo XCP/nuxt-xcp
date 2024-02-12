@@ -4,6 +4,16 @@
       "source": "/asset",
       "destination": "/assets",
       "permanent": true
+    },
+    {
+      "source": "/address",
+      "destination": "/addresses",
+      "permanent": true
+    },
+    {
+      "source": "/collection",
+      "destination": "/collections",
+      "permanent": true
     }
   ]
 }

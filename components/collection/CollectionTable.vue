@@ -12,7 +12,7 @@
         results
       </p>
       <p v-else class="text-sm text-gray-300 leading-9">
-        Scroll down to load more
+        Scroll down to load more...
       </p>
     </div>
     <!-- Table/Grid Toggle Buttons -->
@@ -76,7 +76,7 @@
   </div>
 
   <!-- Table View -->
-  <table v-else-if="state.assets.length > 0" class="mt-6 w-full whitespace-nowrap text-left border-b border-white/10">
+  <table v-else-if="state.assets.length > 0" class="mt-6 w-full whitespace-nowrap text-left border-white/10">
     <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>

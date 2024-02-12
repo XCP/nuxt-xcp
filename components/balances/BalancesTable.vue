@@ -12,7 +12,7 @@
         results
       </p>
       <p v-else class="text-sm text-gray-300 leading-9">
-        Scroll down to load balances
+        Scroll down to load more...
       </p>
     </div>
     <!-- Table/Grid Toggle Buttons -->
@@ -120,6 +120,7 @@ const { trackEvent } = useFathom();
 
 const props = defineProps({
   address: String,
+  asset: String,
 });
 
 const state = reactive({
@@ -137,10 +138,14 @@ const fetchData = async () => {
   if (state.loading || state.allDataLoaded) return;
 
   state.loading = true;
-  const query = `address=${props.address}&page=${Math.floor(state.balances.length / 100) + 1}`;
+  if (props.address) {
+    const query = `balances?address=${props.address}&page=${Math.floor(state.balances.length / 100) + 1}`;
+  } else {
+    const query = `holders?asset=${props.asset}&page=${Math.floor(state.balances.length / 100) + 1}`;
+  }
 
   try {
-    const response = await fetch(`https://api.xcp.io/api/balances?${query}`);
+    const response = await fetch(`https://api.xcp.io/api/${query}`);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
 
