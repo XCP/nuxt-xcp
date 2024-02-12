@@ -12,7 +12,7 @@
         results
       </p>
       <p v-else class="text-sm text-gray-300 leading-9">
-        Scroll down to load more
+        Scroll down to load collection
       </p>
     </div>
     <!-- Table/Grid Toggle Buttons -->
@@ -68,7 +68,8 @@
       </NuxtLink>
       
       <div class="p-4 pt-0">
-        <div class="text-sm leading-6 text-gray-300">{{ formatBalance(asset.supply, asset) }}</div>
+        <div class="text-sm leading-6 text-gray-300">Supply: {{ formatBalance(asset.supply, asset) }}</div>
+        <div class="text-sm leading-6 text-gray-300">Block #: {{ asset.block_index.toLocaleString() }}</div>
       </div>
       
     </div>
@@ -80,6 +81,7 @@
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Supply</th>
+        <th scope="col" class="py-2 pr-2 font-semibold w-20 text-right">Block #</th>
         <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
       </tr>
     </thead>
@@ -93,6 +95,9 @@
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(asset.supply, asset) }}
+        </td>
+        <td class="py-3 pl-0 text-right text-sm leading-6 text-gray-300">
+          {{ asset.block_index.toLocaleString() }}
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
           <NuxtLink :to="`/asset/${formatAssetName(asset.asset_name, asset)}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
@@ -126,7 +131,7 @@ const state = reactive({
 
 const observer = ref(null);
 const lastElement = ref(null);
-const viewMode = ref('table');
+const viewMode = ref('grid');
 
 const fetchData = async () => {
   if (state.loading || state.allDataLoaded) return;
@@ -182,13 +187,13 @@ const downloadCsv = () => {
   csvContent += "Asset,Supply\n";
 
   state.assets.forEach((asset) => {
-    csvContent += `${formatAssetName(asset.asset_name, asset)},${formatBalance(asset.supply, asset)}\n`;
+    csvContent += `${formatAssetName(asset.asset_name, asset)},"${formatBalance(asset.supply, asset)}"\n`;
   });
 
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement("a");
   link.setAttribute("href", encodedUri);
-  link.setAttribute("download", "collection.csv");
+  link.setAttribute("download", `${props.collection}.csv`);
   document.body.appendChild(link);
 
   link.click();

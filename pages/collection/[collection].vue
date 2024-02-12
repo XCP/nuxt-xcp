@@ -27,6 +27,9 @@
     <div v-if="activeTab === 'Debits'">
       <DebitsTable :collection="collection" category="debits" />
     </div>
+    <div v-if="activeTab === 'Dispensers'">
+      <ActivityTable :collection="collection" category="dispensers" />
+    </div>
   </div>
 </template>
 
@@ -42,6 +45,7 @@ const tabs = [
   { name: 'Assets' },
   { name: 'Credits' },
   { name: 'Debits' },
+  { name: 'Dispensers' },
 ];
 const activeTab = ref('Assets');
 

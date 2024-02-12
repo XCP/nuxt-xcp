@@ -40,6 +40,8 @@ function handleLastMessage(message) {
 
 const props = defineProps({
   address: String,
+  category: String,
+  collection: String,
   initialPage: {
     type: Number,
     default: 1
@@ -48,8 +50,9 @@ const props = defineProps({
 
 const queryParams = computed(() => {
   const params = {};  
-  if (props.address) params.address = props.address;
   if (props.collection) params.collection = props.collection;
+  if (props.category) params.category = props.category;
+  if (props.address) params.address = props.address;
 
   return params;
 });

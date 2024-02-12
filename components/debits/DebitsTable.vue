@@ -59,6 +59,7 @@ const props = defineProps({
   asset: String,
   address: String,
   category: String,
+  collection: String,
   tx: String,
   initialPage: {
     type: Number,
@@ -68,6 +69,7 @@ const props = defineProps({
 
 const queryParams = computed(() => {
   const params = {};  
+  if (props.collection) params.collection = props.collection;
   if (props.address) params.address = props.address;
   if (props.asset) params.asset_name = props.asset;
   if (props.tx) params.tx_hash = props.tx;
