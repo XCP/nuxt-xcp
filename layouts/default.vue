@@ -124,6 +124,14 @@
               <input id="search-field" class="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-white focus:ring-0 sm:text-sm" placeholder="Search..." type="search" name="search" />
             </div>
           </form>
+          <div class="hidden md:flex md:items-center md:space-x-4">
+            <a href="/collections" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Discover</a>
+          </div>
+          <div class="flex shrink-0 items-center">
+            <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-party px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-party/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+              Connect Wallet
+            </button>
+          </div>
         </div>
       </div>
 

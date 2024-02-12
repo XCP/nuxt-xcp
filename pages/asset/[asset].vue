@@ -5,6 +5,10 @@
         {{ asset }}
       </h1>
       <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
+        <div class="mt-2 flex items-center text-sm text-gray-300">
+          <BriefcaseIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
+          {{ apiData.owner }}
+        </div>
       </div>
     </div>
     <div class="hidden sm:block mt-5 flex lg:ml-4 lg:mt-0">
@@ -91,11 +95,15 @@
 </template>
 
 <script setup>
+import {
+  BriefcaseIcon,
+} from '@heroicons/vue/20/solid';
 import { computed, ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const asset = ref(route.params.asset);
+const apiData = ref({ block_index: 0, divisible: 0, locked: 0, supply: 0, owner: '', issuer: '', type: '', asset_name: '', asset_longname: '' });
 
 const dropdownItems = computed(() => [
   {
@@ -136,8 +144,31 @@ const handleTabChange = (selectedTab) => {
   activeTab.value = selectedTab;
 };
 
+const fetchData = async () => {
+  try {
+    const response = await fetch(`https://api.xcp.io/api/assets?asset=${asset.value}`);
+    if (!response.ok) throw new Error('Network response was not ok');
+    const data = await response.json();
+    apiData.value.block_index = data.data[0].block_index;
+    apiData.value.divisible = data.data[0].divisible;
+    apiData.value.locked = data.data[0].locked;
+    apiData.value.supply = data.data[0].supply;
+    apiData.value.owner = data.data[0].owner;
+    apiData.value.issuer = data.data[0].issuer;
+    apiData.value.type = data.data[0].type;
+    apiData.value.asset_name = data.data[0].asset_name;
+    apiData.value.asset_longname = data.data[0].asset_longname;
+  } catch (error) {
+    console.error('Fetch error:', error);
+  }
+};
+
 watchEffect(() => {
   asset.value = route.params.asset;
+});
+
+onMounted(() => {
+  fetchData();
 });
 
 const stats = [
@@ -146,5 +177,14 @@ const stats = [
   { name: 'Number of servers', value: '3' },
   { name: 'Success rate', value: '98.5%' },
 ]
+
+useSeoMeta({
+  title: asset.value,
+  ogTitle: asset.value,
+  description: 'This is my amazing site, let me tell you all about it.',
+  ogDescription: 'This is my amazing site, let me tell you all about it.',
+  ogImage: 'https://example.com/image.png',
+  twitterCard: 'summary_large_image',
+})
 
 </script>
