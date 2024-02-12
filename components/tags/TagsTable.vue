@@ -63,7 +63,7 @@
       </div>
       
     </div>
-  </div>
+  </div> 
 
   <!-- Table View -->
   <table v-else-if="state.tags.length > 0" class="mt-6 w-full whitespace-nowrap text-left border-white/10">
