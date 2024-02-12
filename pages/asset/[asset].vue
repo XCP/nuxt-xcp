@@ -82,10 +82,10 @@
     <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
 
     <!-- Tab content -->
-    <div v-if="activeTab === 'Messages'">
+    <div v-if="activeTab === 'Activity'">
       <MessagesTable :asset="asset" />
     </div>
-    <div v-if="activeTab === 'Holders'">
+    <div v-if="activeTab === 'Balances'">
       <BalancesTable :asset="asset" />
     </div>
     <div v-if="activeTab === 'Credits'">
@@ -142,7 +142,7 @@ const tabs = [
   { name: 'Credits' },
   { name: 'Debits' },
 ];
-const activeTab = ref('Messages');
+const activeTab = ref('Balances');
 
 const handleTabChange = (selectedTab) => {
   activeTab.value = selectedTab;

@@ -82,6 +82,7 @@
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Amount</th>
         <th scope="col" class="py-2 pr-2 font-semibold">% of Supply</th>
+        <th v-if="asset" scope="col" class="py-2 pr-2 font-semibold">Address</th>
         <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
       </tr>
     </thead>
@@ -99,8 +100,12 @@
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ ((balance.quantity / balance.supply) * 100).toFixed(8) }}%
         </td>
+        <td v-if="asset" class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
+          <NuxtLink :to="`/address/${balance.address}`" class="font-medium leading-6 text-white">{{ balance.address }}</NuxtLink>
+        </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
-          <NuxtLink :to="`/asset/${balance.asset}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
+          <NuxtLink v-if="asset" :to="`/address/${balance.address}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
+          <NuxtLink v-else :to="`/asset/${balance.asset}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
         </td>
       </tr>
     </tbody>
@@ -138,10 +143,10 @@ const fetchData = async () => {
   if (state.loading || state.allDataLoaded) return;
 
   state.loading = true;
+  const query = `holders?asset=${props.asset}&page=${Math.floor(state.balances.length / 100) + 1}`;
+
   if (props.address) {
     const query = `balances?address=${props.address}&page=${Math.floor(state.balances.length / 100) + 1}`;
-  } else {
-    const query = `holders?asset=${props.asset}&page=${Math.floor(state.balances.length / 100) + 1}`;
   }
 
   try {
