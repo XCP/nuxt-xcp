@@ -18,7 +18,7 @@
             </h1>
           </div>
           <div class="hidden sm:block mt-5 flex lg:ml-4 lg:mt-0">
-            <Dropdown :items="dropdownItems" />
+            <Dropdown :items="dropdownItems" /> 
           </div>
         </div>
         <div v-if="apiData.tags && apiData.tags.length" class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-2">
