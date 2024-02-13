@@ -11,7 +11,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        party: '#ec1550',
+        primary: '#ec1550',
       },
     },
   },

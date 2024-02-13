@@ -39,6 +39,7 @@ function handleLastMessage(message) {
 }
 
 const props = defineProps({
+  asset: String,
   address: String,
   category: String,
   collection: String,
@@ -53,6 +54,7 @@ const queryParams = computed(() => {
   if (props.collection) params.collection = props.collection;
   if (props.category) params.category = props.category;
   if (props.address) params.address = props.address;
+  if (props.asset) params.asset_name = props.asset;
 
   return params;
 });
