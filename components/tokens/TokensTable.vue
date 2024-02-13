@@ -130,7 +130,7 @@ const state = reactive({
 
 const observer = ref(null);
 const lastElement = ref(null);
-const viewMode = ref('grid');
+const viewMode = ref('table');
 
 const fetchData = async () => {
   if (state.loading || state.allDataLoaded) return;
