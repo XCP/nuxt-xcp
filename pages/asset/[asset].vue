@@ -21,7 +21,7 @@
             <Dropdown :items="dropdownItems" /> 
           </div>
         </div>
-        <div v-if="apiData.tags && apiData.tags.length" class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-2">
+        <div v-if="apiData.tags" class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-2">
           <div v-for="tag in apiData.tags" class="mt-2 flex items-center text-lg text-gray-300">
             <CheckBadgeIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400" aria-hidden="true" />
             <a :href="`/collection/${tag.slug}`">{{ tag.name }}</a>
