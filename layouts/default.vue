@@ -126,9 +126,12 @@
             </div>
           </form>
           <div class="hidden md:flex md:items-center md:space-x-4">
-            <a href="/tokens" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Tokens</a>
+            <a href="/tokens" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Crypto</a>
             <a href="/collections" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">NFTs</a>
-            <a href="/discover" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Discover</a>
+            <a href="/discover" class="flex items-center bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
+              Discover
+              <SparklesIcon class="ml-1 h-5 w-5 flex-shrink-0 text-yellow-400" aria-hidden="true" />
+            </a>
           </div>
           <div class="flex shrink-0 items-center">
             <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
@@ -163,7 +166,7 @@ import {
   SignalIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
-import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
+import { SparklesIcon, Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const navigation = [
   { name: 'Assets', href: '/assets', path: 'asset', icon: FolderIcon, current: false },
