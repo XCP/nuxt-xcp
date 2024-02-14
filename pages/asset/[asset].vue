@@ -174,13 +174,22 @@ const stats = computed(() => [
   { name: 'Year Issued', value: new Date(apiData.value.messages.confirmed_at).getFullYear().toString() },
 ]);
 
+const encodedData = computed(() => {
+  const jsonData = JSON.stringify({
+    name: asset.value,
+    imageUrl: !asset.value.includes('.') 
+      ? `https://api.xcp.io/img/full/${asset.value}` 
+      : `https://api.xcp.io/img/full/${apiData.asset_name}`
+  });
+  return btoa(encodeURIComponent(jsonData));
+});
+
 useSeoMeta({
   title: asset.value,
   ogTitle: asset.value,
   description: 'This is my amazing site, let me tell you all about it.',
   ogDescription: 'This is my amazing site, let me tell you all about it.',
-  ogImage: 'https://example.com/image.png',
+  ogImage: `https://api.xcp.io/img/share?data=${encodedData.value}`,
   twitterCard: 'summary_large_image',
 })
-
 </script>
