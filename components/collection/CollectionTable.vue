@@ -58,7 +58,7 @@
         
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full">
-          <NuxtImg :src="`https://api.xcp.io/img/full/${asset.asset_name}`" :alt="formatAssetName(asset.asset_name, asset)" class="rounded-2xl object-contain w-full h-full" :style="asset.asset_name.startsWith('A') ? 'image-rendering: pixelated' : null" loading="lazy" />
+          <NuxtImg :src="`https://api.xcp.io/img/full/${asset.asset_name}`" :alt="formatAssetName(asset.asset_name, asset)" class="rounded-2xl object-contain w-full h-full" :style="formatAssetName(asset.asset_name, asset).startsWith('A') ? 'image-rendering: pixelated' : null" loading="lazy" />
         </div>
 
         <div class="p-4 pb-0">
