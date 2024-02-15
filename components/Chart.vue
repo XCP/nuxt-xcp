@@ -3,7 +3,7 @@
     <!-- Responsive container for title and dropdown -->
     <div class="flex flex-col md:flex-row justify-between items-center mb-4 w-full">
       <!-- Dropdown for selecting metric type -->
-      <select v-model="selectedMetric" @change="changeMetricType" class="text-white bg-gray-700 font-medium rounded px-3 py-2 focus:outline-none md:w-auto w-full">
+      <select v-model="selectedMetric" @change="changeMetricType" class="text-white bg-gray-800 font-medium rounded px-3 py-2 focus:outline-none md:w-auto w-full">
         <option value="messages" class="font-semibold">All Messages</option>
         <option value="xcp_dominance">% of Total (XCP)</option>
         <!-- Popular Metrics -->
@@ -51,7 +51,7 @@ const props = defineProps({
 });
 
 const popularMetrics = [
-  'sends', 'orders', 'issuances',
+  'sends', 'orders', 'issuances', 'dispensers',
 ];
 
 const availableMetrics = [
@@ -175,7 +175,7 @@ watch(selectedMetric, (newMetric) => {
 <style>
 .chart-container {
   position: relative;
-  height: 80vh; /* Adjust height as needed */
+  height: 70vh; /* Adjust height as needed */
   width: 100%;
 }
 </style>
