@@ -1,9 +1,19 @@
 <template>
   <div class="flex flex-col bg-gray-800 text-white p-4">
-    <!-- Responsive container for title and buttons -->
+    <!-- Responsive container for title and dropdown -->
     <div class="flex flex-col md:flex-row justify-between items-center mb-4 w-full">
-      <!-- Title -->
-      <h2 class="text-xl font-semibold">{{ title }}</h2>
+      <!-- Dropdown for selecting metric type -->
+      <select v-model="selectedMetric" @change="changeMetricType" class="text-white bg-gray-700 rounded px-3 py-2 focus:outline-none">
+        <option value="messages">All Messages</option>
+        <!-- Popular Metrics -->
+        <optgroup label="Top">
+          <option v-for="(metric, index) in popularMetrics" :key="index" :value="metric">{{ snakeCaseToTitleCase(metric) }}</option>
+        </optgroup>
+        <!-- Remaining Metrics -->
+        <optgroup label="ABC">
+          <option v-for="(metric, index) in availableMetrics" :key="index" :value="metric">{{ snakeCaseToTitleCase(metric) }}</option>
+        </optgroup>
+      </select>
 
       <!-- Control Buttons -->
       <div class="flex mt-4 md:mt-0">
@@ -32,11 +42,26 @@ import { ref, watch, onMounted } from 'vue';
 import { Chart } from 'chart.js';
 
 const props = defineProps({
-  metric_type: { type: String, required: true },
   title: { type: String, required: true }
 });
 
+const popularMetrics = [
+  'sends', 'orders', 'issuances',
+];
+
+const availableMetrics = [
+  'issuances', 'sends', 'sweeps', 'orders', 'order_expirations',
+  'order_matches', 'order_match_expirations', 'btcpays', 'cancels', 'dispensers',
+  'dispenses', 'broadcasts', 'replace', 'rps', 'rps_expirations', 'rps_matches',
+  'rps_match_expirations', 'rpsresolves', 'credits', 'debits', 'dividends',
+  'destructions', 'dispenser_refills', 'burns', 'bets', 'bet_expirations',
+  'bet_matches', 'bet_match_expirations', 'bet_match_resolutions'
+];
+
+availableMetrics.sort((a, b) => a.localeCompare(b));
+
 const currentPeriodType = ref('day');
+const selectedMetric = ref('messages');
 const chartRef = ref(null);
 let myChart = null;
 
@@ -46,8 +71,6 @@ const fetchData = async (metricType, periodType) => {
   try {
     const response = await fetch(url);
     const { labels, datasets } = await response.json();
-
-    console.log(labels, datasets); // Check the data received from the API
 
     const responseColor = 'rgba(236, 21, 80, 0.5)'; // Using the color #ec1550 with 50% opacity
     datasets.forEach((dataset) => {
@@ -107,17 +130,36 @@ const fetchData = async (metricType, periodType) => {
   }
 };
 
+function snakeCaseToTitleCase(str) {
+  // Replace underscores with spaces
+  let titleCase = str.replace(/_/g, ' ');
+  
+  // Capitalize the first letter of each word
+  titleCase = titleCase.replace(/\b\w/g, match => match.toUpperCase());
+  
+  return titleCase;
+}
+
 const changePeriod = (period) => {
   currentPeriodType.value = period;
-  fetchData(props.metric_type, period);
+  fetchData(selectedMetric.value, period);
+};
+
+const changeMetricType = (event) => {
+  selectedMetric.value = event.target.value;
+  fetchData(event.target.value, currentPeriodType.value);
 };
 
 onMounted(() => {
-  fetchData(props.metric_type, currentPeriodType.value);
+  fetchData(selectedMetric.value, currentPeriodType.value);
 });
 
 watch(currentPeriodType, (newPeriodType) => {
-  fetchData(props.metric_type, newPeriodType);
+  fetchData(selectedMetric.value, newPeriodType);
+}, { immediate: true });
+
+watch(selectedMetric, (newMetric) => {
+  fetchData(newMetric, currentPeriodType.value);
 }, { immediate: true });
 
 </script>
