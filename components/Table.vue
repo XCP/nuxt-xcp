@@ -88,7 +88,7 @@
 
 <script setup>
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
-import { defineEmits, reactive, onMounted } from 'vue';
+import { reactive, onMounted } from 'vue';
 
 const emit = defineEmits(['last-message']);
 

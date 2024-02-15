@@ -30,8 +30,6 @@
 </template>
 
 <script setup>
-import { defineEmits } from 'vue'
-
 const emit = defineEmits(['last-message']);
 
 function handleLastMessage(message) {

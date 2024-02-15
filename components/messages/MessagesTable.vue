@@ -104,7 +104,7 @@
 
 <script setup>
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
-import { defineEmits, onMounted, reactive, watchEffect } from 'vue'
+import { onMounted, reactive, watchEffect } from 'vue'
 
 const props = defineProps({
   asset: String,

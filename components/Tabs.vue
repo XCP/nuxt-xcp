@@ -35,7 +35,6 @@
 </template>
 
 <script setup>
-import { defineEmits } from 'vue';
 const { trackEvent } = useFathom();
 
 const props = defineProps({
