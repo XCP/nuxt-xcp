@@ -24,7 +24,7 @@
           @click="changePeriod(period)"
           :class="{
             'bg-white/10 hover:bg-white/20': currentPeriodType !== period,
-            'bg-primary hover:bg-primary/80': currentPeriodType === period,
+            'bg-primary hover:bg-primary/80 font-medium': currentPeriodType === period,
           }"
           class="text-sm px-4 py-2 mx-1 rounded focus:outline-none focus:ring w-full md:w-auto"
         >
