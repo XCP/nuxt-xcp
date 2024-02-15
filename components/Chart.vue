@@ -25,10 +25,7 @@
           v-for="period in ['day', 'week', 'month', 'year']"
           :key="period"
           @click="changePeriod(period)"
-          :class="{
-            'bg-white/10 hover:bg-white/20': currentPeriodType !== period,
-            'bg-primary hover:bg-primary/80 font-medium': currentPeriodType === period,
-          }"
+          :class="buttonClasses(period)"
           class="text-sm px-4 py-2 mx-1 rounded focus:outline-none focus:ring w-full md:w-auto"
         >
           {{ period.charAt(0).toUpperCase() + period.slice(1) }}
@@ -76,14 +73,21 @@ const fetchData = async (metricType, periodType) => {
     const response = await fetch(url);
     const { labels, datasets } = await response.json();
 
-    const responseColor = 'rgba(236, 21, 80, 0.5)'; // Using the color #ec1550 with 50% opacity
+    // Set the default response color
+    let responseColor = 'rgba(236, 21, 80, 0.5)'; // Pinkish-red with 50% opacity
+
+    // Change color to green if metricType is 'rares_dominance'
+    if (metricType === 'rares_dominance') {
+      responseColor = 'rgba(0, 128, 0, 0.75)'; // Green with 50% opacity
+    }
+
     datasets.forEach((dataset) => {
       dataset.borderColor = responseColor;
-      dataset.backgroundColor = 'rgba(236, 21, 80, 0.2)'; // Lighter fill color with more transparency
+      dataset.backgroundColor = responseColor.replace('0.5', '0.2'); // Adjust opacity for background
       dataset.pointBorderColor = responseColor;
       dataset.pointBackgroundColor = responseColor;
-      dataset.pointHoverBackgroundColor = 'rgba(236, 21, 80, 0.75)'; // Slightly less opaque when hovering
-      dataset.pointHoverBorderColor = 'rgba(236, 21, 80, 1)'; // Solid color when hovering
+      dataset.pointHoverBackgroundColor = responseColor.replace('0.5', '0.75'); // Adjust opacity for hover background
+      dataset.pointHoverBorderColor = responseColor.replace('0.5', '1'); // Solid color for hover border
     });
 
     if (myChart) {
@@ -163,6 +167,23 @@ function snakeCaseToTitleCase(str) {
   
   return titleCase;
 }
+
+const buttonClasses = (period) => {
+  // Always include base classes
+  let baseClasses = 'text-sm px-4 py-2 mx-1 rounded focus:outline-none focus:ring w-full md:w-auto';
+
+  // Determine button color based on whether the current period matches and the selected metric
+  if (currentPeriodType.value === period) {
+    // For 'rares_dominance', use 'bg-secondary', otherwise use 'bg-primary'
+    baseClasses += selectedMetric.value === 'rares_dominance' ? ' bg-secondary hover:bg-secondary/80 font-medium' : ' bg-primary hover:bg-primary/80 font-medium';
+  } else {
+    // If not the current period, apply a different style (e.g., less emphasis)
+    baseClasses += ' bg-white/10 hover:bg-white/20';
+  }
+
+  return baseClasses;
+};
+
 
 const changePeriod = (period) => {
   trackEvent(`Period: ${period}`);
