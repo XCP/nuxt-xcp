@@ -6,6 +6,9 @@
       <select v-model="selectedMetric" @change="changeMetricType" class="text-white bg-gray-800 font-medium rounded px-3 py-2 focus:outline-none md:w-auto w-full">
         <option value="messages" class="font-semibold">All Messages</option>
         <option value="xcp_dominance">% of Total (XCP)</option>
+        <option value="stamps_dominance">% of Total (Stamps)</option>
+        <option value="rares_dominance">% of Total (Rare Pepe)</option>
+        <option value="other_dominance">% of Total (Other NFTs)</option>
         <!-- Popular Metrics -->
         <optgroup label="Popular">
           <option v-for="(metric, index) in popularMetrics" :key="index" :value="metric">{{ snakeCaseToTitleCase(metric) }}</option>
@@ -114,7 +117,9 @@ const fetchData = async (metricType, periodType) => {
               },
               ticks: {
                 color: '#fff', // White text for the y-axis
-              }
+              },
+              min: metricType.includes('_dominance') ? 0 : undefined,
+              max: metricType.includes('_dominance') ? 100 : undefined,
             }
           },
           plugins: {
@@ -126,6 +131,23 @@ const fetchData = async (metricType, periodType) => {
             tooltip: {
               titleColor: '#fff', // White text for the tooltip title
               bodyColor: '#fff',  // White text for the tooltip body
+              callbacks: {
+                label: function(context) {
+                  let label = context.dataset.label || '';
+
+                  if (label) {
+                    label += ': ';
+                  }
+                  if (context.parsed.y !== null) {
+                    if (metricType.includes('_dominance')) {
+                      label += context.parsed.y + '%';
+                    } else {
+                      label += context.parsed.y.toLocaleString();
+                    }
+                  }
+                  return label;
+                }
+              }
             }
           }
         },

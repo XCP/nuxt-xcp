@@ -127,7 +127,6 @@
           </form>
           <div class="hidden md:flex md:items-center md:space-x-4">
             <a href="/latest" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Collections</a>
-            <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Resources</a>
             <a href="/charts" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Analytics</a>
             <a href="/discover" class="flex items-center bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
               Discover
