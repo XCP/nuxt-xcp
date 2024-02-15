@@ -2,13 +2,13 @@
   <div class="">
     <div v-if="isNsfw" @mouseover="hover = true" @mouseleave="hover = false" class="group">
       <!-- NSFW Image with Overlay -->
-      <NuxtImg :src="computedImageUrl" :alt="computedAltText" class="rounded-xl w-full h-full object-contain" loading="lazy" />
+      <NuxtImg :src="computedImageUrl" :alt="computedAltText" class="w-full h-full object-contain" loading="lazy" :class="[props.apiData ? 'rounded-3xl' : 'rounded-2xl']" />
       <div class="absolute inset-0 bg-black bg-opacity-100 flex justify-center items-center text-white text-xl font-semibold rounded-xl cursor-pointer transition-opacity duration-[2000ms] ease-in-out" :class="{'opacity-0': hover}">
         NSFW Image <br /> Hover to See
       </div>
     </div>
     <!-- Regular Image -->
-    <NuxtImg v-else :src="computedImageUrl" :alt="computedAltText" class="rounded-xl w-full h-full object-contain" :class="{'image-rendering-pixelated': shouldPixelate}" loading="lazy" />
+    <NuxtImg v-else :src="computedImageUrl" :alt="computedAltText" class="w-full h-full object-contain" :class="{'image-rendering-pixelated': shouldPixelate, 'rounded-3xl': props.apiData, 'rounded-2xl' : !props.apiData}" loading="lazy" />
   </div>
 </template>
 
