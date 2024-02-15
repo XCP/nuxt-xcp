@@ -4,7 +4,7 @@
     <div class="flex flex-col md:flex-row justify-between items-center mb-4 w-full">
       <!-- Dropdown for selecting metric type -->
       <select v-model="selectedMetric" @change="changeMetricType" class="text-white bg-gray-700 font-medium rounded px-3 py-2 focus:outline-none md:w-auto w-full">
-        <option value="messages">All Messages</option>
+        <option value="messages" class="font-semibold">All Messages</option>
         <option value="xcp_dominance">% of Total (XCP)</option>
         <!-- Popular Metrics -->
         <optgroup label="Popular">
