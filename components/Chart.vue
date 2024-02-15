@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col bg-gray-800 text-white p-4">
+  <div class="flex flex-col rounded-2xl border border-gray-700 rounded bg-gray-800 text-white p-4">
     <!-- Responsive container for title and dropdown -->
     <div class="flex flex-col md:flex-row justify-between items-center mb-4 w-full">
       <!-- Dropdown for selecting metric type -->
