@@ -3,20 +3,21 @@
     <!-- Responsive container for title and dropdown -->
     <div class="flex flex-col md:flex-row justify-between items-center mb-4 w-full">
       <!-- Dropdown for selecting metric type -->
-      <select v-model="selectedMetric" @change="changeMetricType" class="text-white bg-gray-700 rounded px-3 py-2 focus:outline-none">
+      <select v-model="selectedMetric" @change="changeMetricType" class="text-white bg-gray-700 rounded px-3 py-2 focus:outline-none md:w-auto w-full">
         <option value="messages">All Messages</option>
+        <option value="xcp_dominance">Percent XCP</option>
         <!-- Popular Metrics -->
-        <optgroup label="Top">
+        <optgroup label="Popular">
           <option v-for="(metric, index) in popularMetrics" :key="index" :value="metric">{{ snakeCaseToTitleCase(metric) }}</option>
         </optgroup>
         <!-- Remaining Metrics -->
-        <optgroup label="ABC">
+        <optgroup label="Charts">
           <option v-for="(metric, index) in availableMetrics" :key="index" :value="metric">{{ snakeCaseToTitleCase(metric) }}</option>
         </optgroup>
       </select>
 
       <!-- Control Buttons -->
-      <div class="flex mt-4 md:mt-0">
+      <div class="flex mt-4 md:mt-0 md:w-auto w-full">
         <button
           v-for="period in ['day', 'week', 'month', 'year']"
           :key="period"
@@ -25,7 +26,7 @@
             'bg-gray-700 hover:bg-gray-600': currentPeriodType !== period,
             'bg-red-500 hover:bg-red-400': currentPeriodType === period,
           }"
-          class="text-sm px-4 py-2 mx-1 rounded focus:outline-none focus:ring"
+          class="text-sm px-4 py-2 mx-1 rounded focus:outline-none focus:ring w-full md:w-auto"
         >
           {{ period.charAt(0).toUpperCase() + period.slice(1) }}
         </button>
@@ -33,7 +34,9 @@
     </div>
 
     <!-- Chart Canvas -->
-    <canvas ref="chartRef"></canvas>
+    <div class="chart-container" ref="chartContainer">
+      <canvas ref="chartRef"></canvas>
+    </div>
   </div>
 </template>
 
@@ -93,6 +96,7 @@ const fetchData = async (metricType, periodType) => {
         type: 'line',
         data: { labels, datasets },
         options: {
+          maintainAspectRatio: false, // Allow the chart to adjust its aspect ratio
           scales: {
             x: {
               grid: {
@@ -163,3 +167,11 @@ watch(selectedMetric, (newMetric) => {
 }, { immediate: true });
 
 </script>
+
+<style>
+.chart-container {
+  position: relative;
+  height: 80vh; /* Adjust height as needed */
+  width: 100%;
+}
+</style>

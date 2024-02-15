@@ -126,8 +126,8 @@
             </div>
           </form>
           <div class="hidden md:flex md:items-center md:space-x-4">
-            <a href="/tokens" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Crypto</a>
-            <a href="/collections" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">NFTs</a>
+            <a href="/stats" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Analytics</a>
+            <a href="/collections" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Browse NFTs</a>
             <a href="/discover" class="flex items-center bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
               Discover
               <SparklesIcon class="ml-1 h-5 w-5 flex-shrink-0 text-yellow-400" aria-hidden="true" />
@@ -170,10 +170,10 @@ import { SparklesIcon, Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/
 
 const navigation = [
   { name: 'Assets', href: '/assets', path: 'asset', icon: FolderIcon, current: false },
-  { name: 'Addresses', href: '/addresses', path: 'address', icon: ServerIcon, current: false },
-  { name: 'Activity', href: '#', icon: SignalIcon, current: false },
-  { name: 'Domains', href: '#', icon: GlobeAltIcon, current: false },
-  { name: 'Usage', href: '#', icon: ChartBarSquareIcon, current: false },
+  { name: 'Crypto', href: '/tokens', path: 'address', icon: ServerIcon, current: false },
+  { name: 'NFTs', href: '/collections', icon: SignalIcon, current: false },
+  { name: 'DEx', href: '#', icon: GlobeAltIcon, current: false },
+  { name: 'Usage', href: '/stats', icon: ChartBarSquareIcon, current: false },
   { name: 'Settings', href: '#', icon: Cog6ToothIcon, current: false },
 ]
 const teams = [
