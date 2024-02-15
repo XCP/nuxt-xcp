@@ -49,7 +49,7 @@
         
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full">
-          <NuxtImg :src="`https://api.xcp.io/img/full/${tag.slug}`" :alt="tag.name" class="rounded-2xl object-contain w-full h-full" :style="tag.stamp ? 'image-rendering: pixelated' : null" loading="lazy" />
+          <NuxtImg :src="`https://api.xcp.io/img/logo/${tag.slug}`" :alt="tag.name" class="rounded-2xl object-contain w-full h-full" :style="tag.stamp ? 'image-rendering: pixelated' : null" loading="lazy" />
         </div>
 
         <div class="p-4 pb-0">
@@ -107,7 +107,7 @@ const state = reactive({
   loading: false,
 });
 
-const viewMode = ref('table');
+const viewMode = ref('grid');
 
 const totalAssetsCount = computed(() => {
   return state.tags.reduce((sum, tag) => sum + tag.assets_count, 0);
