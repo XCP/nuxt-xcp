@@ -5,7 +5,7 @@
       <div class="lg:w-1/3">
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full rounded-3xl border border-gray-700 rounded bg-gray-800">
-          <NuxtImg v-if="!asset.includes('.') || apiData.asset_name" :src="!asset.includes('.') ? `https://api.xcp.io/img/full/${asset}` : `https://api.xcp.io/img/full/${apiData.asset_name}`" :alt="asset" class="rounded-3xl object-contain w-full h-full" :style="!asset.includes('.') && asset.startsWith('A') ? 'image-rendering: pixelated' : null" loading="lazy" />
+          <Image :asset="asset" :apiData="apiData" />
         </div>
       </div>
 
