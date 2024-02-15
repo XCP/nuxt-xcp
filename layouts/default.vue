@@ -127,7 +127,7 @@
           </form>
           <div class="hidden md:flex md:items-center md:space-x-4">
             <a href="/stats" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Analytics</a>
-            <a href="/collections" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Browse NFTs</a>
+            <a href="/collections" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Latest NFTs</a>
             <a href="/discover" class="flex items-center bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
               Discover
               <SparklesIcon class="ml-1 h-5 w-5 flex-shrink-0 text-yellow-400" aria-hidden="true" />
