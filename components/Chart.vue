@@ -49,10 +49,6 @@ import { Chart } from 'chart.js';
 
 const { trackEvent } = useFathom();
 
-const props = defineProps({
-  title: { type: String, required: true }
-});
-
 const popularMetrics = [
   'sends', 'orders', 'issuances', 'dispensers',
 ];
@@ -68,7 +64,7 @@ const availableMetrics = [
 
 availableMetrics.sort((a, b) => a.localeCompare(b));
 
-const currentPeriodType = ref('day');
+const currentPeriodType = ref('month');
 const selectedMetric = ref('messages');
 const chartRef = ref(null);
 let myChart = null;
