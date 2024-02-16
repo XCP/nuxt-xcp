@@ -4,7 +4,7 @@
     <div class="flex flex-col md:flex-row justify-between items-center mb-4 w-full">
       <!-- Dropdown for selecting metric type -->
       <select v-model="selectedMetric" @change="changeMetricType" class="text-white bg-gray-800 font-medium rounded px-3 py-2 focus:outline-none md:w-auto w-full">
-        <option value="messages" class="font-semibold">All Messages</option>
+        <option value="messages" class="font-semibold">Network Activity</option>
         <option value="xcp_dominance">% of Total (XCP)</option>
         <option value="stamps_dominance">% of Total (Stamps)</option>
         <option value="rares_dominance">% of Total (Rare Pepe)</option>
@@ -61,7 +61,7 @@ const availableMetrics = [
 
 availableMetrics.sort((a, b) => a.localeCompare(b));
 
-const currentPeriodType = ref('month');
+const currentPeriodType = ref('day');
 const selectedMetric = ref('messages');
 const chartRef = ref(null);
 let myChart = null;
