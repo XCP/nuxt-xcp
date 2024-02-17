@@ -1,25 +1,34 @@
 <template>
   <div class="lg:flex lg:items-center lg:justify-between">
-    <div class="min-w-0 flex-1">
-      <h1 class="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
+    <div class="flex-1">
+      <h1 class="text-2xl font-bold leading-7 text-white sm:text-3xl sm:tracking-tight">
         Counterparty Address
       </h1>
-      <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-        <div class="mt-2 flex items-center text-sm text-gray-300">
-          <BriefcaseIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
+      <!-- Main container for items, ensuring flex-wrap and responsive gap -->
+      <div class="mt-1 flex flex-wrap items-center text-sm text-gray-300 gap-x-2 sm:gap-x-6">
+        <!-- Item 1 -->
+        <div class="flex items-center w-full lg:w-auto mt-2">
+          <BriefcaseIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
           {{ address }}
         </div>
-        <div class="mt-2 flex items-center text-sm text-gray-300">
-          <CurrencyDollarIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
-          {{ apiData.bitcoinValue }} BTC
+        <!-- Item 2 -->
+        <div class="flex items-center w-full lg:w-auto mt-2 order-last lg:order-none">
+          <CurrencyDollarIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
+          {{ apiData.xcpValue }} XCP
         </div>
-        <div class="mt-2 flex items-center text-sm text-gray-300">
-          <LinkIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
+        <!-- Item 3 -->
+        <div class="flex items-center w-auto mt-2">
+          <CurrencyDollarIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
+          {{ apiData.btcValue }} BTC
+        </div>
+        <!-- Item 4 -->
+        <div class="flex items-center w-auto mt-2">
+          <LinkIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
           {{ apiData.tx_count }} Transactions
         </div>
       </div>
     </div>
-    <div class="hidden sm:block mt-5 flex lg:ml-4 lg:mt-0">
+    <div class="hidden sm:block mt-5 lg:mt-0 lg:ml-4">
       <Dropdown :items="dropdownItems" />
     </div>
   </div>
@@ -69,105 +78,77 @@
 </template>
 
 <script setup>
-import {
-  BriefcaseIcon,
-  CurrencyDollarIcon,
-  LinkIcon,
-} from '@heroicons/vue/20/solid';
+import { BriefcaseIcon, CurrencyDollarIcon, LinkIcon } from '@heroicons/vue/20/solid';
 import { useRoute } from 'vue-router';
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect, onMounted } from 'vue';
 
+// Reactive state
 const route = useRoute();
 const address = ref(route.params.address);
-const apiData = ref({ tx_count: 0, bitcoinValue: 0 });
-
-const dropdownItems = computed(() => [
-  {
-    href: `https://mempool.space/address/${address.value}`,
-    imgSrc: '/img/mempoolspace.png',
-    title: 'mempool.space',
-  },
-  {
-    href: `https://pepe.wtf/${address.value}/collection`,
-    imgSrc: '/img/pepewtf.png',
-    title: 'pepe.wtf',
-  },
-  {
-    href: `https://www.xchain.io/address/${address.value}`,
-    imgSrc: '/img/xchainio.png',
-    title: 'xchain.io',
-  },
-  {
-    href: `https://www.xcp.dev/address/${address.value}`,
-    imgSrc: '/img/xcpdev.png',
-    title: 'xcp.dev',
-  },
-  {
-    href: `https://xcp.ninja/profile/${address.value}`,
-    imgSrc: '/img/xcpninja.png',
-    title: 'xcp.ninja',
-  }
-]);
-
-const tabs = [
-  { name: 'Activity' },
-  { name: 'Assets' },
-  { name: 'Balances' },
-  { name: 'Credits' },
-  { name: 'Debits' },
-];
+const apiData = ref({ tx_count: 0, btcValue: 0, xcpValue: 0 });
 const activeTab = ref('Activity');
 const lastMessage = ref(null);
 
-const handleTabChange = (selectedTab) => {
-  activeTab.value = selectedTab;
-};
-
-const handleLastMessage = (message) => {
-  lastMessage.value = message;
-};
-
-const yearsAgo = computed(() => {
-  const currentDate = new Date();
-  return lastMessage.value ? currentDate.getFullYear() - new Date(lastMessage.value.timestamp * 1000).getFullYear() : 0;
-});
+// Computed properties for display
+const dropdownItems = computed(() => [
+  { href: `https://mempool.space/address/${address.value}`, imgSrc: '/img/mempoolspace.png', title: 'mempool.space' },
+  { href: `https://pepe.wtf/${address.value}/collection`, imgSrc: '/img/pepewtf.png', title: 'pepe.wtf' },
+  { href: `https://www.xchain.io/address/${address.value}`, imgSrc: '/img/xchainio.png', title: 'xchain.io' },
+  { href: `https://www.xcp.dev/address/${address.value}`, imgSrc: '/img/xcpdev.png', title: 'xcp.dev' },
+  { href: `https://xcp.ninja/profile/${address.value}`, imgSrc: '/img/xcpninja.png', title: 'xcp.ninja' }
+]);
 
 const isActive = computed(() => {
+  if (!lastMessage.value) return false;
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-  return lastMessage.value && new Date(lastMessage.value.timestamp * 1000) >= oneYearAgo;
+  return new Date(lastMessage.value.timestamp * 1000) >= oneYearAgo;
 });
 
-const isSweep = computed(() => {
-  return lastMessage.value && lastMessage.value.category === 'sweeps';
+const isSweep = computed(() => lastMessage.value?.category === 'sweeps');
+
+const yearsAgo = computed(() => {
+  if (!lastMessage.value) return 0;
+  const currentDate = new Date();
+  const messageDate = new Date(lastMessage.value.timestamp * 1000);
+  return currentDate.getFullYear() - messageDate.getFullYear();
 });
 
+// API call
 const fetchData = async () => {
   try {
-    const response = await fetch(`https://blockstream.info/api/address/${address.value}`);
-    if (!response.ok) throw new Error('Network response was not ok');
-    const data = await response.json();
-    apiData.value.tx_count = data.chain_stats.tx_count.toLocaleString();
-    apiData.value.bitcoinValue = (data.chain_stats.funded_txo_sum - data.chain_stats.spent_txo_sum) / 100000000;
+    const btcResponse = await fetch(`https://blockstream.info/api/address/${address.value}`);
+    const xcpResponse = await fetch(`https://api.xcp.io/api/balance?address=${address.value}`);
+    if (!btcResponse.ok || !xcpResponse.ok) throw new Error('Network response was not ok');
+
+    const btcData = await btcResponse.json();
+    const xcpData = await xcpResponse.json();
+
+    apiData.value = {
+      tx_count: btcData.chain_stats.tx_count.toLocaleString(),
+      btcValue: formatBalance(btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum, { divisible: true }).replace('.00000000', ''),
+      xcpValue: xcpData?.length ? formatBalance(xcpData[0].quantity, { divisible: true }).replace('.00000000', '') : '0'
+    };
   } catch (error) {
     console.error('Fetch error:', error);
   }
 };
 
-watchEffect(() => {
-  address.value = route.params.address;
-});
+// Event handlers
+const handleTabChange = selectedTab => activeTab.value = selectedTab;
+const handleLastMessage = message => lastMessage.value = message;
 
-onMounted(() => {
-  fetchData();
-});
+// Watchers and lifecycle hooks
+watchEffect(() => address.value = route.params.address);
+onMounted(fetchData);
 
+// SEO
 useSeoMeta({
   title: address.value,
   ogTitle: address.value,
-  description: 'This is my amazing site, let me tell you all about it.',
-  ogDescription: 'This is my amazing site, let me tell you all about it.',
+  description: 'Explore detailed information about Counterparty addresses.',
+  ogDescription: 'Detailed insights into Counterparty addresses and their activities.',
   ogImage: 'https://example.com/image.png',
   twitterCard: 'summary_large_image',
-})
+});
 </script>
