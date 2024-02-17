@@ -55,6 +55,12 @@
               <p class="mt-2 flex items-baseline gap-x-2">
                 <span class="text-4xl font-semibold tracking-tight text-white">{{ stat.value }}</span>
                 <span v-if="stat.unit" class="text-sm text-gray-400">{{ stat.unit }}</span>
+                <span v-if="stat.lock === 'locked'" class="text-sm text-gray-400">
+                  <LockClosedIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
+                </span>
+                <span v-if="stat.lock === 'unlocked'" class="text-sm text-gray-400">
+                  <LockOpenIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
+                </span>
               </p>
             </div>
           </div>
@@ -87,8 +93,9 @@
 
 <script setup>
 import {
+  LockOpenIcon,
+  LockClosedIcon,
   ArrowPathIcon,
-  BriefcaseIcon,
   CheckBadgeIcon
 } from '@heroicons/vue/20/solid';
 import { computed, ref, watchEffect } from 'vue';
@@ -174,7 +181,7 @@ const filteredTags = computed(() => {
 
 const stats = computed(() => [
   { name: 'Market Cap', value: '$300,000', unit: '5.6 BTC' },
-  { name: '# Supply', value: formatBalance(apiData.value.supply, apiData.value.divisible).replace(/\.?0+$/, '') },
+  { name: '# Supply', value: formatSupply(apiData.value.supply, apiData.value).replace('.00', ''), lock: apiData.value.locked ? 'locked' : 'unlocked' },
   { name: 'Year Issued', value: new Date(apiData.value.messages.confirmed_at).getFullYear().toString() },
 ]);
 
