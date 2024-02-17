@@ -5,7 +5,6 @@
       <!-- Dropdown for selecting metric type -->
       <select v-model="selectedMetric" @change="changeMetricType" class="text-white bg-gray-800 font-medium rounded px-3 py-2 focus:outline-none md:w-auto w-full">
         <option value="messages" class="font-semibold">Network Activity</option>
-        <option value="xcp_dominance">% of Total (XCP)</option>
         <option value="stamps_dominance">% of Total (Stamps)</option>
         <option value="rares_dominance">% of Total (Rare Pepe)</option>
         <option value="other_dominance">% of Total (Other NFTs)</option>
