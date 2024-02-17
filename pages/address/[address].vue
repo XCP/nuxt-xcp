@@ -1,37 +1,5 @@
 <template>
-  <div class="lg:flex lg:items-center lg:justify-between">
-    <div class="flex-1">
-      <h1 class="text-2xl font-bold leading-7 text-white sm:text-3xl sm:tracking-tight">
-        Counterparty Address
-      </h1>
-      <!-- Main container for items, ensuring flex-wrap and responsive gap -->
-      <div class="mt-1 flex flex-wrap items-center text-sm text-gray-300 gap-x-2 sm:gap-x-6">
-        <!-- Item 1 -->
-        <div class="flex items-center w-full lg:w-auto mt-2">
-          <BriefcaseIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ address }}
-        </div>
-        <!-- Item 2 -->
-        <div class="flex items-center w-full lg:w-auto mt-2 order-last lg:order-none">
-          <CurrencyDollarIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ apiData.xcpValue }} XCP
-        </div>
-        <!-- Item 3 -->
-        <div class="flex items-center w-auto mt-2">
-          <CurrencyDollarIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ apiData.btcValue }} BTC
-        </div>
-        <!-- Item 4 -->
-        <div class="flex items-center w-auto mt-2">
-          <LinkIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ apiData.tx_count }} Transactions
-        </div>
-      </div>
-    </div>
-    <div class="hidden sm:block mt-5 lg:mt-0 lg:ml-4">
-      <Dropdown :items="dropdownItems" />
-    </div>
-  </div>
+  <AddressHeader :address="address" :apiData="apiData" />
 
   <header class="my-6">
     <!-- Heading -->
@@ -78,7 +46,6 @@
 </template>
 
 <script setup>
-import { BriefcaseIcon, CurrencyDollarIcon, LinkIcon } from '@heroicons/vue/20/solid';
 import { useRoute } from 'vue-router';
 import { computed, ref, watchEffect, onMounted } from 'vue';
 
@@ -89,14 +56,14 @@ const apiData = ref({ tx_count: 0, btcValue: 0, xcpValue: 0 });
 const activeTab = ref('Activity');
 const lastMessage = ref(null);
 
-// Computed properties for display
-const dropdownItems = computed(() => [
-  { href: `https://mempool.space/address/${address.value}`, imgSrc: '/img/mempoolspace.png', title: 'mempool.space' },
-  { href: `https://pepe.wtf/${address.value}/collection`, imgSrc: '/img/pepewtf.png', title: 'pepe.wtf' },
-  { href: `https://www.xchain.io/address/${address.value}`, imgSrc: '/img/xchainio.png', title: 'xchain.io' },
-  { href: `https://www.xcp.dev/address/${address.value}`, imgSrc: '/img/xcpdev.png', title: 'xcp.dev' },
-  { href: `https://xcp.ninja/profile/${address.value}`, imgSrc: '/img/xcpninja.png', title: 'xcp.ninja' }
-]);
+// Tab navigation
+const tabs = [
+  { name: 'Activity' },
+  { name: 'Assets' },
+  { name: 'Balances' },
+  { name: 'Credits' },
+  { name: 'Debits' },
+];
 
 const isActive = computed(() => {
   if (!lastMessage.value) return false;
