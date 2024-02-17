@@ -119,7 +119,7 @@ const fetchData = async () => {
   state.loading = true;
 
   try {
-    const response = await fetch(`https://api.xcp.io/api/tags?type=${props.type}`);
+    const response = await fetch(`https://api.xcp.io/api/v1/tags?type=${props.type}`);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
 

@@ -133,7 +133,7 @@ const handleTabChange = (selectedTab) => {
 
 const fetchData = async () => {
   try {
-    const response = await fetch(`https://api.xcp.io/api/transactions?tx_hash=${tx.value}`);
+    const response = await fetch(`https://api.xcp.io/api/v1/transactions?tx_hash=${tx.value}`);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
     

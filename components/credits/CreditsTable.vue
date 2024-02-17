@@ -1,5 +1,5 @@
 <template>
-  <Table apiUrl="https://api.xcp.io/api/messages" :queryParams="queryParams" :initialPage="props.initialPage">
+  <Table apiUrl="https://api.xcp.io/api/v1/messages" :queryParams="queryParams" :initialPage="props.initialPage">
     <template v-slot:table-headers>
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold w-20">Type</th>

@@ -35,7 +35,7 @@ const fetchData = async () => {
   const query = `page=${Math.floor(state.assets.length / 100) + 1}`;
 
   try {
-    const response = await fetch(`https://api.xcp.io/api/assets?${query}`);
+    const response = await fetch(`https://api.xcp.io/api/v1/assets?${query}`);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
 

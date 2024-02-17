@@ -1,5 +1,9 @@
 
 import type { DispensersTable } from '#build/components';
+
+import type { DispensersTable } from '#build/components';
+
+import type { DispensersTable } from '#build/components';
 <template>
   <!-- Pagination -->
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
@@ -32,9 +36,9 @@ import type { DispensersTable } from '#build/components';
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Dispenser</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Dispensing</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Available</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Price</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Effective Rate</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">Market Depth</th>
         <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
       </tr>
     </thead>
@@ -48,22 +52,24 @@ import type { DispensersTable } from '#build/components';
               </NuxtLink>
             </div>
         </td>
-        <td class="whitespace-nowrap py-3 text-sm font-medium">
+        <td class="whitespace-nowrap py-3 text-sm leading-6 text-gray-300">
           <NuxtLink :to="`/address/${dispenser.source}`" class="font-medium leading-6 text-sm text-white">
             {{ dispenser.source }}
           </NuxtLink>
+          <span v-if="dispenser.source !== dispenser.origin" class="block text-xs">Origin: {{ dispenser.origin }}</span>
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(dispenser.give_quantity, dispenser) }}
-        </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-          {{ formatBalance(dispenser.give_remaining, dispenser) }}
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(dispenser.satoshirate, { divisible: true }) }} BTC
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(dispenser.effective_sat_rate, { divisible: true }) }} BTC
+        </td>
+        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
+          {{ formatBalance(dispenser.depth, dispenser) }} <br />
+          {{ formatBalance(dispenser.depth_value, { divisible: true }) }} BTC
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
           <NuxtLink :to="`/address/${dispenser.source}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
@@ -99,7 +105,7 @@ const fetchData = async () => {
   const query = `asset=${props.asset}`;
 
   try {
-    const response = await fetch(`https://api.xcp.io/api/dispensers?${query}`);
+    const response = await fetch(`https://api.xcp.io/api/v1/dispensers?${query}`);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
     state.dispensers = data;

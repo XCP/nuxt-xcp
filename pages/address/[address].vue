@@ -85,7 +85,7 @@ const yearsAgo = computed(() => {
 const fetchData = async () => {
   try {
     const btcResponse = await fetch(`https://blockstream.info/api/address/${address.value}`);
-    const xcpResponse = await fetch(`https://api.xcp.io/api/balance?address=${address.value}`);
+    const xcpResponse = await fetch(`https://api.xcp.io/api/v1/balance?address=${address.value}`);
     if (!btcResponse.ok || !xcpResponse.ok) throw new Error('Network response was not ok');
 
     const btcData = await btcResponse.json();
