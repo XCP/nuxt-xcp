@@ -104,7 +104,7 @@
           <NuxtLink :to="`/address/${balance.address}`" class="font-medium leading-6 text-white">{{ balance.address }}</NuxtLink>
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
-          <NuxtLink :to="`/address/${balance.address}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
+          <NuxtLink :to="`/address/${balance.address}`" class="text-primary">View</NuxtLink>
         </td>
       </tr>
     </tbody>

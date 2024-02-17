@@ -66,7 +66,7 @@
           {{ formatBalance(dispenser.depth_value, { divisible: true }) }} BTC
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
-          <NuxtLink :to="`/address/${dispenser.source}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
+          <NuxtLink :to="`/address/${dispenser.source}`" class="text-primary">View</NuxtLink>
         </td>
       </tr>
     </tbody>

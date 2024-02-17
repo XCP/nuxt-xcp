@@ -47,7 +47,7 @@
           {{ item.block_index.toLocaleString() }}
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-right text-sm font-medium">
-          <NuxtLink :to="`/tx/${item.bindings.event}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
+          <NuxtLink :to="`/tx/${item.bindings.event}`" class="text-primary">View</NuxtLink>
         </td>
       </tr>
     </template>

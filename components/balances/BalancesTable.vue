@@ -100,7 +100,7 @@
           {{ ((balance.quantity / balance.supply) * 100).toFixed(8) }}%
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
-          <NuxtLink :to="`/asset/${balance.asset}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
+          <NuxtLink :to="`/asset/${balance.asset}`" class="text-primary">View</NuxtLink>
         </td>
       </tr>
     </tbody>

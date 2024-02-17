@@ -86,7 +86,7 @@
           {{ tag.assets_count.toLocaleString() }}
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
-          <NuxtLink :to="`/collection/${tag.slug}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
+          <NuxtLink :to="`/collection/${tag.slug}`" class="text-primary">View</NuxtLink>
         </td>
       </tr>
     </tbody>
