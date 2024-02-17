@@ -1,9 +1,3 @@
-
-import type { DispensersTable } from '#build/components';
-
-import type { DispensersTable } from '#build/components';
-
-import type { DispensersTable } from '#build/components';
 <template>
   <!-- Pagination -->
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">

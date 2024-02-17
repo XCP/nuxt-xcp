@@ -1,5 +1,4 @@
 
-import type { imgProps } from '@nuxt/image/dist/runtime/components/nuxt-img';
 <template>
   <div class="lg:flex lg:items-center lg:justify-between">
     <div class="flex-1">
