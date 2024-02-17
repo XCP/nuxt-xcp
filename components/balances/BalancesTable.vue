@@ -90,7 +90,7 @@
         <td class="whitespace-nowrap py-3 pr-3">
           <div class="flex items-center gap-x-4">
               <NuxtImg :src="`https://api.xcp.io/img/icon/${balance.asset_name}`" :alt="balance.asset" class="h-5 w-5 bg-gray-800" loading="lazy" />
-              <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-white">{{ balance.asset }}</NuxtLink>
+              <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-sm text-white">{{ balance.asset }}</NuxtLink>
             </div>
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
