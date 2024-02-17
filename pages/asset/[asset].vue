@@ -80,7 +80,7 @@
       <DebitsTable :asset="asset" category="debits" />
     </div>
     <div v-if="activeTab === 'Dispensers'">
-      <ActivityTable :asset="asset" category="dispensers" />
+      <DispensersTable :asset="asset" />
     </div>
   </div>
 </template>

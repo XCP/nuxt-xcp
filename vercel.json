@@ -9,11 +9,6 @@
       "source": "/address",
       "destination": "/addresses",
       "permanent": true
-    },
-    {
-      "source": "/collection",
-      "destination": "/collections",
-      "permanent": true
     }
   ]
 }
