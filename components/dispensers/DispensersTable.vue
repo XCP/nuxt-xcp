@@ -32,9 +32,9 @@ import type { DispensersTable } from '#build/components';
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Dispenser</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Dispensing</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">Available</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Price</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Effective Rate</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Available</th>
         <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
       </tr>
     </thead>
@@ -57,13 +57,13 @@ import type { DispensersTable } from '#build/components';
           {{ formatBalance(dispenser.give_quantity, dispenser) }}
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
+          {{ formatBalance(dispenser.give_remaining, dispenser) }}
+        </td>
+        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(dispenser.satoshirate, { divisible: true }) }} BTC
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(dispenser.effective_sat_rate, { divisible: true }) }} BTC
-        </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-          {{ formatBalance(dispenser.give_remaining, dispenser) }}
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
           <NuxtLink :to="`/address/${dispenser.source}`" class="text-indigo-400 hover:text-indigo-300">View</NuxtLink>
