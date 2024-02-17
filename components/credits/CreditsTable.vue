@@ -27,7 +27,7 @@
         <td class="whitespace-nowrap py-3 pl-0 pr-4 text-sm leading-6 text-gray-300">
           {{ formatBalance(item.bindings.quantity, item.asset) }}
         </td>
-        <td v-if="props.asset" class="whitespace-nowrap py-3 pl-0 pr-4 sm:table-cell sm:pr-8">
+        <td v-if="props.asset" class="whitespace-nowrap py-3 pl-0 pr-4 text-sm sm:table-cell sm:pr-8">
           <NuxtLink :to="`/asset/${formatAssetName(item.asset_name, item.asset)}`" class="leading-6 font-medium text-white">
             {{ formatAssetName(item.asset_name, item.asset) }}
           </NuxtLink>
@@ -38,7 +38,7 @@
           </NuxtLink>
           <span v-else>{{ item.bindings.action }}</span>
         </td>
-        <td v-if="props.asset || props.collection" class="whitespace-nowrap py-3 pl-0 pr-4 sm:table-cell sm:pr-8">
+        <td v-if="props.asset || props.collection" class="whitespace-nowrap py-3 pl-0 pr-4 text-sm sm:table-cell sm:pr-8">
           <NuxtLink :to="`/address/${item.bindings.address}`" class="leading-6 font-medium text-white">
             {{ item.bindings.address }}
           </NuxtLink>
