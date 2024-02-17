@@ -110,10 +110,12 @@
       </footer>
     </div>
   </div>
+  <SpeedInsights />
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from 'vue'
+import { ref } from 'vue'
+import { SpeedInsights } from "@vercel/speed-insights/nuxt"
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {
   ChartBarSquareIcon,
