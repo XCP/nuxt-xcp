@@ -10,11 +10,11 @@
         <option value="other_dominance">% of Total (Other NFTs)</option>
         <!-- Popular Metrics -->
         <optgroup label="Popular">
-          <option v-for="(metric, index) in popularMetrics" :key="index" :value="metric">{{ snakeCaseToTitleCase(metric) }}</option>
+          <option v-for="(metric, index) in popularMetrics" :key="index" :value="metric">{{ formatSnakeCase(metric) }}</option>
         </optgroup>
         <!-- Remaining Metrics -->
         <optgroup label="Charts">
-          <option v-for="(metric, index) in availableMetrics" :key="index" :value="metric">{{ snakeCaseToTitleCase(metric) }}</option>
+          <option v-for="(metric, index) in availableMetrics" :key="index" :value="metric">{{ formatSnakeCase(metric) }}</option>
         </optgroup>
       </select>
 
@@ -157,16 +157,6 @@ const fetchData = async (metricType, periodType) => {
   }
 };
 
-function snakeCaseToTitleCase(str) {
-  // Replace underscores with spaces
-  let titleCase = str.replace(/_/g, ' ');
-  
-  // Capitalize the first letter of each word
-  titleCase = titleCase.replace(/\b\w/g, match => match.toUpperCase());
-  
-  return titleCase;
-}
-
 const buttonClasses = (period) => {
   // Always include base classes
   let baseClasses = 'text-sm px-4 py-2 mx-1 rounded focus:outline-none focus:ring w-full md:w-auto';
@@ -182,7 +172,6 @@ const buttonClasses = (period) => {
 
   return baseClasses;
 };
-
 
 const changePeriod = (period) => {
   trackEvent(`Period: ${period}`);

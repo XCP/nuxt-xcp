@@ -103,7 +103,11 @@ const fetchData = async () => {
 
 // Event handlers
 const handleTabChange = selectedTab => activeTab.value = selectedTab;
-const handleLastMessage = message => lastMessage.value = message;
+const handleLastMessage = message => {
+  if (lastMessage.value === null) {
+    lastMessage.value = message;
+  }
+};
 
 // Watchers and lifecycle hooks
 watchEffect(() => address.value = route.params.address);

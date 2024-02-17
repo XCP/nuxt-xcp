@@ -1,5 +1,5 @@
 <template>
-  <!-- Pagination -->
+  <!-- Pagination and Additional Controls -->
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="hidden sm:block">
       <p class="text-sm text-gray-300">
@@ -11,6 +11,9 @@
         <span class="font-medium">{{ state.totalItems.toLocaleString() }}</span>
         results
       </p>
+    </div>
+    <div class="hidden lg:flex items-center">
+      <slot name="table-controls"></slot>
     </div>
     <div class="flex flex-1 items-center justify-between sm:justify-end">
       <div>
@@ -66,7 +69,7 @@
   </div>
 
   <!-- No Data -->
-  <div v-else-if="state.items.length === 0" class="my-10 flex justify-center items-center">
+  <div v-else-if="state.items.length === 0" class="my-20 flex justify-center items-center">
     <div class="text-center">
       <p class="text-lg text-gray-500">No results found.</p>
       <p class="text-sm text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>
@@ -90,7 +93,7 @@
 
 <script setup>
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, watch } from 'vue';
 
 const emit = defineEmits(['last-message']);
 
@@ -140,6 +143,10 @@ async function fetchData(page = state.currentPage) {
 }
 
 onMounted(() => fetchData(props.initialPage));
+
+watch(() => props.queryParams, (newQueryParams) => {
+  fetchData(props.initialPage); 
+}, { deep: true, immediate: true });
 
 function goToPage(page) {
   if (page > 0 && page <= state.lastPage) {

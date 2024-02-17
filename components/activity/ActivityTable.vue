@@ -26,10 +26,21 @@
         </td>
       </tr>
     </template>
+    <template v-slot:table-controls>
+      <!-- Category filter dropdown -->
+      <div class="ml-4">
+        <select v-model="selectedCategory" @change="changeCategory" class="text-white bg-gray-800 rounded px-3 py-1 text-sm focus:outline-none md:w-auto">
+          <option value="" selected>Show All</option>
+          <option v-for="category in availableCategories" :key="category" :value="category">{{ formatSnakeCase(category) }}</option>
+        </select>
+      </div>
+    </template>
   </Table>
 </template>
 
 <script setup>
+const { trackEvent } = useFathom();
+
 const emit = defineEmits(['last-message']);
 
 function handleLastMessage(message) {
@@ -47,14 +58,25 @@ const props = defineProps({
   }
 })
 
+const availableCategories = [
+  'sends', 'dispenses', 'dispensers', 'orders', 'order_matches', 'order_expirations',
+  'issuances', 'destructions', 'broadcasts', 'dividends',
+];
+
+const selectedCategory = ref(props.category || "");
+
 const queryParams = computed(() => {
   const params = {};  
   if (props.collection) params.collection = props.collection;
-  if (props.category) params.category = props.category;
+  if (selectedCategory) params.category = selectedCategory.value;
   if (props.address) params.address = props.address;
   if (props.asset) params.asset_name = props.asset;
 
   return params;
 });
+
+const changeCategory = (category) => {
+  trackEvent(`Category: ${category}`);
+};
 
 </script>
