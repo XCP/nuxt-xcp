@@ -4,7 +4,7 @@
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="flex items-center">
       <p class="text-sm text-gray-300 leading-9">
-        Showing dispensers for under 10k supply
+        Showing all active dispensers
       </p>
     </div>
     <div class="flex">
