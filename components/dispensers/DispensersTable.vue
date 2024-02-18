@@ -1,7 +1,7 @@
 
 <template>
   <!-- Pagination -->
-  <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
+  <nav v-if="state.dispensers.length > 0" class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="flex items-center">
       <p class="text-sm text-gray-300 leading-9">
         Showing all active dispensers
@@ -57,10 +57,18 @@
   </div>
 
   <!-- No Data -->
-  <div v-if="!state.loading && filteredDispensers.length === 0" class="my-20 flex justify-center items-center">
+  <div v-if="!state.loading && state.dispensers.length === 0" class="my-20 flex justify-center items-center">
     <div class="text-center">
       <p class="text-lg text-gray-500">No active dispensers.</p>
       <p class="text-sm text-gray-400">Consider placing a buy order on Counterparty's DEX.</p>
+    </div>
+  </div>
+
+  <!-- No Data -->
+  <div v-else-if="!state.loading && filteredDispensers.length === 0" class="my-20 flex justify-center items-center">
+    <div class="text-center">
+      <p class="text-lg text-gray-500">No matching dispensers.</p>
+      <p class="text-sm text-gray-400">Update or reset your filters to start over.</p>
     </div>
   </div>
 
