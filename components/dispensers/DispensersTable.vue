@@ -8,11 +8,18 @@
       </p>
     </div>
     <div class="flex">
+      <button
+        @click="state.showFilters = !state.showFilters; trackEvent('Toggle Filters')"
+        class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none"
+        :class="{ 'bg-gray-700 text-white': state.showFilters, 'bg-gray-800 text-gray-300': !state.showFilters }"
+      >
+        <FunnelIcon class="h-4 w-4" />
+      </button>
     </div>
   </nav>
 
   <!-- Filters -->
-  <div v-if="props.collection && !state.loading && filteredDispensers.length > 0" class="flex flex-col sm:flex-row justify-between my-4 p-4 bg-gray-800 rounded-lg">
+  <div v-if="props.collection && state.showFilters" class="flex flex-col sm:flex-row justify-between my-4 p-4 bg-gray-800 rounded-lg">
     <!-- Asset Name Filter -->
     <div class="flex items-center space-x-2 my-2">
       <span class="text-sm text-gray-300">Asset Name:</span>
@@ -29,9 +36,16 @@
 
     <!-- Effective Sat Rate Filter Buttons -->
     <div class="flex items-center space-x-2 my-2">
-      <span class="text-sm text-gray-300">Effective Sat Rate:</span>
+      <span class="text-sm text-gray-300">Sat Rate:</span>
       <button v-for="option in effectiveSatRateOptions" :key="option.value" @click="setEffectiveSatRateFilter(option.value)" :class="{ 'bg-gray-700 text-white': effectiveSatRateFilter === option.value, 'bg-gray-800 text-gray-300': effectiveSatRateFilter !== option.value }" class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none">
         {{ option.label }}
+      </button>
+    </div>
+
+    <!-- Reset Filters Button -->
+    <div class="flex items-center space-x-2 my-2">
+      <button @click="resetFilters" class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none bg-gray-800 text-gray-300">
+        <ArrowPathIcon class="h-5 w-5 mr-2" /> Reset Filters
       </button>
     </div>
 
@@ -106,7 +120,7 @@
 </template>
 
 <script setup>
-import { ArrowPathIcon, FolderArrowDownIcon } from '@heroicons/vue/20/solid'
+import { ArrowPathIcon, FolderArrowDownIcon, FunnelIcon } from '@heroicons/vue/20/solid'
 import { ref, reactive, watch, computed, onMounted } from 'vue';
 
 // Props
@@ -119,6 +133,7 @@ const props = defineProps({
 const state = reactive({
   dispensers: [],
   loading: false,
+  showFilters: false,
 });
 const supplyFilter = ref(Number.MAX_SAFE_INTEGER);
 const effectiveSatRateFilter = ref(Number.MAX_SAFE_INTEGER);
@@ -177,6 +192,12 @@ const queryParams = computed(() => {
 const setSupplyFilter = (value) => supplyFilter.value = value;
 const setEffectiveSatRateFilter = (value) => effectiveSatRateFilter.value = value;
 const handleInput = () => assetNameFilter.value = assetNameFilter.value.toUpperCase();
+const resetFilters = () => {
+  supplyFilter.value = Number.MAX_SAFE_INTEGER;
+  effectiveSatRateFilter.value = Number.MAX_SAFE_INTEGER;
+  assetNameFilter.value = '';
+  debouncedAssetName.value = '';
+};
 
 // Debounce function (utility)
 function debounce(func, wait) {
