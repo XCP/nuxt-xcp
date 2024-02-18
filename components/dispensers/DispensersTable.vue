@@ -12,7 +12,7 @@
   </nav>
 
   <!-- Filters -->
-  <div v-if="props.collection" class="flex flex-col sm:flex-row justify-between my-4 p-4 bg-gray-800 rounded-lg">
+  <div v-if="props.collection && !state.loading && filteredDispensers.length > 0" class="flex flex-col sm:flex-row justify-between my-4 p-4 bg-gray-800 rounded-lg">
     <!-- Asset Name Filter -->
     <div class="flex items-center space-x-2 my-2">
       <span class="text-sm text-gray-300">Asset Name:</span>
@@ -43,7 +43,7 @@
   </div>
 
   <!-- No Data -->
-  <div v-if="!state.loading && filteredDispensers.length === 0" class="my-10 flex justify-center items-center">
+  <div v-if="!state.loading && filteredDispensers.length === 0" class="my-20 flex justify-center items-center">
     <div class="text-center">
       <p class="text-lg text-gray-500">No active dispensers.</p>
       <p class="text-sm text-gray-400">Consider placing a buy order on Counterparty's DEX.</p>
