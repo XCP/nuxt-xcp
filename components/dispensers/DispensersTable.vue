@@ -22,8 +22,8 @@
   <div v-if="props.collection && state.showFilters" class="flex flex-col sm:flex-row justify-between my-4 p-4 bg-gray-800 rounded-lg">
     <!-- Asset Name Filter -->
     <div class="flex items-center space-x-2 my-2">
-      <span class="text-sm text-gray-300">Asset Name:</span>
-      <input type="text" v-model="assetNameFilter" @input="handleInput" placeholder="Type to filter..." class="input bg-gray-700 text-white" />
+      <span class="text-sm text-gray-300 sr-only">Asset Name:</span>
+      <input type="text" v-model="assetNameFilter" @input="handleInput" placeholder="Type asset name..." class="input bg-gray-700 text-white" />
     </div>
 
     <!-- Supply Filter Buttons -->
@@ -148,9 +148,9 @@ const supplyOptions = [
   { label: 'All', value: Number.MAX_SAFE_INTEGER },
 ];
 const effectiveSatRateOptions = [
-  { label: '<20k', value: 20000 },
-  { label: '<200k', value: 200000 },
-  { label: '<2m', value: 2000000 },
+  { label: '<50k', value: 50000 },
+  { label: '<500k', value: 500000 },
+  { label: '<5m', value: 5000000 },
   { label: 'All', value: Number.MAX_SAFE_INTEGER },
 ];
 
@@ -175,7 +175,7 @@ const filteredDispensers = computed(() => {
     if (!supplyCondition || !effectiveRateCondition) return false;
 
     // Check if the asset name matches the filter (considering debouncing)
-    const assetNameCondition = dispenser.asset_name.includes(debouncedAssetName.value);
+    const assetNameCondition = dispenser.asset_name.includes(debouncedAssetName.value) || dispenser.asset_longname?.includes(debouncedAssetName.value);
 
     return assetNameCondition;
   });
