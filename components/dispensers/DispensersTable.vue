@@ -1,9 +1,10 @@
+
 <template>
   <!-- Pagination -->
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="flex items-center">
       <p class="text-sm text-gray-300 leading-9">
-        Scroll down to load more...
+        Showing dispensers for under 10k supply
       </p>
     </div>
     <div class="flex">
@@ -62,7 +63,7 @@
           {{ formatBalance(dispenser.effective_sat_rate, { divisible: true }) }} BTC
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-          {{ formatBalance(dispenser.depth, dispenser) }} <br />
+          {{ formatBalance(dispenser.depth, { divisible: false }) }} <br />
           {{ formatBalance(dispenser.depth_value, { divisible: true }) }} BTC
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
@@ -85,6 +86,7 @@ const { trackEvent } = useFathom();
 
 const props = defineProps({
   asset: String,
+  collection: String,
 });
 
 const state = reactive({
@@ -92,14 +94,20 @@ const state = reactive({
   loading: false,
 });
 
+const queryParams = computed(() => {
+  const params = {};  
+  if (props.collection) params.collection = props.collection;
+  if (props.asset) params.asset_name = props.asset;
+
+  return params;
+});
+
 const fetchData = async () => {
   if (state.loading) return;
-
-  state.loading = true;
-  const query = `asset=${props.asset}`;
+  const queryString = new URLSearchParams(queryParams.value).toString();
 
   try {
-    const response = await fetch(`https://api.xcp.io/api/v1/dispensers?${query}`);
+    const response = await fetch(`https://api.xcp.io/api/v1/dispensers?${queryString}`);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
     state.dispensers = data;

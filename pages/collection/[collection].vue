@@ -28,7 +28,7 @@
       <DebitsTable :collection="collection" category="debits" />
     </div>
     <div v-if="activeTab === 'Dispensers'">
-      <ActivityTable :collection="collection" category="dispensers" />
+      <DispensersTable :collection="collection" />
     </div>
   </div>
 </template>
