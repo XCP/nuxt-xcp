@@ -33,7 +33,7 @@
         <th scope="col" class="py-2 pr-2 font-semibold">Dispensing</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Price</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Effective Rate</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">{{ props.collection ? 'Available' : 'Market Depth' }}</th>
+        <th v-if="props.asset" scope="col" class="py-2 pr-2 font-semibold">Market Depth</th>
         <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
       </tr>
     </thead>
@@ -65,9 +65,6 @@
         <td v-if="props.asset" class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
           {{ formatBalance(dispenser.depth, dispenser) }} <br />
           {{ formatBalance(dispenser.depth_value, { divisible: true }) }} BTC
-        </td>
-        <td v-else class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-          {{ formatBalance(dispenser.give_remaining, dispenser) }} <br />
         </td>
         <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
           <NuxtLink :to="`/address/${dispenser.source}`" class="text-primary">View</NuxtLink>
