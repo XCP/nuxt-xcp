@@ -4,13 +4,19 @@
   <nav v-if="state.dispensers.length > 0" class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="flex items-center">
       <p class="text-gray-300 leading-9">
-        Showing all active dispensers
+        Showing
+        <span class="font-medium">1</span>
+        to
+        <span class="font-medium">{{ filteredDispensers.length }}</span>
+        of
+        <span class="font-medium">{{ state.dispensers.length }}</span>
+        results
       </p>
     </div>
     <div class="flex">
       <button
         @click="state.showFilters = !state.showFilters; trackEvent('Toggle Filters')"
-        class="inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
+        class="h-10	inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
         :class="{ 'bg-gray-700 text-white': state.showFilters, 'bg-gray-800 text-gray-300': !state.showFilters }"
       >
         <FunnelIcon class="h-4 w-4" />
