@@ -22,11 +22,12 @@
             </span>
           </div>
         </td>
-        <td class="whitespace-nowrap py-3 pr-2">
-          <NuxtLink :to="`/asset/${formatAssetName(item.asset_name, item)}`" class="leading-6 font-medium text-white">
-            {{ formatAssetName(item.asset_name, item) }}
-          </NuxtLink>
-        </td>
+        <td class="whitespace-nowrap py-3 pr-3">
+            <div class="flex items-center gap-x-4">
+              <NuxtImg :src="`https://api.xcp.io/img/icon/${item.asset_name}`" :alt="item.asset_name" class="h-10 w-10 bg-gray-800" loading="lazy" />
+              <NuxtLink :to="`/asset/${formatAssetName(item.asset_name, item)}`" class="font-medium leading-6 text-base text-white">{{ formatAssetName(item.asset_name, item) }}</NuxtLink>
+            </div>
+          </td>
         <td class="whitespace-nowrap py-3 pr-2 text-base leading-6 text-gray-300">
           {{ formatBalance(item.supply, item) }}
         </td>
