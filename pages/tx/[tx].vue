@@ -1,24 +1,5 @@
 <template>
-  <div class="lg:flex lg:items-center lg:justify-between">
-    <div class="min-w-0 flex-1">
-      <h1 class="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
-        Counterparty Transaction
-      </h1>
-      <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-        <div class="mt-2 flex items-center text-sm text-gray-300">
-          <BriefcaseIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
-          {{ apiData.source }}
-        </div>
-        <div class="mt-2 flex items-center text-sm text-gray-300 break-all">
-          <LinkIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
-          {{ tx }}
-        </div>
-      </div>
-    </div>
-    <div class="hidden sm:block mt-5 flex lg:ml-4 lg:mt-0">
-      <Dropdown :items="dropdownItems" />
-    </div>
-  </div>
+  <TxHeader :tx="tx" :apiData="apiData" />
 
   <header class="mt-6 mb-8">
     <!-- Heading -->
@@ -69,10 +50,6 @@
 </template>
 
 <script setup>
-import {
-  BriefcaseIcon,
-  LinkIcon,
-} from '@heroicons/vue/20/solid'
 import { useRoute } from 'vue-router';
 import { computed, ref, watchEffect } from 'vue';
 
@@ -80,23 +57,6 @@ const route = useRoute();
 const tx = ref(route.params.tx);
 const apiData = ref({ block_index: 0, tx_index: 0, type: '', valid: 0, source: '', destination: ''});
 
-const dropdownItems = computed(() => [
-  {
-    href: `https://mempool.space/tx/${tx.value}`,
-    imgSrc: '/img/mempoolspace.png',
-    title: 'mempool.space',
-  },
-  {
-    href: `https://www.xchain.io/tx/${tx.value}`,
-    imgSrc: '/img/xchainio.png',
-    title: 'xchain.io',
-  },
-  {
-    href: `https://www.xcp.dev/tx/${tx.value}`,
-    imgSrc: '/img/xcpdev.png',
-    title: 'xcp.dev',
-  }
-]);
 const blockIndex = computed(() => apiData.value.block_index);
 const txIndex = computed(() => apiData.value.tx_index);
 const timestamp = computed(() => {
