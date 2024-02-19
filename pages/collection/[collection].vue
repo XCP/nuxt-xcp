@@ -30,7 +30,7 @@
     <div v-if="activeTab === 'Dispensers'">
       <DispensersTable :collection="collection" />
     </div>
-    <div v-if="activeTab === 'Dex Orders'">
+    <div v-if="activeTab === 'Orders'">
       <OrdersTable :collection="collection" />
     </div>
   </div>
@@ -45,16 +45,12 @@ const collection = ref(route.params.collection);
 const apiData = ref({ name: '', link: '', stamp: 0, assets_count: 0 });
 
 const tabs = [
-  { name: 'Activity' },
-  { name: 'Assets' },
-  { name: 'Dispensers' },
-  { name: 'Dex Orders' },
+  { name: 'Activity', hash: 'activity' },
+  { name: 'Assets', hash: 'assets' },
+  { name: 'Dispensers', hash: 'dispensers' },
+  { name: 'Orders', hash: 'orders' },
 ];
-const activeTab = ref('Assets');
-
-const handleTabChange = (selectedTab) => {
-  activeTab.value = selectedTab;
-};
+const { activeTab, handleTabChange } = useTabs('Assets', tabs);
 
 const fetchData = async () => {
   try {

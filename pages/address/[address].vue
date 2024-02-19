@@ -54,17 +54,17 @@ const route = useRoute();
 const router = useRouter();
 const address = ref(route.params.address);
 const apiData = ref({ tx_count: 0, btcValue: 0, xcpValue: 0 });
-const activeTab = ref('Activity');
 const lastMessage = ref(null);
 
 // Tab navigation
 const tabs = [
-  { name: 'Activity' },
-  { name: 'Assets' },
-  { name: 'Balances' },
-  { name: 'Credits' },
-  { name: 'Debits' },
+  { name: 'Activity', hash: 'activity' },
+  { name: 'Assets', hash: 'assets' },
+  { name: 'Balances', hash: 'balances' },
+  { name: 'Credits', hash: 'credits' },
+  { name: 'Debits', hash: 'debits' },
 ];
+const { activeTab, handleTabChange } = useTabs('Activity', tabs);
 
 const isActive = computed(() => {
   if (!lastMessage.value) return false;
@@ -100,7 +100,6 @@ const fetchData = async () => {
 };
 
 // Event handlers
-const handleTabChange = selectedTab => activeTab.value = selectedTab;
 const handleLastMessage = message => {
   if (lastMessage.value === null) {
     lastMessage.value = message;

@@ -2,7 +2,7 @@
   <div class="container mx-auto">
     <div class="lg:flex lg:items-start lg:justify-between lg:gap-x-8">
       <!-- Image Container -->
-      <div class="lg:w-1/3">
+      <div @click="toggleModal" class="lg:w-1/3 cursor-pointer">
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full rounded-3xl border border-gray-700 rounded bg-gray-800">
           <Image :asset="asset" :apiData="apiData" />
@@ -79,14 +79,30 @@
     <div v-if="activeTab === 'Balances'">
       <HoldersTable :asset="asset" />
     </div>
-    <div v-if="activeTab === 'Credits'">
-      <CreditsTable :asset="asset" category="credits" />
-    </div>
-    <div v-if="activeTab === 'Debits'">
-      <DebitsTable :asset="asset" category="debits" />
-    </div>
     <div v-if="activeTab === 'Dispensers'">
       <DispensersTable :asset="asset" />
+    </div>
+    <div v-if="activeTab === 'Orders'">
+      <OrdersTable :baseAsset="asset" />
+    </div>
+  </div>
+
+  <div v-if="showModal" class="fixed inset-0 z-50 overflow-y-auto">
+    <div class="flex min-h-screen items-end justify-center p-4 text-center sm:items-center">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="toggleModal"></div>
+
+      <!-- Modal Content -->
+      <div class="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <!-- Here you put the content you want inside the modal, for example, an image -->
+            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+              <!-- Image goes here -->
+              <Image :asset="asset" :apiData="apiData" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -104,6 +120,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 const asset = ref(route.params.asset);
 const apiData = ref({ block_index: 0, divisible: 0, locked: 0, supply: 0, owner: '', issuer: '', type: '', asset_name: '', asset_longname: '', messages: [], tags: [] });
+const showModal = ref(false);
 
 const dropdownItems = computed(() => [
   {
@@ -134,16 +151,15 @@ const dropdownItems = computed(() => [
 ]);
 
 const tabs = [
-  { name: 'Activity' },
-  { name: 'Balances' },
-  { name: 'Credits' },
-  { name: 'Debits' },
-  { name: 'Dispensers' },
+  { name: 'Activity', hash: 'activity' },
+  { name: 'Balances', hash: 'balances' },
+  { name: 'Dispensers', hash: 'dispensers' },
+  { name: 'Orders', hash: 'orders' },
 ];
-const activeTab = ref('Balances');
+const { activeTab, handleTabChange } = useTabs('Balances', tabs);
 
-const handleTabChange = (selectedTab) => {
-  activeTab.value = selectedTab;
+const toggleModal = () => {
+  showModal.value = !showModal.value;
 };
 
 const fetchData = async () => {

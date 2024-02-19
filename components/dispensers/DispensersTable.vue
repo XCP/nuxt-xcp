@@ -83,9 +83,10 @@
       <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
         <tr>
           <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
-          <th scope="col" class="py-2 pr-2 font-semibold">Dispensing</th>
           <th scope="col" class="py-2 pr-2 font-semibold">Price</th>
           <th scope="col" class="py-2 pr-2 font-semibold">Dispenser</th>
+          <th scope="col" class="py-2 pr-2 font-semibold">Dispenses</th>
+          <th scope="col" class="py-2 pr-2 font-semibold">Available</th>
           <th v-if="props.asset" scope="col" class="py-2 pr-2 font-semibold">Market Depth</th>
           <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
         </tr>
@@ -101,9 +102,6 @@
             </div>
           </td>
           <td class="whitespace-nowrap py-3 pr-3 leading-6 text-gray-300">
-            {{ formatBalance(dispenser.give_quantity, dispenser) }}
-          </td>
-          <td class="whitespace-nowrap py-3 pr-3 leading-6 text-gray-300">
             {{ formatBalance(dispenser.satoshirate, { divisible: true }) }} BTC
             <span v-if="dispenser.satoshirate !== dispenser.effective_sat_rate" class="block text-xs">Rate: {{ formatBalance(dispenser.effective_sat_rate, { divisible: true }) }} BTC</span>
           </td>
@@ -112,6 +110,12 @@
               {{ dispenser.source }}
             </NuxtLink>
             <span v-if="dispenser.source !== dispenser.origin" class="block text-xs">Origin: {{ dispenser.origin }}</span>
+          </td>
+          <td class="whitespace-nowrap py-3 pr-3 leading-6 text-gray-300">
+            {{ formatBalance(dispenser.give_quantity, dispenser).replace('.00000000', '') }}
+          </td>
+          <td class="whitespace-nowrap py-3 pr-3 leading-6 text-gray-300">
+            {{ formatBalance(dispenser.give_remaining, dispenser).replace('.00000000', '') }}
           </td>
           <td v-if="props.asset" class="whitespace-nowrap py-3 pr-3 leading-6 text-white">
             {{ formatBalance(dispenser.depth, dispenser) }}
