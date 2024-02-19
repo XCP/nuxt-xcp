@@ -76,39 +76,41 @@
   </div>
 
   <!-- Table View -->
-  <table v-else-if="state.assets.length > 0" class="mt-6 w-full whitespace-nowrap text-left border-white/10">
-    <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
-      <tr>
-        <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Supply</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Type</th>
-        <th scope="col" class="py-2 pr-2 font-semibold w-20 text-right">Block #</th>
-        <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-white/5">
-      <tr v-for="asset in state.assets" :key="asset.asset_name">
-        <td class="whitespace-nowrap py-3 pr-3">
-          <div class="flex items-center gap-x-4">
-              <NuxtImg :src="`https://api.xcp.io/img/icon/${asset.asset_name}`" :alt="formatAssetName(asset.asset_name, asset)" class="h-5 w-5 bg-gray-800" loading="lazy" />
-              <NuxtLink :to="`/asset/${formatAssetName(asset.asset_name, asset)}`" class="font-medium leading-6 text-white">{{ formatAssetName(asset.asset_name, asset) }}</NuxtLink>
-            </div>
-        </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-          {{ formatBalance(asset.supply, asset) }}
-        </td>
-        <td class="whitespace-nowrap py-3 pr-2 text-sm leading-6 text-gray-300 capitalize">
-          {{ asset.type }}{{ asset.divisible ? ', Divisible' : '' }}
-        </td>
-        <td class="py-3 pl-0 text-right text-sm leading-6 text-gray-300">
-          {{ asset.block_index.toLocaleString() }}
-        </td>
-        <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
-          <NuxtLink :to="`/asset/${formatAssetName(asset.asset_name, asset)}`" class="text-primary">View</NuxtLink>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div v-else-if="state.assets.length > 0" class="mt-6 relative overflow-x-auto"">
+    <table class="w-full whitespace-nowrap text-left border-b border-white/10">
+      <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
+        <tr>
+          <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
+          <th scope="col" class="py-2 pr-2 font-semibold">Supply</th>
+          <th scope="col" class="py-2 pr-2 font-semibold">Type</th>
+          <th scope="col" class="py-2 pr-2 font-semibold w-20 text-right">Block #</th>
+          <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-white/5">
+        <tr v-for="asset in state.assets" :key="asset.asset_name">
+          <td class="whitespace-nowrap py-3 pr-3">
+            <div class="flex items-center gap-x-4">
+                <NuxtImg :src="`https://api.xcp.io/img/icon/${asset.asset_name}`" :alt="formatAssetName(asset.asset_name, asset)" class="h-5 w-5 bg-gray-800" loading="lazy" />
+                <NuxtLink :to="`/asset/${formatAssetName(asset.asset_name, asset)}`" class="font-medium leading-6 text-white">{{ formatAssetName(asset.asset_name, asset) }}</NuxtLink>
+              </div>
+          </td>
+          <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
+            {{ formatBalance(asset.supply, asset) }}
+          </td>
+          <td class="whitespace-nowrap py-3 pr-2 text-sm leading-6 text-gray-300 capitalize">
+            {{ asset.type }}{{ asset.divisible ? ', Divisible' : '' }}
+          </td>
+          <td class="py-3 pl-0 text-right text-sm leading-6 text-gray-300">
+            {{ asset.block_index.toLocaleString() }}
+          </td>
+          <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
+            <NuxtLink :to="`/asset/${formatAssetName(asset.asset_name, asset)}`" class="text-primary">View</NuxtLink>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div ref="lastElement" v-if="!state.allDataLoaded"></div>
 </template>
 

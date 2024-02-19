@@ -77,17 +77,15 @@
   </div>
 
   <!-- Table -->
-  <div v-else class="mt-6 overflow-x-auto">
-    <div class="min-w-max">
-      <table class="table-auto w-full whitespace-nowrap text-left border-white/10">
-        <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
-          <slot name="table-headers"></slot>
-        </thead>
-        <tbody class="divide-y divide-white/5">
-          <slot name="table-rows" :data="state.items"></slot>
-        </tbody>
-      </table>
-    </div>
+  <div v-else class="mt-6 relative overflow-x-auto">
+    <table class="w-full whitespace-nowrap text-left border-white/10">
+      <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
+        <slot name="table-headers"></slot>
+      </thead>
+      <tbody class="divide-y divide-white/5">
+        <slot name="table-rows" :data="state.items"></slot>
+      </tbody>
+    </table>
   </div>
 </template>
 

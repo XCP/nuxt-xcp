@@ -66,31 +66,33 @@
   </div> 
 
   <!-- Table View -->
-  <table v-else-if="state.tags.length > 0" class="mt-6 w-full whitespace-nowrap text-left border-white/10">
-    <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
-      <tr>
-        <th scope="col" class="py-2 pr-2 font-semibold">Collection</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Assets</th>
-        <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-white/5">
-      <tr v-for="tag in state.tags" :key="tag.slug">
-        <td class="whitespace-nowrap py-3 pr-3">
-          <div class="flex items-center gap-x-4">
-              <NuxtImg :src="`https://api.xcp.io/img/icon/${tag.slug}`" :alt="tag.name" class="h-5 w-5 bg-gray-800" loading="lazy" />
-              <NuxtLink :to="`/collection/${tag.slug}`" class="font-medium leading-6 text-white">{{ tag.name }}</NuxtLink>
-            </div>
-        </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-          {{ tag.assets_count.toLocaleString() }}
-        </td>
-        <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
-          <NuxtLink :to="`/collection/${tag.slug}`" class="text-primary">View</NuxtLink>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div v-else-if="state.tags.length > 0" class="mt-6 relative overflow-x-auto"">
+    <table class="w-full whitespace-nowrap text-left border-b border-white/10">
+      <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
+        <tr>
+          <th scope="col" class="py-2 pr-2 font-semibold">Collection</th>
+          <th scope="col" class="py-2 pr-2 font-semibold">Assets</th>
+          <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-white/5">
+        <tr v-for="tag in state.tags" :key="tag.slug">
+          <td class="whitespace-nowrap py-3 pr-3">
+            <div class="flex items-center gap-x-4">
+                <NuxtImg :src="`https://api.xcp.io/img/icon/${tag.slug}`" :alt="tag.name" class="h-5 w-5 bg-gray-800" loading="lazy" />
+                <NuxtLink :to="`/collection/${tag.slug}`" class="font-medium leading-6 text-white">{{ tag.name }}</NuxtLink>
+              </div>
+          </td>
+          <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
+            {{ tag.assets_count.toLocaleString() }}
+          </td>
+          <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
+            <NuxtLink :to="`/collection/${tag.slug}`" class="text-primary">View</NuxtLink>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script setup>

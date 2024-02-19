@@ -76,39 +76,41 @@
   </div>
 
   <!-- Table View -->
-  <table v-else-if="state.balances.length > 0" class="mt-6 w-full whitespace-nowrap text-left border-white/10">
-    <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
-      <tr>
-        <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Amount</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">% of Supply</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Address</th>
-        <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-white/5">
-      <tr v-for="balance in state.balances" :key="balance.asset">
-        <td class="whitespace-nowrap py-3 pr-3">
-          <div class="flex items-center gap-x-4">
-              <NuxtImg :src="`https://api.xcp.io/img/icon/${balance.asset_name}`" :alt="balance.asset" class="h-5 w-5 bg-gray-800" loading="lazy" />
-              <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-white">{{ balance.asset }}</NuxtLink>
-            </div>
-        </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-          {{ formatBalance(balance.quantity, balance) }}
-        </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-          {{ ((balance.quantity / balance.supply) * 100).toFixed(8) }}%
-        </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-          <NuxtLink :to="`/address/${balance.address}`" class="font-medium leading-6 text-white">{{ balance.address }}</NuxtLink>
-        </td>
-        <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
-          <NuxtLink :to="`/address/${balance.address}`" class="text-primary">View</NuxtLink>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div v-else-if="state.balances.length > 0" class="mt-6 relative overflow-x-auto"">
+    <table class="table-auto w-full whitespace-nowrap text-left border-b border-white/10">
+      <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
+        <tr>
+          <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
+          <th scope="col" class="py-2 pr-2 font-semibold">Amount</th>
+          <th scope="col" class="py-2 pr-2 font-semibold">% of Supply</th>
+          <th scope="col" class="py-2 pr-2 font-semibold">Address</th>
+          <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-white/5">
+        <tr v-for="balance in state.balances" :key="balance.asset">
+          <td class="whitespace-nowrap py-3 pr-3">
+            <div class="flex items-center gap-x-4">
+                <NuxtImg :src="`https://api.xcp.io/img/icon/${balance.asset_name}`" :alt="balance.asset" class="h-5 w-5 bg-gray-800" loading="lazy" />
+                <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-white">{{ balance.asset }}</NuxtLink>
+              </div>
+          </td>
+          <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
+            {{ formatBalance(balance.quantity, balance) }}
+          </td>
+          <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
+            {{ ((balance.quantity / balance.supply) * 100).toFixed(8) }}%
+          </td>
+          <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
+            <NuxtLink :to="`/address/${balance.address}`" class="font-medium leading-6 text-white">{{ balance.address }}</NuxtLink>
+          </td>
+          <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
+            <NuxtLink :to="`/address/${balance.address}`" class="text-primary">View</NuxtLink>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div ref="lastElement" v-if="!state.allDataLoaded"></div>
 </template>
 

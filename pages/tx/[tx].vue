@@ -9,7 +9,7 @@
           <BriefcaseIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
           {{ apiData.source }}
         </div>
-        <div class="mt-2 flex items-center text-sm text-gray-300">
+        <div class="mt-2 flex items-center text-sm text-gray-300 break-all">
           <LinkIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
           {{ tx }}
         </div>
