@@ -13,7 +13,7 @@
             <div class="h-2 w-2 rounded-full bg-current" />
           </div>
           <h2 class="flex gap-x-3 text-base leading-7">
-            <span class="font-semibold text-white">{{ apiData.valid ? 'Confirmed Valid' : 'Unconfirmed TX' }}</span>
+            <span class="font-semibold text-lg text-white">{{ apiData.valid ? 'Confirmed Valid' : 'Unconfirmed TX' }}</span>
           </h2>
         </div>
         <p class="mt-2 text-xs leading-6 text-gray-400">{{ timestamp }}</p>
