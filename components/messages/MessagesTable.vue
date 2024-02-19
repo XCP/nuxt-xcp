@@ -59,7 +59,7 @@
     </div>
   </div>
   <!-- Table -->
-  <div v-else class="mt-6 relative overflow-x-auto"">
+  <div v-else class="mt-6 relative overflow-x-auto">
     <table class="w-full whitespace-nowrap text-left border-b border-white/10">
       <colgroup>
         <col class="w-full sm:w-2/12" />

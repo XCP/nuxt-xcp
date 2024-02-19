@@ -76,7 +76,7 @@
   </div>
 
   <!-- Table View -->
-  <div v-else-if="state.assets.length > 0" class="mt-6 relative overflow-x-auto"">
+  <div v-else-if="state.assets.length > 0" class="mt-6 relative overflow-x-auto">
     <table class="w-full whitespace-nowrap text-left border-b border-white/10">
       <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
         <tr>
