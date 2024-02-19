@@ -30,6 +30,9 @@
     <div v-if="activeTab === 'Dispensers'">
       <DispensersTable :collection="collection" />
     </div>
+    <div v-if="activeTab === 'Dex Orders'">
+      <OrdersTable :collection="collection" />
+    </div>
   </div>
 </template>
 
@@ -44,9 +47,8 @@ const apiData = ref({ name: '', link: '', stamp: 0, assets_count: 0 });
 const tabs = [
   { name: 'Activity' },
   { name: 'Assets' },
-  { name: 'Credits' },
-  { name: 'Debits' },
   { name: 'Dispensers' },
+  { name: 'Dex Orders' },
 ];
 const activeTab = ref('Assets');
 

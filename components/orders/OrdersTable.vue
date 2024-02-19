@@ -1,15 +1,21 @@
 
+import type { OrdersTable } from '#build/components';
+
+import type { OrdersTable } from '#build/components';
+
+import type { OrdersTable } from '#build/components';
+
 <template>
   <!-- Pagination -->
-  <nav v-if="state.dispensers.length > 0" class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
+  <nav v-if="state.orders.length > 0" class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="flex items-center">
       <p class="text-gray-300 leading-9">
         Showing
         <span class="font-medium">1</span>
         to
-        <span class="font-medium">{{ filteredDispensers.length.toLocaleString() }}</span>
+        <span class="font-medium">{{ filteredOrders.length.toLocaleString() }}</span>
         of
-        <span class="font-medium">{{ state.dispensers.length.toLocaleString() }}</span>
+        <span class="font-medium">{{ state.orders.length.toLocaleString() }}</span>
         results
       </p>
     </div>
@@ -29,14 +35,6 @@
     <!-- Asset Name Filter -->
     <div class="flex items-center space-x-2 my-2">
       <input type="text" v-model="assetNameFilter" @input="handleInput" placeholder="Type asset name..." class="input bg-gray-700 text-white" />
-    </div>
-
-    <!-- Effective Sat Rate Filter Buttons -->
-    <div class="flex items-center justify-between space-x-2 my-2">
-      <span class="text-base text-gray-300">Sat Rate:</span>
-      <button v-for="option in effectiveSatRateOptions" :key="option.value" @click="setEffectiveSatRateFilter(option.value)" :class="{ 'bg-gray-700 text-white': effectiveSatRateFilter === option.value, 'bg-gray-800 text-gray-300': effectiveSatRateFilter !== option.value }" class="inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none">
-        {{ option.label }}
-      </button>
     </div>
 
     <!-- Supply Filter Buttons -->
@@ -62,63 +60,50 @@
   </div>
 
   <!-- No Data -->
-  <div v-if="!state.loading && state.dispensers.length === 0" class="my-20 flex justify-center items-center">
+  <div v-if="!state.loading && state.orders.length === 0" class="my-20 flex justify-center items-center">
     <div class="text-center">
-      <p class="text-lg text-gray-500">No active dispensers.</p>
-      <p class="text-base text-gray-400">Consider placing a buy order on Counterparty's DEX.</p>
+      <p class="text-lg text-gray-500">No active orders.</p>
+      <p class="text-base text-gray-400">Consider placing one or trying dispensers.</p>
     </div>
   </div>
 
   <!-- No Data -->
-  <div v-else-if="!state.loading && filteredDispensers.length === 0" class="my-20 flex justify-center items-center">
+  <div v-else-if="!state.loading && filteredOrders.length === 0" class="my-20 flex justify-center items-center">
     <div class="text-center">
-      <p class="text-lg text-gray-500">No matching dispensers.</p>
+      <p class="text-lg text-gray-500">No matching orders.</p>
       <p class="text-base text-gray-400">Update or reset your filters to start over.</p>
     </div>
   </div>
 
   <!-- Table View -->
-  <div v-if="!state.loading && filteredDispensers.length > 0" class="mt-6 relative overflow-x-auto">
+  <div v-if="!state.loading && filteredOrders.length > 0" class="mt-6 relative overflow-x-auto">
     <table class="w-full whitespace-nowrap text-left border-white/10">
       <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
         <tr>
           <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
-          <th scope="col" class="py-2 pr-2 font-semibold">Dispensing</th>
           <th scope="col" class="py-2 pr-2 font-semibold">Price</th>
-          <th scope="col" class="py-2 pr-2 font-semibold">Dispenser</th>
-          <th v-if="props.asset" scope="col" class="py-2 pr-2 font-semibold">Market Depth</th>
+          <th scope="col" class="py-2 pr-2 font-semibold">Amount</th>
           <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
         </tr>
       </thead>
       <tbody class="divide-y divide-white/5">
-        <tr v-for="dispenser in filteredDispensers" :key="dispenser.tx_hash">
+        <tr v-for="order in filteredOrders" :key="order.tx_hash">
           <td class="whitespace-nowrap py-3 pr-3 min-w-64">
             <div class="flex items-center gap-x-4">
-              <NuxtImg :src="`https://api.xcp.io/img/icon/${dispenser.asset_name}`" :alt="dispenser.asset_name" class="h-10 w-10 bg-gray-800" loading="lazy" />
-              <NuxtLink :to="`/asset/${formatAssetName(dispenser.asset_name, dispenser)}`" class="font-medium leading-6 text-base text-white">
-                {{ formatAssetName(dispenser.asset_name, dispenser) }}
+              <NuxtImg :src="`https://api.xcp.io/img/icon/${order.base_asset_name}`" :alt="order.base_asset_name" class="h-10 w-10 bg-gray-800" loading="lazy" />
+              <NuxtLink :to="`/asset/${formatAssetName(order.base_asset_name, { divisible: order.base_asset_divisible})}`" class="font-medium leading-6 text-base text-white">
+                {{ formatAssetName(order.base_asset_name, { asset_longname: order.base_asset_longname}) }}
               </NuxtLink>
             </div>
           </td>
           <td class="whitespace-nowrap py-3 pr-3 leading-6 text-gray-300">
-            {{ formatBalance(dispenser.give_quantity, dispenser) }}
+            {{ order.effective_trading_price.toFixed(8) }} XCP
           </td>
           <td class="whitespace-nowrap py-3 pr-3 leading-6 text-gray-300">
-            {{ formatBalance(dispenser.satoshirate, { divisible: true }) }} BTC
-            <span v-if="dispenser.satoshirate !== dispenser.effective_sat_rate" class="block text-xs">Rate: {{ formatBalance(dispenser.effective_sat_rate, { divisible: true }) }} BTC</span>
-          </td>
-          <td class="whitespace-nowrap py-3 pr-3 leading-6 text-gray-300">
-            <NuxtLink :to="`/tx/${dispenser.tx_hash}`" class="font-medium leading-6 text-white">
-              {{ dispenser.source }}
-            </NuxtLink>
-            <span v-if="dispenser.source !== dispenser.origin" class="block text-xs">Origin: {{ dispenser.origin }}</span>
-          </td>
-          <td v-if="props.asset" class="whitespace-nowrap py-3 pr-3 leading-6 text-white">
-            {{ formatBalance(dispenser.depth, dispenser) }}
-            <span class="block text-xs text-gray-300">{{ formatBalance(dispenser.depth_value, { divisible: true }) }} BTC</span>
+            {{ formatBalance(order.base_asset_quantity, { divisible: order.base_asset_divisible}) }}
           </td>
           <td class="whitespace-nowrap py-3 font-medium text-right">
-            <NuxtLink :to="`/tx/${dispenser.tx_hash}`" class="text-primary">View</NuxtLink>
+            <NuxtLink :to="`/tx/${order.tx_hash}`" class="text-primary">View</NuxtLink>
           </td>
         </tr>
       </tbody>
@@ -130,22 +115,21 @@
 import { ArrowPathIcon, FunnelIcon } from '@heroicons/vue/20/solid'
 import { ref, reactive, watch, computed, onMounted } from 'vue';
 
-const { trackEvent } = useFathom();
-
 // Props
 const props = defineProps({
-  asset: String,
+  baseAsset: String,
+  quoteAsset: String,
+  intent: String,
   collection: String,
 });
 
 // State
 const state = reactive({
-  dispensers: [],
+  orders: [],
   loading: false,
   showFilters: false,
 });
 const supplyFilter = ref(Number.MAX_SAFE_INTEGER);
-const effectiveSatRateFilter = ref(Number.MAX_SAFE_INTEGER);
 const assetNameFilter = ref('');
 const debouncedAssetName = ref('');
 
@@ -156,54 +140,47 @@ const supplyOptions = [
   { label: '<10k', value: 10000 },
   { label: 'All', value: Number.MAX_SAFE_INTEGER },
 ];
-const effectiveSatRateOptions = [
-  { label: '<50k', value: 50000 },
-  { label: '<500k', value: 500000 },
-  { label: '<5m', value: 5000000 },
-  { label: 'All', value: Number.MAX_SAFE_INTEGER },
-];
 
 // Compute
-const filteredDispensers = computed(() => {
+const filteredOrders = computed(() => {
   // Check if no filters are applied
   const noFiltersApplied = supplyFilter.value === Number.MAX_SAFE_INTEGER &&
-                           effectiveSatRateFilter.value === Number.MAX_SAFE_INTEGER &&
                            debouncedAssetName.value === '';
 
   // If no filters are applied, return the entire dispensers array
   if (noFiltersApplied) {
-    return state.dispensers;
+    return state.orders;
   }
 
   // Otherwise, apply the filters
-  return state.dispensers.filter(dispenser => {
-    const supplyCondition = dispenser.supply < supplyFilter.value;
-    const effectiveRateCondition = dispenser.effective_sat_rate < effectiveSatRateFilter.value;
+  return state.orders.filter(order => {
+    const supplyCondition = order.base_asset_supply < supplyFilter.value;
 
     // Skip the item if it doesn't meet the supply or effective rate conditions
-    if (!supplyCondition || !effectiveRateCondition) return false;
+    if (!supplyCondition) return false;
 
     // Check if the asset name matches the filter (considering debouncing)
-    const assetNameCondition = dispenser.asset_name.includes(debouncedAssetName.value) || dispenser.asset_longname?.includes(debouncedAssetName.value);
+    const assetNameCondition = order.get_asset.includes(debouncedAssetName.value) || order.give_asset.includes(debouncedAssetName.value);
 
     return assetNameCondition;
   });
 });
 
+// Computed property for query parameters
 const queryParams = computed(() => {
   const params = {};
   if (props.collection) params.collection = props.collection;
-  if (props.asset) params.asset_name = props.asset;
+  if (props.quoteAsset) params.quote = props.quoteAsset;
+  if (props.baseAsset) params.base = props.baseAsset;
+  if (props.intent) params.intent = props.intent;
   return params;
 });
 
 // Methods
 const setSupplyFilter = (value) => supplyFilter.value = value;
-const setEffectiveSatRateFilter = (value) => effectiveSatRateFilter.value = value;
 const handleInput = () => assetNameFilter.value = assetNameFilter.value.toUpperCase();
 const resetFilters = () => {
   supplyFilter.value = Number.MAX_SAFE_INTEGER;
-  effectiveSatRateFilter.value = Number.MAX_SAFE_INTEGER;
   assetNameFilter.value = '';
   debouncedAssetName.value = '';
 };
@@ -222,14 +199,14 @@ const debouncedFilter = debounce(() => {
   debouncedAssetName.value = assetNameFilter.value;
 }, 300);
 
-// API fetch method
-const fetchData = async () => {
+// Function to fetch orders from API
+const fetchOrders = async () => {
   state.loading = true;
   try {
     const queryString = new URLSearchParams(queryParams.value).toString();
-    const response = await fetch(`https://api.xcp.io/api/v1/dispensers?${queryString}`);
-    if (!response.ok) throw new Error('Network response was not ok');
-    state.dispensers = await response.json();
+    const response = await fetch(`https://api.xcp.io/api/v1/orders?${queryString}`);
+    if (!response.ok) throw new Error('Failed to fetch orders');
+    state.orders = await response.json();
   } catch (error) {
     console.error('Fetch error:', error);
   } finally {
@@ -245,5 +222,5 @@ watch(assetNameFilter, () => {
   }
 }, { immediate: true });
 
-onMounted(fetchData);
+onMounted(fetchOrders);
 </script>
