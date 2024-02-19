@@ -51,6 +51,7 @@ import { computed, ref, watchEffect, onMounted } from 'vue';
 
 // Reactive state
 const route = useRoute();
+const router = useRouter();
 const address = ref(route.params.address);
 const apiData = ref({ tx_count: 0, btcValue: 0, xcpValue: 0 });
 const activeTab = ref('Activity');
@@ -84,20 +85,17 @@ const yearsAgo = computed(() => {
 // API call
 const fetchData = async () => {
   try {
-    const btcResponse = await fetch(`https://blockstream.info/api/address/${address.value}`);
-    const xcpResponse = await fetch(`https://api.xcp.io/api/v1/balance?address=${address.value}`);
-    if (!btcResponse.ok || !xcpResponse.ok) throw new Error('Network response was not ok');
-
-    const btcData = await btcResponse.json();
-    const xcpData = await xcpResponse.json();
+    const btcData = await $fetch(`https://blockstream.info/api/address/${address.value}`);
+    const xcpData = await $fetch(`https://api.xcp.io/api/v1/balance?address=${address.value}`);
 
     apiData.value = {
       tx_count: btcData.chain_stats.tx_count.toLocaleString(),
       btcValue: formatBalance(btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum, { divisible: true }).replace('.00000000', ''),
-      xcpValue: xcpData?.length ? formatBalance(xcpData[0].quantity, { divisible: true }).replace('.00000000', '') : '0'
+      xcpValue: formatBalance(xcpData[0].quantity, { divisible: true }).replace('.00000000', '')
     };
-  } catch (error) {
-    console.error('Fetch error:', error);
+  } catch (e) {
+    console.error('Fetch error:', e);
+    // Handle fetch error, optionally redirect to an error page
   }
 };
 

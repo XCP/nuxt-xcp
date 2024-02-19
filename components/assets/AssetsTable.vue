@@ -27,16 +27,16 @@
             {{ formatAssetName(item.asset_name, item) }}
           </NuxtLink>
         </td>
-        <td class="whitespace-nowrap py-3 pr-2 text-sm leading-6 text-gray-300">
+        <td class="whitespace-nowrap py-3 pr-2 text-base leading-6 text-gray-300">
           {{ formatBalance(item.supply, item) }}
         </td>
-        <td class="whitespace-nowrap py-3 pr-2 text-sm leading-6 text-gray-300 capitalize">
+        <td class="whitespace-nowrap py-3 pr-2 text-base leading-6 text-gray-300 capitalize">
           {{ item.type }}{{ item.divisible ? ', Divisible' : '' }}
         </td>
-        <td class="whitespace-nowrap py-3 pr-2 text-sm leading-6 text-gray-300 text-right">
+        <td class="whitespace-nowrap py-3 pr-2 text-base leading-6 text-gray-300 text-right">
           {{ item.block_index.toLocaleString() }}
         </td>
-        <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
+        <td class="whitespace-nowrap py-3 pl-3 text-base font-medium text-right">
           <NuxtLink :to="`/asset/${formatAssetName(item.asset_name, item)}`" class="text-primary">View</NuxtLink>
         </td>
       </tr>

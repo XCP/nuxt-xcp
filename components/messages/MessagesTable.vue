@@ -2,7 +2,7 @@
   <!-- Pagination -->
   <nav class="flex items-center justify-between" aria-label="Pagination">
     <div class="hidden sm:block">
-      <p class="text-sm text-gray-300">
+      <p class="text-base text-gray-300">
         Showing
         <span class="font-medium">{{ (state.currentPage - 1) * 100 + 1 }}</span>
         to
@@ -16,7 +16,7 @@
       <!-- First Page Button -->
       <button
         @click="goToPage(1)"
-        class="relative inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
+        class="relative inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
         :disabled="state.currentPage === 1"
       >
         &laquo;
@@ -24,7 +24,7 @@
       <!-- Previous Page Button -->
       <button
         @click="goToPage(state.currentPage - 1)"
-        class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
+        class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
         :disabled="state.currentPage <= 1"
       >
         &lsaquo;
@@ -32,7 +32,7 @@
       <!-- Next Page Button -->
       <button
         @click="goToPage(state.currentPage + 1)"
-        class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
+        class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
         :disabled="state.currentPage >= state.lastPage"
       >
         &rsaquo;
@@ -40,7 +40,7 @@
       <!-- Last Page Button -->
       <button
         @click="goToPage(state.lastPage)"
-        class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
+        class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
         :disabled="state.currentPage === state.lastPage"
       >
         &raquo;
@@ -55,7 +55,7 @@
   <div v-else-if="state.messages.length === 0" class="my-10 flex justify-center items-center">
     <div class="text-center">
       <p class="text-lg text-gray-500">No results found.</p>
-      <p class="text-sm text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>
+      <p class="text-base text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>
     </div>
   </div>
   <!-- Table -->
@@ -68,7 +68,7 @@
         <col class="lg:w-3/12" />
         <col class="lg:w-2/12" />
       </colgroup>
-      <thead class="border-b border-white/10 text-sm leading-6 text-white">
+      <thead class="border-b border-white/10 text-base leading-6 text-white">
         <tr>
           <th scope="col" class="py-2 pr-8 font-semibold">Type</th>
           <th scope="col" class="py-2 pl-0 pr-8 font-semibold sm:table-cell">Asset</th>
@@ -89,13 +89,13 @@
               {{ formatAssetName(item.asset_name, item.asset) }}
             </NuxtLink>
           </td>
-          <td class="py-3 pl-0 pr-4 text-sm leading-6 sm:pr-8 lg:pr-20 text-gray-300">
+          <td class="py-3 pl-0 pr-4 text-base leading-6 sm:pr-8 lg:pr-20 text-gray-300">
             {{ item.bindings.quantity }}
           </td>
-          <td class="py-3 pl-0 pr-8 text-sm leading-6 text-gray-300 md:table-cell lg:pr-20">
+          <td class="py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell lg:pr-20">
             <NuxtLink :to="`/address/${item.address}`">{{ item.address }}</NuxtLink>
           </td>
-          <td class="py-3 pl-0 text-right text-sm leading-6 text-gray-300 sm:table-cell">
+          <td class="py-3 pl-0 text-right text-base leading-6 text-gray-300 sm:table-cell">
             <time :datetime="item.created_at">{{ new Date(item.confirmed_at).toLocaleString() }}</time>
           </td>
         </tr>

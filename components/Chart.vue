@@ -25,7 +25,7 @@
           :key="period"
           @click="changePeriod(period)"
           :class="buttonClasses(period)"
-          class="text-sm px-4 py-2 mx-1 rounded focus:outline-none focus:ring w-full md:w-auto"
+          class="text-base px-4 py-2 mx-1 rounded focus:outline-none focus:ring w-full md:w-auto"
         >
           {{ period.charAt(0).toUpperCase() + period.slice(1) }}
         </button>
@@ -159,7 +159,7 @@ const fetchData = async (metricType, periodType) => {
 
 const buttonClasses = (period) => {
   // Always include base classes
-  let baseClasses = 'text-sm px-4 py-2 mx-1 rounded focus:outline-none focus:ring w-full md:w-auto';
+  let baseClasses = 'text-base px-4 py-2 mx-1 rounded focus:outline-none focus:ring w-full md:w-auto';
 
   // Determine button color based on whether the current period matches and the selected metric
   if (currentPeriodType.value === period) {

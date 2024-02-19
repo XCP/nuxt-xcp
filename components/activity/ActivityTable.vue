@@ -15,13 +15,13 @@
             <Badge :category="item.category" />
           </div>
         </td>
-        <td class="py-3 pl-0 pr-8 text-sm leading-6 text-gray-300">
+        <td class="py-3 pl-0 pr-8 text-base leading-6 text-gray-300">
           <Summary :message="item" />
         </td>
-        <td class="py-3 pl-0 text-right text-sm leading-6 text-gray-300">
+        <td class="py-3 pl-0 text-right text-base leading-6 text-gray-300">
           {{ item.block_index.toLocaleString() }}
         </td>
-        <td class="whitespace-nowrap py-3 pl-3 text-right text-sm font-medium">
+        <td class="whitespace-nowrap py-3 pl-3 text-right text-base font-medium">
           <NuxtLink :to="`/tx/${item.tx_hash}`" class="text-primary">View</NuxtLink>
         </td>
       </tr>
@@ -29,7 +29,7 @@
     <template v-slot:table-controls>
       <!-- Category filter dropdown -->
       <div class="ml-4">
-        <select v-model="selectedCategory" @change="changeCategory" class="text-white bg-gray-800 rounded px-3 py-1 text-sm focus:outline-none md:w-auto">
+        <select v-model="selectedCategory" @change="changeCategory" class="text-white bg-gray-800 rounded px-3 py-1 text-base focus:outline-none md:w-auto">
           <option value="" selected>Show All</option>
           <option v-for="category in availableCategories" :key="category" :value="category">{{ formatSnakeCase(category) }}</option>
         </select>

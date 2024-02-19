@@ -21,13 +21,13 @@
             <Badge :category="item.command" />
           </div>
         </td>
-        <td class="py-3 pl-0 pr-8 text-sm leading-6 text-gray-300">
+        <td class="py-3 pl-0 pr-8 text-base leading-6 text-gray-300">
           <Summary :message="item" />
         </td>
-        <td class="py-3 pl-0 text-right text-sm leading-6 text-gray-300">
+        <td class="py-3 pl-0 text-right text-base leading-6 text-gray-300">
           {{ item.block_index.toLocaleString() }}
         </td>
-        <td class="whitespace-nowrap py-3 pl-3 text-right text-sm font-medium">
+        <td class="whitespace-nowrap py-3 pl-3 text-right text-base font-medium">
           <NuxtLink :to="`/tx/${item.tx_hash}`" class="text-primary">View</NuxtLink>
         </td>
       </tr>

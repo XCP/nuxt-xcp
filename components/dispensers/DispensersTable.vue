@@ -3,14 +3,14 @@
   <!-- Pagination -->
   <nav v-if="state.dispensers.length > 0" class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="flex items-center">
-      <p class="text-sm text-gray-300 leading-9">
+      <p class="text-gray-300 leading-9">
         Showing all active dispensers
       </p>
     </div>
     <div class="flex">
       <button
         @click="state.showFilters = !state.showFilters; trackEvent('Toggle Filters')"
-        class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none"
+        class="inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
         :class="{ 'bg-gray-700 text-white': state.showFilters, 'bg-gray-800 text-gray-300': !state.showFilters }"
       >
         <FunnelIcon class="h-4 w-4" />
@@ -22,29 +22,28 @@
   <div v-if="props.collection && state.showFilters" class="flex flex-col sm:flex-row justify-between my-4 p-4 bg-gray-800 rounded-lg">
     <!-- Asset Name Filter -->
     <div class="flex items-center space-x-2 my-2">
-      <span class="text-sm text-gray-300 sr-only">Asset Name:</span>
       <input type="text" v-model="assetNameFilter" @input="handleInput" placeholder="Type asset name..." class="input bg-gray-700 text-white" />
     </div>
 
-    <!-- Supply Filter Buttons -->
-    <div class="flex items-center space-x-2 my-2">
-      <span class="text-sm text-gray-300">Supply:</span>
-      <button v-for="option in supplyOptions" :key="option.value" @click="setSupplyFilter(option.value)" :class="{ 'bg-gray-700 text-white': supplyFilter === option.value, 'bg-gray-800 text-gray-300': supplyFilter !== option.value }" class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none">
+    <!-- Effective Sat Rate Filter Buttons -->
+    <div class="flex items-center justify-between space-x-2 my-2">
+      <span class="text-base text-gray-300">Sat Rate:</span>
+      <button v-for="option in effectiveSatRateOptions" :key="option.value" @click="setEffectiveSatRateFilter(option.value)" :class="{ 'bg-gray-700 text-white': effectiveSatRateFilter === option.value, 'bg-gray-800 text-gray-300': effectiveSatRateFilter !== option.value }" class="inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none">
         {{ option.label }}
       </button>
     </div>
 
-    <!-- Effective Sat Rate Filter Buttons -->
-    <div class="flex items-center space-x-2 my-2">
-      <span class="text-sm text-gray-300">Sat Rate:</span>
-      <button v-for="option in effectiveSatRateOptions" :key="option.value" @click="setEffectiveSatRateFilter(option.value)" :class="{ 'bg-gray-700 text-white': effectiveSatRateFilter === option.value, 'bg-gray-800 text-gray-300': effectiveSatRateFilter !== option.value }" class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none">
+    <!-- Supply Filter Buttons -->
+    <div class="flex items-center justify-between space-x-2 my-2">
+      <span class="text-base text-gray-300">Supply:</span>
+      <button v-for="option in supplyOptions" :key="option.value" @click="setSupplyFilter(option.value)" :class="{ 'bg-gray-700 text-white': supplyFilter === option.value, 'bg-gray-800 text-gray-300': supplyFilter !== option.value }" class="inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none">
         {{ option.label }}
       </button>
     </div>
 
     <!-- Reset Filters Button -->
     <div class="flex items-center space-x-2 my-2">
-      <button @click="resetFilters" class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none bg-gray-800 text-gray-300">
+      <button @click="resetFilters" class="inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none bg-gray-800 text-gray-300">
         <ArrowPathIcon class="h-5 w-5 mr-2" /> Reset Filters
       </button>
     </div>
@@ -60,7 +59,7 @@
   <div v-if="!state.loading && state.dispensers.length === 0" class="my-20 flex justify-center items-center">
     <div class="text-center">
       <p class="text-lg text-gray-500">No active dispensers.</p>
-      <p class="text-sm text-gray-400">Consider placing a buy order on Counterparty's DEX.</p>
+      <p class="text-base text-gray-400">Consider placing a buy order on Counterparty's DEX.</p>
     </div>
   </div>
 
@@ -68,64 +67,56 @@
   <div v-else-if="!state.loading && filteredDispensers.length === 0" class="my-20 flex justify-center items-center">
     <div class="text-center">
       <p class="text-lg text-gray-500">No matching dispensers.</p>
-      <p class="text-sm text-gray-400">Update or reset your filters to start over.</p>
+      <p class="text-base text-gray-400">Update or reset your filters to start over.</p>
     </div>
   </div>
 
   <!-- Table View -->
   <div v-if="!state.loading && filteredDispensers.length > 0" class="mt-6 relative overflow-x-auto">
-    <table class="w-full whitespace-nowrap text-left border-b border-white/10">
-      <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
+    <table class="w-full whitespace-nowrap text-left border-white/10">
+      <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
         <tr>
           <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
-          <th scope="col" class="py-2 pr-2 font-semibold">Dispenser</th>
           <th scope="col" class="py-2 pr-2 font-semibold">Dispensing</th>
           <th scope="col" class="py-2 pr-2 font-semibold">Price</th>
-          <th scope="col" class="py-2 pr-2 font-semibold">Effective Rate</th>
+          <th scope="col" class="py-2 pr-2 font-semibold">Dispenser</th>
           <th v-if="props.asset" scope="col" class="py-2 pr-2 font-semibold">Market Depth</th>
           <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
         </tr>
       </thead>
       <tbody class="divide-y divide-white/5">
         <tr v-for="dispenser in filteredDispensers" :key="dispenser.tx_hash">
-          <td class="whitespace-nowrap py-3 pr-3">
+          <td class="whitespace-nowrap py-3 pr-3 min-w-64">
             <div class="flex items-center gap-x-4">
-              <NuxtImg :src="`https://api.xcp.io/img/icon/${dispenser.asset_name}`" :alt="dispenser.asset_name" class="h-5 w-5 bg-gray-800" loading="lazy" />
-              <NuxtLink :to="`/asset/${formatAssetName(dispenser.asset_name, dispenser)}`" class="font-medium leading-6 text-sm text-white">
+              <NuxtImg :src="`https://api.xcp.io/img/icon/${dispenser.asset_name}`" :alt="dispenser.asset_name" class="h-10 w-10 bg-gray-800" loading="lazy" />
+              <NuxtLink :to="`/asset/${formatAssetName(dispenser.asset_name, dispenser)}`" class="font-medium leading-6 text-base text-white">
                 {{ formatAssetName(dispenser.asset_name, dispenser) }}
               </NuxtLink>
             </div>
           </td>
-          <td class="whitespace-nowrap py-3 text-sm leading-6 text-gray-300">
-            <NuxtLink :to="`/tx/${dispenser.tx_hash}`" class="font-medium leading-6 text-sm text-white">
+          <td class="whitespace-nowrap py-3 pr-3 leading-6 text-gray-300">
+            {{ formatBalance(dispenser.give_quantity, dispenser) }}
+          </td>
+          <td class="whitespace-nowrap py-3 pr-3 leading-6 text-gray-300">
+            {{ formatBalance(dispenser.satoshirate, { divisible: true }) }} BTC
+            <span v-if="dispenser.satoshirate !== dispenser.effective_sat_rate" class="block text-xs">Rate: {{ formatBalance(dispenser.effective_sat_rate, { divisible: true }) }} BTC</span>
+          </td>
+          <td class="whitespace-nowrap py-3 pr-3 leading-6 text-gray-300">
+            <NuxtLink :to="`/tx/${dispenser.tx_hash}`" class="font-medium leading-6 text-white">
               {{ dispenser.source }}
             </NuxtLink>
             <span v-if="dispenser.source !== dispenser.origin" class="block text-xs">Origin: {{ dispenser.origin }}</span>
           </td>
-          <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-            {{ formatBalance(dispenser.give_quantity, dispenser) }}
+          <td v-if="props.asset" class="whitespace-nowrap py-3 pr-3 leading-6 text-white">
+            {{ formatBalance(dispenser.depth, dispenser) }}
+            <span class="block text-xs text-gray-300">{{ formatBalance(dispenser.depth_value, { divisible: true }) }} BTC</span>
           </td>
-          <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-            {{ formatBalance(dispenser.satoshirate, { divisible: true }) }} BTC
-          </td>
-          <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-            {{ formatBalance(dispenser.effective_sat_rate, { divisible: true }) }} BTC
-          </td>
-          <td v-if="props.asset" class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
-            {{ formatBalance(dispenser.depth, dispenser) }} <br />
-            {{ formatBalance(dispenser.depth_value, { divisible: true }) }} BTC
-          </td>
-          <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
+          <td class="whitespace-nowrap py-3 font-medium text-right">
             <NuxtLink :to="`/tx/${dispenser.tx_hash}`" class="text-primary">View</NuxtLink>
           </td>
         </tr>
       </tbody>
     </table>
-  </div>
-  <div v-if="!state.loading && filteredDispensers.length > 0" class="flex justify-center mt-16 sm:mt-20 lg:mt-24">
-    <button @click="downloadCsv" class="flex items-center px-6 py-3 bg-green-700 text-white font-semibold rounded-md hover:bg-green-600 transition duration-300">
-      <FolderArrowDownIcon class="mr-2 h-5 w-5 flex-shrink-0" aria-hidden="true" /> Download as CSV
-    </button>
   </div>
 </template>
 
@@ -240,28 +231,11 @@ const fetchData = async () => {
   }
 };
 
-const downloadCsv = () => {
-  trackEvent('Download');
-
-  let csvContent = "data:text/csv;charset=utf-8,";
-  csvContent += "Asset,Dispenser,Dispensing,Price (BTC),Effective Rate,Available\n";
-
-  filteredDispensers.forEach((dispenser) => {
-    csvContent += `${formatAssetName(dispenser.asset, dispenser)},${dispenser.source},"${formatBalance(dispenser.give_quantity, dispenser)}","${formatBalance(dispenser.satoshirate, { divisible: true })}","${formatBalance(dispenser.effective_sat_rate, { divisible: true })}","${formatBalance(dispenser.give_remaining, dispenser)}"\n`;
-  });
-
-  const encodedUri = encodeURI(csvContent);
-  const link = document.createElement("a");
-  link.setAttribute("href", encodedUri);
-  link.setAttribute("download", "dispensers.csv");
-  document.body.appendChild(link);
-
-  link.click();
-};
-
 watch(assetNameFilter, () => {
-  if (assetNameFilter.value.length >= 3) {
-    debouncedFilter();
+  debouncedFilter();
+
+  if (assetNameFilter.value === '') {
+    debouncedAssetName.value = '';
   }
 }, { immediate: true });
 

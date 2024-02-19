@@ -2,7 +2,7 @@
   <!-- Pagination -->
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="flex items-center">
-      <p class="text-sm text-gray-300 leading-9">
+      <p class="text-base text-gray-300 leading-9">
         <p>Tracking <span class="font-medium">{{ totalAssetsCount.toLocaleString() }}</span> assets in <span class="font-medium">{{ state.tags.length.toLocaleString() }}</span> collections.</p>
       </p>
     </div>
@@ -11,7 +11,7 @@
       <!-- Table View Button -->
       <button
         @click="viewMode = 'table'; trackEvent('List View')"
-        class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none"
+        class="inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
         :class="{ 'bg-gray-700 text-white': viewMode === 'table', 'bg-gray-800 text-gray-300': viewMode === 'grid' }"
       >
         <ListBulletIcon class="h-4 w-4" />
@@ -19,7 +19,7 @@
       <!-- Grid View Button -->
       <button
         @click="viewMode = 'grid'; trackEvent('Grid View')"
-        class="ml-2 inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold hover:bg-gray-700 focus:outline-none"
+        class="ml-2 inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
         :class="{ 'bg-gray-700 text-white ': viewMode === 'grid', 'bg-gray-800 text-gray-300': viewMode === 'table' }"
       >
         <ViewColumnsIcon class="h-4 w-4" />
@@ -36,7 +36,7 @@
   <div v-if="state.tags.length === 0" class="my-10 flex justify-center items-center">
     <div class="text-center">
       <p class="text-lg text-gray-500">No results found.</p>
-      <p class="text-sm text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>
+      <p class="text-base text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>
     </div>
   </div>
 
@@ -59,7 +59,7 @@
       </NuxtLink>
       
       <div class="p-4 pt-0">
-        <div class="text-sm leading-6 text-gray-300">{{ tag.assets_count.toLocaleString() }}</div>
+        <div class="text-base leading-6 text-gray-300">{{ tag.assets_count.toLocaleString() }}</div>
       </div>
       
     </div>
@@ -68,7 +68,7 @@
   <!-- Table View -->
   <div v-else-if="state.tags.length > 0" class="mt-6 relative overflow-x-auto">
     <table class="w-full whitespace-nowrap text-left border-b border-white/10">
-      <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
+      <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
         <tr>
           <th scope="col" class="py-2 pr-2 font-semibold">Collection</th>
           <th scope="col" class="py-2 pr-2 font-semibold">Assets</th>
@@ -79,14 +79,14 @@
         <tr v-for="tag in state.tags" :key="tag.slug">
           <td class="whitespace-nowrap py-3 pr-3">
             <div class="flex items-center gap-x-4">
-                <NuxtImg :src="`https://api.xcp.io/img/icon/${tag.slug}`" :alt="tag.name" class="h-5 w-5 bg-gray-800" loading="lazy" />
+                <NuxtImg :src="`https://api.xcp.io/img/icon/${tag.slug}`" :alt="tag.name" class="h-10 w-10 bg-gray-800" loading="lazy" />
                 <NuxtLink :to="`/collection/${tag.slug}`" class="font-medium leading-6 text-white">{{ tag.name }}</NuxtLink>
               </div>
           </td>
-          <td class="whitespace-nowrap py-3 pl-0 text-sm leading-6 text-gray-300">
+          <td class="whitespace-nowrap py-3 pl-0 text-base leading-6 text-gray-300">
             {{ tag.assets_count.toLocaleString() }}
           </td>
-          <td class="whitespace-nowrap py-3 pl-3 text-sm font-medium text-right">
+          <td class="whitespace-nowrap py-3 pl-3 text-base font-medium text-right">
             <NuxtLink :to="`/collection/${tag.slug}`" class="text-primary">View</NuxtLink>
           </td>
         </tr>

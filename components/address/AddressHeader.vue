@@ -6,7 +6,7 @@
         Counterparty Address
       </h1>
       <!-- Main container for items, ensuring flex-wrap and responsive gap -->
-      <div class="mt-1 flex flex-wrap items-center text-sm text-gray-300 gap-x-3 sm:gap-x-6">
+      <div class="mt-1 flex flex-wrap items-center text-base text-gray-300 gap-x-3 sm:gap-x-6">
         <!-- Item 1 -->
         <div class="flex items-center w-full lg:w-auto mt-2">
           <BriefcaseIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />

@@ -4,7 +4,7 @@
     <label for="tabs" class="sr-only">Select a tab</label>
     <select
       id="tabs"
-      class="block w-full text-white bg-gray-800 rounded text-sm focus:outline-none md:w-auto"
+      class="block w-full text-white bg-gray-800 rounded text-base focus:outline-none md:w-auto"
       @change="emitTabChange($event.target.value)"
     >
       <option v-for="tab in tabs" :key="tab.name" :value="tab.name" :selected="tab.name === activeTab">{{ tab.name }}</option>
@@ -19,7 +19,7 @@
           <button
             @click="emitTabChange(tab.name)"
             :class="[
-              'px-4 py-2 mr-[1px] text-sm font-medium rounded-none',
+              'px-4 py-2 mr-[1px] text-base font-medium rounded-none',
               tab.name === activeTab
                 ? 'bg-white/10 text-white'
                 : 'bg-gray-700/10 text-gray-300 hover:bg-white/20 hover:text-white'

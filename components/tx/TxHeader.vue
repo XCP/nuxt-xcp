@@ -1,15 +1,15 @@
 <template>
   <div class="lg:flex lg:items-center lg:justify-between">
     <div class="min-w-0 flex-1">
-      <h1 class="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
+      <h1 class="text-2xl font-bold leading-7 text-white sm:text-3xl sm:tracking-tight">
         Counterparty Transaction
       </h1>
       <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-        <div class="mt-2 flex items-center text-sm text-gray-300">
+        <div class="mt-2 flex items-center text-base text-gray-300">
           <BriefcaseIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
           {{ apiData.source }}
         </div>
-        <div class="mt-2 flex lg:items-center text-sm text-gray-300 break-all">
+        <div class="mt-2 flex lg:items-center text-base text-gray-300 break-all">
           <LinkIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500" aria-hidden="true" />
           {{ tx }}
         </div>

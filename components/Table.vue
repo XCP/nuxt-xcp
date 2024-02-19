@@ -2,7 +2,7 @@
   <!-- Pagination and Additional Controls -->
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="hidden sm:block">
-      <p class="text-sm text-gray-300">
+      <p class="text-base text-gray-300">
         Showing
         <span class="font-medium">{{ (state.currentPage - 1) * 100 + 1 }}</span>
         to
@@ -20,7 +20,7 @@
         <!-- First Page Button -->
         <button
           @click="goToPage(1)"
-          class="inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
+          class="inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
           :disabled="state.currentPage === 1"
         >
           &laquo;
@@ -28,14 +28,14 @@
         <!-- Previous Page Button -->
         <button
           @click="goToPage(state.currentPage - 1)"
-          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
+          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
           :disabled="state.currentPage <= 1"
         >
           &lsaquo;
         </button>
       </div>
       <div class="sm:hidden text-center flex-1">
-        <p class="text-sm text-gray-300">
+        <p class="text-base text-gray-300">
           Page
           <span class="font-medium">{{ state.currentPage }}</span>
           of
@@ -46,7 +46,7 @@
         <!-- Next Page Button -->
         <button
           @click="goToPage(state.currentPage + 1)"
-          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
+          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
           :disabled="state.currentPage >= state.lastPage"
         >
           &rsaquo;
@@ -54,7 +54,7 @@
         <!-- Last Page Button -->
         <button
           @click="goToPage(state.lastPage)"
-          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
+          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
           :disabled="state.currentPage === state.lastPage"
         >
           &raquo;
@@ -72,14 +72,14 @@
   <div v-else-if="state.items.length === 0" class="my-20 flex justify-center items-center">
     <div class="text-center">
       <p class="text-lg text-gray-500">No results found.</p>
-      <p class="text-sm text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>
+      <p class="text-base text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>
     </div>
   </div>
 
   <!-- Table -->
   <div v-else class="mt-6 relative overflow-x-auto">
     <table class="w-full whitespace-nowrap text-left border-white/10">
-      <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
+      <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
         <slot name="table-headers"></slot>
       </thead>
       <tbody class="divide-y divide-white/5">

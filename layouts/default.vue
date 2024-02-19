@@ -27,7 +27,7 @@
                     <li>
                       <ul role="list" class="-mx-2 space-y-1">
                         <li v-for="item in navigation" :key="item.name">
-                          <a :href="item.href" :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                          <a :href="item.href" :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-base leading-6 font-semibold']">
                             <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
                             {{ item.name }}
                           </a>
@@ -35,10 +35,10 @@
                       </ul>
                     </li>
                     <li>
-                      <div class="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
+                      <div class="text-sm font-semibold leading-6 text-gray-400">Your teams</div>
                       <ul role="list" class="-mx-2 mt-2 space-y-1">
                         <li v-for="team in teams" :key="team.name">
-                          <a :href="team.href" :class="[team.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                          <a :href="team.href" :class="[team.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-base leading-6 font-semibold']">
                             <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">{{ team.initial }}</span>
                             <span class="truncate">{{ team.name }}</span>
                           </a>
@@ -46,7 +46,7 @@
                       </ul>
                     </li>
                     <li class="-mx-6 mt-auto">
-                      <a href="#" class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-gray-800">
+                      <a href="#" class="flex items-center gap-x-4 px-6 py-3 text-base font-semibold leading-6 text-white hover:bg-gray-800">
                         <img class="h-8 w-8 rounded-full bg-gray-800" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                         <span class="sr-only">Your profile</span>
                         <span aria-hidden="true">Tom Cook</span>
@@ -74,25 +74,25 @@
             <a href="/">
               <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" />
             </a>
-            <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium">Counterparty</a>
+            <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium">Counterparty</a>
           </div>
           <form class="flex flex-1" action="#" method="GET">
             <label for="search-field" class="sr-only">Search</label>
             <div class="relative w-full">
               <MagnifyingGlassIcon class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-500" aria-hidden="true" />
-              <input id="search-field" class="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-white focus:ring-0 sm:text-sm" placeholder="Search..." type="search" name="search" />
+              <input id="search-field" class="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-white focus:ring-0 sm:text-base" placeholder="Search..." type="search" name="search" />
             </div>
           </form>
           <div class="hidden md:flex md:items-center md:space-x-4">
-            <a href="/collections" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Collections</a>
-            <a href="/charts" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">Analytics</a>
-            <a href="/collection" class="flex items-center bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
+            <a href="/collections" class="bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium">Collections</a>
+            <a href="/charts" class="bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium">Analytics</a>
+            <a href="/collection" class="flex items-center bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium">
               Discover
               <SparklesIcon class="ml-1 h-5 w-5 flex-shrink-0 text-yellow-400" aria-hidden="true" />
             </a>
           </div>
           <div class="flex shrink-0 items-center">
-            <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+            <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-primary px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-primary/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
               Connect Wallet
             </button>
           </div>
@@ -105,7 +105,7 @@
 
       <footer class="p-4 sm:p-6 lg:p-8">
         <div class="border-t border-white/10 pt-8">
-          <p class="text-xs leading-5 text-gray-400">Data provided 'as-is' without warranty of accuracy.</p>
+          <p class="text-sm leading-5 text-gray-400 text-center">Data provided 'as-is' without warranty of accuracy.</p>
         </div>
       </footer>
     </div>
