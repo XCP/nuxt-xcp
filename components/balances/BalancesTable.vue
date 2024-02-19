@@ -90,9 +90,9 @@
         <tr v-for="balance in state.balances" :key="balance.asset">
           <td class="whitespace-nowrap py-3 pr-3">
             <div class="flex items-center gap-x-4">
-                <NuxtImg :src="`https://api.xcp.io/img/icon/${balance.asset_name}`" :alt="balance.asset" class="h-10 w-10 bg-gray-800" loading="lazy" />
-                <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-base text-white">{{ balance.asset }}</NuxtLink>
-              </div>
+              <NuxtImg :src="`https://api.xcp.io/img/icon/${balance.asset_name}`" :alt="balance.asset" class="h-10 w-10 bg-gray-800" loading="lazy" />
+              <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-base text-white">{{ balance.asset }}</NuxtLink>
+            </div>
           </td>
           <td class="whitespace-nowrap py-3 pl-0 text-base leading-6 text-gray-300">
             {{ formatBalance(balance.quantity, balance) }}

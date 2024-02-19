@@ -3,6 +3,7 @@
     <template v-slot:table-headers>
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Summary</th>
         <th scope="col" class="py-2 pr-2 font-semibold w-20 text-right">Block #</th>
         <th scope="col" class="py-2 pl-3"><span class="sr-only">View</span></th>
@@ -15,6 +16,11 @@
             <Badge :category="item.category" />
           </div>
         </td>
+        <td class="whitespace-nowrap py-3 pr-3">
+            <div class="flex items-center gap-x-4">
+              <NuxtImg :src="`https://api.xcp.io/img/icon/${item.asset_name}`" :alt="item.asset" class="h-10 w-10 bg-gray-800" loading="lazy" />
+            </div>
+          </td>
         <td class="py-3 pl-0 pr-8 text-base leading-6 text-gray-300">
           <Summary :message="item" />
         </td>
