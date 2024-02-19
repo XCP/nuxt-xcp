@@ -73,7 +73,7 @@
   </div>
 
   <!-- Table View -->
-  <div v-else-if="!state.loading && filteredDispensers.length > 0" class="mt-6 relative overflow-x-auto"">
+  <div v-if="!state.loading && filteredDispensers.length > 0" class="mt-6 relative overflow-x-auto">
     <table class="w-full whitespace-nowrap text-left border-b border-white/10">
       <thead class="border-t border-b border-white/10 text-sm leading-6 text-white">
         <tr>
@@ -90,11 +90,11 @@
         <tr v-for="dispenser in filteredDispensers" :key="dispenser.tx_hash">
           <td class="whitespace-nowrap py-3 pr-3">
             <div class="flex items-center gap-x-4">
-                <NuxtImg :src="`https://api.xcp.io/img/icon/${dispenser.asset_name}`" :alt="dispenser.asset_name" class="h-5 w-5 bg-gray-800" loading="lazy" />
-                <NuxtLink :to="`/asset/${formatAssetName(dispenser.asset_name, dispenser)}`" class="font-medium leading-6 text-sm text-white">
-                  {{ formatAssetName(dispenser.asset_name, dispenser) }}
-                </NuxtLink>
-              </div>
+              <NuxtImg :src="`https://api.xcp.io/img/icon/${dispenser.asset_name}`" :alt="dispenser.asset_name" class="h-5 w-5 bg-gray-800" loading="lazy" />
+              <NuxtLink :to="`/asset/${formatAssetName(dispenser.asset_name, dispenser)}`" class="font-medium leading-6 text-sm text-white">
+                {{ formatAssetName(dispenser.asset_name, dispenser) }}
+              </NuxtLink>
+            </div>
           </td>
           <td class="whitespace-nowrap py-3 text-sm leading-6 text-gray-300">
             <NuxtLink :to="`/tx/${dispenser.tx_hash}`" class="font-medium leading-6 text-sm text-white">
@@ -132,6 +132,8 @@
 <script setup>
 import { ArrowPathIcon, FolderArrowDownIcon, FunnelIcon } from '@heroicons/vue/20/solid'
 import { ref, reactive, watch, computed, onMounted } from 'vue';
+
+const { trackEvent } = useFathom();
 
 // Props
 const props = defineProps({
