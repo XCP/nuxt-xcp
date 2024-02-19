@@ -7,9 +7,9 @@
         Showing
         <span class="font-medium">1</span>
         to
-        <span class="font-medium">{{ filteredDispensers.length }}</span>
+        <span class="font-medium">{{ filteredDispensers.length.toLocaleString() }}</span>
         of
-        <span class="font-medium">{{ state.dispensers.length }}</span>
+        <span class="font-medium">{{ state.dispensers.length.toLocaleString() }}</span>
         results
       </p>
     </div>
