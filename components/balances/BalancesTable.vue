@@ -2,7 +2,7 @@
   <!-- Pagination -->
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
     <div class="flex items-center">
-      <p v-if="state.balances.length < 100" class="text-base text-gray-300 leading-9">
+      <p v-if="state.balances.length < 30" class="text-base text-gray-300 leading-9">
         Showing
         <span class="font-medium">1</span>
         to
@@ -108,7 +108,7 @@
     </table>
   </div>
   <div ref="lastElement" v-if="!state.allDataLoaded"></div>
-  <div v-if="state.allDataLoaded && state.balances.length > 0 || state.balances.length > 0 && state.balances.length < 100" class="flex justify-center mt-16 sm:mt-20 lg:mt-24">
+  <div v-if="state.allDataLoaded && state.balances.length > 0 || state.balances.length > 0 && state.balances.length < 30" class="flex justify-center mt-16 sm:mt-20 lg:mt-24">
     <button @click="downloadCsv" class="flex items-center px-6 py-3 bg-green-700 text-white font-semibold rounded-md hover:bg-green-600 transition duration-300">
       <FolderArrowDownIcon class="mr-2 h-5 w-5 flex-shrink-0" aria-hidden="true" /> Download as CSV
     </button>
@@ -139,14 +139,14 @@ const fetchData = async () => {
   if (state.loading || state.allDataLoaded) return;
 
   state.loading = true;
-  const query = `address=${props.address}&page=${Math.floor(state.balances.length / 100) + 1}`;
+  const query = `address=${props.address}&page=${Math.floor(state.balances.length / 30) + 1}`;
 
   try {
     const response = await fetch(`https://api.xcp.io/api/v1/balances?${query}`);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
 
-    if (data.length < 100) {
+    if (data.length < 30) {
       state.allDataLoaded = true;
     }
 
