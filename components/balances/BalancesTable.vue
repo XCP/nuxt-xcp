@@ -20,7 +20,7 @@
       <!-- Table View Button -->
       <button
         @click="viewMode = 'table'; trackEvent('List View')"
-        class="inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
+        class="h-10	inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
         :class="{ 'bg-gray-700 text-white': viewMode === 'table', 'bg-gray-800 text-gray-300': viewMode === 'grid' }"
       >
         <ListBulletIcon class="h-4 w-4" />
@@ -28,7 +28,7 @@
       <!-- Grid View Button -->
       <button
         @click="viewMode = 'grid'; trackEvent('Grid View')"
-        class="ml-2 inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
+        class="h-10	ml-2 inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
         :class="{ 'bg-gray-700 text-white ': viewMode === 'grid', 'bg-gray-800 text-gray-300': viewMode === 'table' }"
       >
         <ViewColumnsIcon class="h-4 w-4" />

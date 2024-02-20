@@ -14,7 +14,7 @@
   <!-- Desktop view: Tab links -->
   <div class="hidden sm:block mb-6">
     <nav class="flex" aria-label="Tabs">
-      <ul class="flex w-full border-b border-white/10">
+      <ul class="flex w-full border-b border-white/5">
         <li v-for="tab in tabs" :key="tab.hash" class="last:mr-0">
           <button
             @click="emitTabChange(tab.name)"

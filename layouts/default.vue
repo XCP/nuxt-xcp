@@ -76,13 +76,33 @@
             </a>
             <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium">Counterparty</a>
           </div>
-          <form class="flex flex-1" action="#" method="GET">
-            <label for="search-field" class="sr-only">Search</label>
-            <div class="relative w-full">
-              <MagnifyingGlassIcon class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-500" aria-hidden="true" />
-              <input id="search-field" class="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-white focus:ring-0 sm:text-base" placeholder="Search..." type="search" name="search" />
-            </div>
-          </form>
+          <!-- Combobox for Search -->
+          <ClientOnly>
+            <Combobox as="div" v-model="selectedSuggestion" class="flex flex-1">
+              <div class="relative w-full">
+                <ComboboxInput
+                  class="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-white focus:ring-0 sm:text-base"
+                  placeholder="Search..."
+                  v-model="searchQuery"
+                  @input="event => fetchSuggestions(event.target.value)"
+                />
+                <ComboboxButton class="absolute inset-y-0 left-0 flex items-center pr-2">
+                  <MagnifyingGlassIcon class="h-4 w-4 text-gray-400" aria-hidden="true" />
+                </ComboboxButton>
+                <ComboboxOptions v-if="suggestions.length > 0" class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <ComboboxOption v-for="suggestion in suggestions" :key="suggestion.id" :value="suggestion" as="template" v-slot="{ active }">
+                    <li :class="['relative cursor-default select-none py-2 pl-3 pr-9', active ? 'bg-indigo-600 text-white' : 'text-gray-400']">
+                      <a :href="`/${suggestion.type.toLowerCase()}/${suggestion.slug}`" class="flex items-center">
+                        <img :src="suggestion.imageUrl" alt="" class="h-6 w-6 flex-shrink-0 rounded-full" />
+                        <span class="ml-3 block truncate">{{ suggestion.name }}</span>
+                        <span class="ml-auto text-sm text-gray-500">{{ suggestion.type }}</span>
+                      </a>
+                    </li>
+                  </ComboboxOption>
+                </ComboboxOptions>
+              </div>
+            </Combobox>
+          </ClientOnly>
           <div class="hidden md:flex md:items-center md:space-x-4">
             <a href="/collections" class="bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium">Collections</a>
             <a href="/charts" class="bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium">Analytics</a>
@@ -116,7 +136,7 @@
 <script setup>
 import { ref } from 'vue'
 import { SpeedInsights } from "@vercel/speed-insights/nuxt"
-import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {
   ChartBarSquareIcon,
   Cog6ToothIcon,
@@ -157,6 +177,102 @@ const stats = [
 const statuses = { Completed: 'text-green-400 bg-green-400/10', Error: 'text-rose-400 bg-rose-400/10' }
 
 const sidebarOpen = ref(false)
+const searchQuery = ref('')
+const selectedSuggestion = ref(null)
+const suggestions = ref([])
+
+// Simulate API call for suggestions
+async function fetchSuggestions(query) {
+  if (query.trim() === '') {
+    suggestions.value = []
+    return
+  }
+
+  try {
+    const data = await $fetch(`/api/v1/search?query=${encodeURIComponent(query)}`, {
+      baseURL: 'https://api.xcp.io',
+    })
+
+    // Assuming the API returns data in the format { addresses: [], assets: [], tags: [], txs: [] }
+    suggestions.value = processSuggestions(data)
+  } catch (error) {
+    console.error('Fetch error:', error)
+    suggestions.value = []
+  }
+}
+
+// Processing function to map API response to the expected format
+function processSuggestions(data) {
+  let mappedSuggestions = [];
+
+  // Process 'tags' if they exist in the response
+  if (data.tags && data.tags.length > 0) {
+    const tagSuggestions = data.tags.map(item => ({
+      id: item.id, // Assuming each tag has a unique ID
+      name: item.name, // The tag name
+      slug: item.slug, // The tag name
+      type: 'Collection', // Type to distinguish in the UI
+      imageUrl: `https://api.xcp.io/img/logo-icon/${item.slug}`
+    }));
+    mappedSuggestions.push(...tagSuggestions);
+  }
+
+  // Process 'assets' if they exist in the response
+  if (data.assets && data.assets.length > 0) {
+    const assetSuggestions = data.assets.map(item => ({
+      id: item.id, // Assuming each asset has a unique ID
+      name: item.asset_longname || item.asset_name, // Some assets might have a long name
+      slug: item.asset_longname || item.asset_name, // Some assets might have a long name
+      type: 'Asset', // Type to distinguish in the UI
+      imageUrl: `https://api.xcp.io/img/icon/${item.asset_name}`
+    }));
+    mappedSuggestions.push(...assetSuggestions);
+  }
+
+  // Process 'addresses' if they exist in the response
+  if (data.addresses && data.addresses.length > 0) {
+    const addressSuggestions = data.addresses.map(item => ({
+      id: item.id, // Assuming each address has a unique ID
+      name: item.address, // The address string
+      slug: item.address,
+      type: 'Address', // Type to distinguish in the UI
+      imageUrl: "https://api.xcp.io/img/icon/default.png"
+    }));
+    mappedSuggestions.push(...addressSuggestions);
+  }
+
+  // Process 'txs' (transactions) if they exist in the response
+  if (data.txs && data.txs.length > 0) {
+    const txSuggestions = data.txs.map(item => ({
+      id: item.id, // Assuming each transaction has a unique ID
+      name: item.tx_hash, // The transaction hash
+      slug: item.tx_hash, // The transaction hash
+      type: 'TX', // Type to distinguish in the UI
+      imageUrl: "https://api.xcp.io/img/icon/default.png"
+    }));
+    mappedSuggestions.push(...txSuggestions);
+  }
+
+  return mappedSuggestions;
+}
+
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
+
+watch(searchQuery, (newValue) => {
+  if (newValue.trim().length > 3) {
+    debouncedFetchSuggestions(newValue.trim());
+  } else {
+    suggestions.value = [];
+  }
+});
 
 const route = useRoute()
 
