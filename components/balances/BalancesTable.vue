@@ -108,15 +108,10 @@
     </table>
   </div>
   <div ref="lastElement" v-if="!state.allDataLoaded"></div>
-  <div v-if="state.allDataLoaded && state.balances.length > 0 || state.balances.length > 0 && state.balances.length < 30" class="flex justify-center mt-16 sm:mt-20 lg:mt-24">
-    <button @click="downloadCsv" class="flex items-center px-6 py-3 bg-green-700 text-white font-semibold rounded-md hover:bg-green-600 transition duration-300">
-      <FolderArrowDownIcon class="mr-2 h-5 w-5 flex-shrink-0" aria-hidden="true" /> Download as CSV
-    </button>
-  </div>
 </template>
 
 <script setup>
-import { ArrowPathIcon, FolderArrowDownIcon, ListBulletIcon, ViewColumnsIcon, } from '@heroicons/vue/20/solid'
+import { ArrowPathIcon, ListBulletIcon, ViewColumnsIcon, } from '@heroicons/vue/20/solid'
 import { ref, onMounted, onUnmounted, reactive, watch } from 'vue';
 const { trackEvent } = useFathom();
 
@@ -181,25 +176,5 @@ onUnmounted(() => {
 watch(lastElement, (el) => {
   if (el && observer.value) observer.value.observe(el);
 });
-
-const downloadCsv = () => {
-  trackEvent('Download');
-
-  let csvContent = "data:text/csv;charset=utf-8,";
-  csvContent += "Asset,Amount,% of Supply\n";
-
-  state.balances.forEach((balance) => {
-    const percentOfSupply = ((balance.quantity / balance.supply) * 100).toFixed(8);
-    csvContent += `${balance.asset},${formatBalance(balance.quantity, balance)},${percentOfSupply}%\n`;
-  });
-
-  const encodedUri = encodeURI(csvContent);
-  const link = document.createElement("a");
-  link.setAttribute("href", encodedUri);
-  link.setAttribute("download", "balances.csv");
-  document.body.appendChild(link);
-
-  link.click();
-};
 
 </script>
