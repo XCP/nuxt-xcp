@@ -70,7 +70,7 @@
         </button>
 
         <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-          <div class="hidden sm:flex h-16 shrink-0 items-center">
+          <div class="hidden sm:flex h-16 shrink-0 items-center" :class="{'flex-1': !clientHydrated}">
             <a href="/">
               <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" />
             </a>
@@ -287,4 +287,13 @@ watchEffect(() => {
     activeItem.current = true;
   }
 });
+
+// State to track client-side hydration
+const clientHydrated = ref(false)
+
+// Simulate client-side hydration completion
+onMounted(() => {
+  // You might want to check or wait for actual client-only components to mount
+  clientHydrated.value = true
+})
 </script>
