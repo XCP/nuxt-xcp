@@ -1,5 +1,5 @@
 <template>
-  <Table apiUrl="https://api.xcp.io/api/v1/assets" :queryParams="{ address: props.address }" :initialPage="props.initialPage">
+  <Table apiUrl="https://api.xcp.io/api/v1/assets" :queryParams="queryParams" :initialPage="props.initialPage">
     <template v-slot:table-headers>
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold w-20">Lock</th>
@@ -55,4 +55,11 @@ const props = defineProps({
     default: 1
   }
 })
+
+const queryParams = computed(() => {
+  const params = {};  
+  if (props.address) params.address = props.address;
+
+  return params;
+});
 </script>

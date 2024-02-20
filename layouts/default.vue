@@ -152,20 +152,22 @@ const { trackEvent } = useFathom();
 
 import { ref } from 'vue'
 import { SpeedInsights } from "@vercel/speed-insights/nuxt"
-import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {
   ChartBarSquareIcon,
   CheckIcon,
-  ServerIcon,
-  SignalIcon,
+  CircleStackIcon,
+  PhotoIcon,
   XMarkIcon,
+  ListBulletIcon,
 } from '@heroicons/vue/24/outline'
 import { SparklesIcon, Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const navigation = [
-  { name: 'Crypto', href: '/tokens', path: 'address', icon: ServerIcon, current: false },
-  { name: 'NFTs', href: '/collections', icon: SignalIcon, current: false },
-  { name: 'Usage', href: '/charts', icon: ChartBarSquareIcon, current: false },
+  { name: 'Assets', href: '/assets', path: 'assets', icon: ListBulletIcon, current: false },
+  { name: 'Crypto', href: '/tokens', path: 'address', icon: CircleStackIcon, current: false },
+  { name: 'NFTs', href: '/collections', icon: PhotoIcon, current: false },
+  { name: 'Stats', href: '/charts', icon: ChartBarSquareIcon, current: false },
 ]
 const connectWalletDialogOpen = ref(false)
 
