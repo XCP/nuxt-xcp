@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["nuxt-fathom", "@nuxt/image"],
+  modules: ["nuxt-fathom", "@nuxt/image", "@nuxtjs/device"],
   fathom: {
     siteId: "FVFGOFSG",
   },

@@ -2,7 +2,7 @@
   <div class="container mx-auto">
     <div class="lg:flex lg:items-start lg:justify-between lg:gap-x-8">
       <!-- Image Container -->
-      <div @click="toggleModal" class="lg:w-1/3 cursor-pointer">
+      <div @click="toggleModal" class="lg:w-1/3 lg:cursor-pointer">
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full rounded-3xl border border-gray-700 rounded bg-gray-800">
           <Image :asset="asset" :apiData="apiData" />
@@ -89,17 +89,15 @@
 
   <div v-if="showModal" class="fixed inset-0 z-50 overflow-y-auto">
     <div class="flex min-h-screen items-end justify-center p-4 text-center sm:items-center">
-      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="toggleModal"></div>
+      <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" @click="toggleModal"></div>
 
       <!-- Modal Content -->
-      <div class="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-        <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-          <div class="sm:flex sm:items-start">
-            <!-- Here you put the content you want inside the modal, for example, an image -->
-            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-              <!-- Image goes here -->
-              <Image :asset="asset" :apiData="apiData" />
-            </div>
+      <div class="inline-block transform overflow-hidden bg-black rounded-3xl shadow-xl transition-all my-8 align-middle max-w-xl w-full">
+        <div class="flex items-start">
+          <!-- Here you put the content you want inside the modal, for example, an image -->
+          <div class="w-full">
+            <!-- Image goes here -->
+            <Image :asset="asset" :apiData="apiData" />
           </div>
         </div>
       </div>
@@ -116,6 +114,8 @@ import {
 } from '@heroicons/vue/20/solid';
 import { computed, ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
+
+const { isDesktop } = useDevice();
 
 const route = useRoute();
 const asset = ref(route.params.asset);
@@ -159,7 +159,9 @@ const tabs = [
 const { activeTab, handleTabChange } = useTabs('Balances', tabs);
 
 const toggleModal = () => {
-  showModal.value = !showModal.value;
+  if (isDesktop) {
+    showModal.value = !showModal.value;
+  }
 };
 
 const fetchData = async () => {
