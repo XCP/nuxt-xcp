@@ -72,7 +72,7 @@
         <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
           <div class="hidden sm:flex h-16 shrink-0 items-center" :class="{'flex-1': !clientHydrated}">
             <a href="/">
-              <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" />
+              <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" height="33" width="22" />
             </a>
             <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium">Counterparty</a>
           </div>
