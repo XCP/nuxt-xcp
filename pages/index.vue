@@ -1,6 +1,6 @@
 <template>
   <main class="mx-auto w-full max-w-7xl px-6 pb-16 pt-10 sm:pb-24 lg:px-8">
-    <div class="mx-auto mt-20 max-w-2xl text-center sm:mt-24">
+    <div class="mx-auto mt-10 max-w-2xl text-center sm:mt-12">
       <p class="text-base font-semibold leading-8 text-primary">Under Construction</p>
       <h1 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">New XCP Explorer</h1>
       <p class="mt-4 text-base leading-7 text-gray-300 sm:mt-6 sm:text-lg sm:leading-8">Pardon the mess, development is still underway.</p>
@@ -61,4 +61,13 @@ const links = [
   },
   { name: 'Gallery View of Wallet', href: '/address/19QWXpMXeLkoEKEJv2xo9rn8wkPCyxACSX#balances', description: 'See your assets as images instead of icons, if you\'d like.', icon: RssIcon },
 ]
+
+useSeoMeta({
+  title: `Counterparty Explorer`,
+  ogTitle: `Counterparty Explorer`,
+  description: 'Explore detailed information about Counterparty.',
+  ogDescription: 'Detailed insights into Counterparty.',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
+  twitterCard: 'summary_large_image',
+});
 </script>

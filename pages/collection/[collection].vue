@@ -74,9 +74,15 @@ onMounted(() => {
   fetchData();
 });
 
-useSeoMeta({
-  title: apiData.name,
-  ogTitle: apiData.name,
-})
-
+// Using useSeoMeta with reactive data
+watchEffect(() => {
+  useSeoMeta({
+    title: () => apiData.value.name, // Using a function to ensure reactivity
+    ogTitle: () => apiData.value.name,
+    description: 'Explore detailed information about Counterparty projects.',
+    ogDescription: 'Detailed insights into Counterparty projects and their activities.',
+    ogImage: 'https://api.xcp.io/img/full/default.png',
+    twitterCard: 'summary_large_image',
+  });
+});
 </script>

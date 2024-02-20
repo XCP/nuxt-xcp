@@ -165,9 +165,9 @@ onMounted(() => {
 useSeoMeta({
   title: `Transaction: ${tx.value}`,
   ogTitle: `Transaction: ${tx.value}`,
-  description: 'This is my amazing site, let me tell you all about it.',
-  ogDescription: 'This is my amazing site, let me tell you all about it.',
-  ogImage: 'https://example.com/image.png',
+  description: 'Explore detailed information about Counterparty txs.',
+  ogDescription: 'Detailed insights into Counterparty txs and their activities.',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
   twitterCard: 'summary_large_image',
-})
+});
 </script>

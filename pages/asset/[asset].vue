@@ -212,9 +212,9 @@ const encodedData = computed(() => {
 useSeoMeta({
   title: asset.value,
   ogTitle: asset.value,
-  description: 'This is my amazing site, let me tell you all about it.',
-  ogDescription: 'This is my amazing site, let me tell you all about it.',
+  description: 'Explore detailed information about Counterparty assets.',
+  ogDescription: 'Detailed insights into Counterparty assets and their activities.',
   ogImage: `https://api.xcp.io/img/share?data=${encodedData.value}`,
   twitterCard: 'summary_large_image',
-})
+});
 </script>

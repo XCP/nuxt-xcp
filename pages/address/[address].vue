@@ -94,7 +94,7 @@ useSeoMeta({
   ogTitle: address.value,
   description: 'Explore detailed information about Counterparty addresses.',
   ogDescription: 'Detailed insights into Counterparty addresses and their activities.',
-  ogImage: 'https://example.com/image.png',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
   twitterCard: 'summary_large_image',
 });
 </script>

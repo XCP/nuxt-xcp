@@ -12,10 +12,12 @@
 </template>
 
 <script setup>
-  useSeoMeta({
-    title: 'Counterparty NFTs',
-    ogTitle: 'Counterparty NFTs',
-    description: 'Tracking a metaverse of thousands of Bitcoin NFTs going back to 2014.',
-    ogDescription: 'Tracking a metaverse of thousands of Bitcoin NFTs going back to 2014.',
-  })
+useSeoMeta({
+  title: 'Counterparty NFTs',
+  ogTitle: 'Counterparty NFTs',
+  description: 'Tracking a metaverse of thousands of Bitcoin NFTs going back to 2014.',
+  ogDescription: 'Tracking a metaverse of thousands of Bitcoin NFTs going back to 2014.',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
+  twitterCard: 'summary_large_image',
+});
 </script>
