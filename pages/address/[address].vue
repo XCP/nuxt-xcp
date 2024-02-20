@@ -1,28 +1,6 @@
 <template>
   <AddressHeader :address="address" :apiData="apiData" />
 
-  <header class="my-6">
-    <!-- Heading -->
-    <div v-if="lastMessage" class="flex flex-col items-start justify-between gap-x-8 gap-y-4 bg-gray-700/10 px-4 py-4 sm:flex-row sm:items-center sm:px-6 lg:px-8">
-      <div>
-        <div class="flex items-center gap-x-3">
-          <div :class="[isActive && !isSweep ? 'bg-green-400/10 text-green-400' : 'bg-red-400/10 text-red-400', 'flex-none rounded-full p-1']">
-            <div class="h-2 w-2 rounded-full bg-current" />
-          </div>
-          <h2 class="flex gap-x-3 text-base leading-7">
-            <span class="font-semibold text-white">{{ isActive && !isSweep ? 'Active Address' : 'Inactive Address' }}</span>
-          </h2>
-        </div>
-        <p class="mt-2 text-xs leading-6 text-gray-400">
-          <template v-if="isSweep">This Counterparty address was sweeped{{ isActive ? '' : ` ${yearAgo} years ago.` }}.</template>
-          <template v-else-if="isActive">At least one Counterparty transaction in the past year.</template>
-          <template v-else>The last Counterparty transaction was {{ yearsAgo }} years ago.</template>
-        </p>
-      </div>
-      <div class="order-first flex-none rounded-full bg-indigo-400/10 px-2 py-1 text-xs font-medium text-indigo-400 ring-1 ring-inset ring-indigo-400/30 sm:order-none">What's this?</div>
-    </div>
-  </header>
-
   <div class="my-6">
     <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
 

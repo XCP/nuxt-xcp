@@ -1,6 +1,10 @@
 <template>
   <!-- Pagination and Additional Controls -->
-  <Pagination :total-items="totalItems" :current-page="currentPage" :items-per-page="100" @update:currentPage="updateCurrentPage" />
+  <Pagination :total-items="totalItems" :current-page="currentPage" :items-per-page="100" @update:currentPage="updateCurrentPage">
+    <template v-slot:table-controls>
+      <slot name="table-controls"></slot>
+    </template>
+  </Pagination>
   
   <!-- Loading -->
   <div v-if="pending" class="flex justify-center items-center my-20 py-20 text-gray-300">

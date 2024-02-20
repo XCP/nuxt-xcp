@@ -28,7 +28,7 @@
       </ul>
       <div class="mt-10 flex justify-center">
         <a href="/collection" class="text-sm font-semibold leading-6 text-white flex items-center">
-          Click Here to Discover  
+          Click Here to Discover
           <SparklesIcon class="ml-1 h-5 w-5 flex-shrink-0 text-yellow-400" aria-hidden="true" />
         </a>
       </div>

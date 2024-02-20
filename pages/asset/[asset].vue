@@ -40,12 +40,12 @@
             <div>
               <div class="flex items-center gap-x-3">
                 <h2 class="flex gap-x-3 text-base leading-7">
-                  <span class="font-semibold text-white">Floor Price: 0.10000000 BTC</span>
+                  <span class="font-semibold text-white">Floor Price: Coming Soon</span>
                 </h2>
               </div>
-              <p class="mt-2 text-xs leading-6 text-gray-400">Deploys from GitHub via main branch</p>
+              <p class="mt-2 text-xs leading-6 text-gray-400">XCP.io is still under construction...</p>
             </div>
-            <div class="order-first flex-none rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-400 ring-1 ring-inset ring-red-400/30 sm:order-none">Production</div>
+            <div class="order-first flex-none rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-400 ring-1 ring-inset ring-red-400/30 sm:order-none">Work in Progress</div>
           </div>
 
           <!-- Stats -->
@@ -73,9 +73,6 @@
     <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
 
     <!-- Tab content -->
-    <div v-if="activeTab === 'Activity'">
-      <MessagesTable :asset="asset" />
-    </div>
     <div v-if="activeTab === 'Balances'">
       <HoldersTable :asset="asset" />
     </div>
@@ -151,7 +148,6 @@ const dropdownItems = computed(() => [
 ]);
 
 const tabs = [
-  { name: 'Activity', hash: 'activity' },
   { name: 'Balances', hash: 'balances' },
   { name: 'Dispensers', hash: 'dispensers' },
   { name: 'Orders', hash: 'orders' },
@@ -198,7 +194,7 @@ const filteredTags = computed(() => {
 });
 
 const stats = computed(() => [
-  { name: 'Market Cap', value: '$300,000', unit: '5.6 BTC' },
+  { name: 'Market Cap', value: 'N/A', unit: 'N/A BTC' },
   { name: '# Supply', value: formatSupply(apiData.value.supply, apiData.value).replace('.00', ''), lock: apiData.value.locked ? 'locked' : 'unlocked' },
   { name: 'Year Issued', value: new Date(apiData.value.messages.confirmed_at).getFullYear().toString() },
 ]);
