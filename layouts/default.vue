@@ -34,24 +34,6 @@
                         </li>
                       </ul>
                     </li>
-                    <li>
-                      <div class="text-sm font-semibold leading-6 text-gray-400">Your teams</div>
-                      <ul role="list" class="-mx-2 mt-2 space-y-1">
-                        <li v-for="team in teams" :key="team.name">
-                          <a :href="team.href" :class="[team.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-base leading-6 font-semibold']">
-                            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">{{ team.initial }}</span>
-                            <span class="truncate">{{ team.name }}</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="-mx-6 mt-auto">
-                      <a href="#" class="flex items-center gap-x-4 px-6 py-3 text-base font-semibold leading-6 text-white hover:bg-gray-800">
-                        <img class="h-8 w-8 rounded-full bg-gray-800" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                        <span class="sr-only">Your profile</span>
-                        <span aria-hidden="true">Tom Cook</span>
-                      </a>
-                    </li>
                   </ul>
                 </nav>
               </div>
@@ -149,32 +131,11 @@ import {
 import { SparklesIcon, Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const navigation = [
-  { name: 'Assets', href: '/assets', path: 'asset', icon: FolderIcon, current: false },
   { name: 'Crypto', href: '/tokens', path: 'address', icon: ServerIcon, current: false },
   { name: 'NFTs', href: '/collections', icon: SignalIcon, current: false },
-  { name: 'DEx', href: '#', icon: GlobeAltIcon, current: false },
   { name: 'Usage', href: '/charts', icon: ChartBarSquareIcon, current: false },
-  { name: 'Settings', href: '#', icon: Cog6ToothIcon, current: false },
 ]
-const teams = [
-  { id: 1, name: 'Planetaria', href: '#', initial: 'P', current: false },
-  { id: 2, name: 'Protocol', href: '#', initial: 'P', current: false },
-  { id: 3, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-]
-const secondaryNavigation = [
-  { name: 'Overview', href: '#', current: true },
-  { name: 'Activity', href: '#', current: false },
-  { name: 'Settings', href: '#', current: false },
-  { name: 'Collaborators', href: '#', current: false },
-  { name: 'Notifications', href: '#', current: false },
-]
-const stats = [
-  { name: 'Number of deploys', value: '405' },
-  { name: 'Average deploy time', value: '3.65', unit: 'mins' },
-  { name: 'Number of servers', value: '3' },
-  { name: 'Success rate', value: '98.5%' },
-]
-const statuses = { Completed: 'text-green-400 bg-green-400/10', Error: 'text-rose-400 bg-rose-400/10' }
+const teams = []
 
 const sidebarOpen = ref(false)
 const searchQuery = ref('')
