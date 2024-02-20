@@ -88,7 +88,7 @@
       </thead>
       <tbody class="divide-y divide-white/5">
         <tr v-for="balance in state.balances" :key="balance.asset">
-          <td class="whitespace-nowrap py-3 pr-3">
+          <td class="whitespace-nowrap py-3 pr-3 min-w-64">
             <div class="flex items-center gap-x-4">
               <NuxtImg :src="`https://api.xcp.io/img/icon/${balance.asset_name}`" :alt="balance.asset" class="h-10 w-10 bg-gray-800" loading="lazy" />
               <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-base text-white">{{ balance.asset }}</NuxtLink>

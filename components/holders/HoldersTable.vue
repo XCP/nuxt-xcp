@@ -89,22 +89,22 @@
       </thead>
       <tbody class="divide-y divide-white/5">
         <tr v-for="balance in state.balances" :key="balance.asset">
-          <td class="whitespace-nowrap py-3 pr-3">
+          <td class="whitespace-nowrap py-3 pr-3 min-w-64">
             <div class="flex items-center gap-x-4">
                 <NuxtImg :src="`https://api.xcp.io/img/icon/${balance.asset_name}`" :alt="balance.asset" class="h-10 w-10 bg-gray-800" loading="lazy" />
                 <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-white">{{ balance.asset }}</NuxtLink>
               </div>
           </td>
-          <td class="whitespace-nowrap py-3 pl-0 text-base leading-6 text-gray-300">
+          <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
             {{ formatBalance(balance.quantity, balance) }}
           </td>
-          <td class="whitespace-nowrap py-3 pl-0 text-base leading-6 text-gray-300">
+          <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
             {{ ((balance.quantity / balance.supply) * 100).toFixed(8) }}%
           </td>
-          <td class="whitespace-nowrap py-3 pl-0 text-base leading-6 text-gray-300">
+          <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
             <NuxtLink :to="`/address/${balance.address}`" class="font-medium leading-6 text-white">{{ balance.address }}</NuxtLink>
           </td>
-          <td class="whitespace-nowrap py-3 pl-3 text-base font-medium text-right">
+          <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right">
             <NuxtLink :to="`/address/${balance.address}`" class="text-primary">View</NuxtLink>
           </td>
         </tr>
