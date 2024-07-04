@@ -27,10 +27,10 @@
                     <li>
                       <ul role="list" class="-mx-2 space-y-1">
                         <li v-for="item in navigation" :key="item.name">
-                          <a :href="item.href" :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-base leading-6 font-semibold']">
+                          <nuxt-link :to="item.href" :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-base leading-6 font-semibold']">
                             <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
                             {{ item.name }}
-                          </a>
+                          </nuxt-link>
                         </li>
                       </ul>
                     </li>
@@ -46,17 +46,25 @@
     <div>
       <!-- Sticky search header -->
       <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-gray-900 px-4 shadow-sm sm:px-6 lg:px-8">
-        <button type="button" class="-m-2.5 p-2.5 text-white" @click="sidebarOpen = true">
+        <button type="button" class="lg:hidden -m-2.5 p-2.5 text-white" @click="sidebarOpen = true">
           <span class="sr-only">Open sidebar</span>
           <Bars3Icon class="h-5 w-5" aria-hidden="true" />
         </button>
 
         <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
           <div class="hidden sm:flex h-16 shrink-0 items-center" :class="{'flex-1': !clientHydrated}">
-            <a href="/">
+            <nuxt-link to="/">
               <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" height="33" width="22" />
-            </a>
-            <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium">Counterparty</a>
+            </nuxt-link>
+            <nuxt-link to="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium">Counterparty XCP</nuxt-link>
+          </div>
+          <div class="hidden lg:flex md:items-center md:space-x-4">
+            <template v-for="item in navigation" :key="item.name">
+              <nuxt-link :to="item.href" class="bg-gray-900 text-white rounded-md px-2 py-2 text-base font-medium flex items-center">
+                {{ item.name }}
+                <component :is="item.icon" v-if="item.name === 'Discover'" class="ml-1 h-5 w-5 flex-shrink-0 text-yellow-400" aria-hidden="true" />
+              </nuxt-link>
+            </template>
           </div>
           <!-- Combobox for Search -->
           <ClientOnly>
@@ -74,23 +82,33 @@
                 <ComboboxOptions v-if="suggestions.length > 0" class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   <ComboboxOption v-for="suggestion in suggestions" :key="suggestion.id" :value="suggestion" as="template" v-slot="{ active }">
                     <li :class="['relative cursor-default select-none py-2 pl-3 pr-9', active ? 'bg-indigo-600 text-white' : 'text-gray-400']">
-                      <a :href="`/${suggestion.type.toLowerCase()}/${suggestion.slug}`" class="flex items-center">
+                      <nuxt-link :to="`/${suggestion.type.toLowerCase()}/${suggestion.slug}`" class="flex items-center">
                         <img :src="suggestion.imageUrl" alt="" class="h-6 w-6 flex-shrink-0 rounded-full" />
                         <span class="ml-3 block truncate">{{ suggestion.name }}</span>
                         <span class="ml-auto text-sm text-gray-500">{{ suggestion.type }}</span>
-                      </a>
+                      </nuxt-link>
                     </li>
                   </ComboboxOption>
                 </ComboboxOptions>
               </div>
             </Combobox>
           </ClientOnly>
-          <div class="hidden md:flex md:items-center md:space-x-4">
-            <a href="/collections" class="bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium">Collections</a>
-            <a href="/charts" class="bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium">Analytics</a>
-            <a href="/collection" class="flex items-center bg-gray-900 text-white rounded-md px-3 py-2 text-base font-medium">
-              Discover
-              <SparklesIcon class="ml-1 h-5 w-5 flex-shrink-0 text-yellow-400" aria-hidden="true" />
+          <div class="hidden xl:flex md:items-center md:space-x-4">
+            <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base font-medium">
+              {{ btcPrice }}
+              <span :class="{'text-green-500': btcChange > 0, 'text-red-500': btcChange < 0}">
+                <span v-if="btcChange > 0">▲</span>
+                <span v-if="btcChange < 0">▼</span>
+                {{ btcChange }}%
+              </span>
+            </a>
+            <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base font-medium">
+              {{ xcpPrice }}
+              <span :class="{'text-green-500': xcpChange > 0, 'text-red-500': xcpChange < 0}">
+                <span v-if="xcpChange > 0">▲</span>
+                <span v-if="xcpChange < 0">▼</span>
+                {{ xcpChange }}%
+              </span>
             </a>
           </div>
           <div class="flex shrink-0 items-center">
@@ -150,24 +168,22 @@
 <script setup>
 const { trackEvent } = useFathom();
 
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { SpeedInsights } from "@vercel/speed-insights/nuxt"
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {
-  ChartBarSquareIcon,
-  CheckIcon,
   CircleStackIcon,
   PhotoIcon,
   XMarkIcon,
-  ListBulletIcon,
+  AcademicCapIcon,
 } from '@heroicons/vue/24/outline'
 import { SparklesIcon, Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const navigation = [
-  { name: 'Assets', href: '/assets', path: 'assets', icon: ListBulletIcon, current: false },
-  { name: 'Crypto', href: '/tokens', path: 'address', icon: CircleStackIcon, current: false },
-  { name: 'NFTs', href: '/collections', icon: PhotoIcon, current: false },
-  { name: 'Stats', href: '/charts', icon: ChartBarSquareIcon, current: false },
+  { name: 'Collect', href: '/collect', icon: PhotoIcon, current: false },
+  { name: 'Trade', href: '/trade', icon: CircleStackIcon, current: false },
+  { name: 'Learn', href: '/learn', icon: AcademicCapIcon, current: false },
+  { name: 'Discover', href: '/discover', icon: SparklesIcon, current: false },
 ]
 const connectWalletDialogOpen = ref(false)
 
@@ -175,6 +191,32 @@ const sidebarOpen = ref(false)
 const searchQuery = ref('')
 const selectedSuggestion = ref(null)
 const suggestions = ref([])
+
+const btcPrice = ref('Loading...')
+const xcpPrice = ref('Loading...')
+const btcChange = ref(null)
+const xcpChange = ref(null)
+
+// Function to fetch the BTC and XCP prices from CoinPaprika
+async function fetchPrices() {
+  try {
+    const btcResponse = await fetch('https://api.coinpaprika.com/v1/tickers/btc-bitcoin')
+    const btcData = await btcResponse.json()
+    btcPrice.value = `BTC: $${btcData.quotes.USD.price.toFixed(2)}`
+    btcChange.value = btcData.quotes.USD.percent_change_24h
+
+    const xcpResponse = await fetch('https://api.coinpaprika.com/v1/tickers/xcp-counterparty')
+    const xcpData = await xcpResponse.json()
+    xcpPrice.value = `XCP: $${xcpData.quotes.USD.price.toFixed(2)}`
+    xcpChange.value = xcpData.quotes.USD.percent_change_24h
+  } catch (error) {
+    console.error('Failed to fetch prices:', error)
+    btcPrice.value = 'BTC: N/A'
+    xcpPrice.value = 'XCP: N/A'
+    btcChange.value = null
+    xcpChange.value = null
+  }
+}
 
 // Simulate API call for suggestions
 async function fetchSuggestions(query) {
@@ -290,5 +332,8 @@ const clientHydrated = ref(false)
 onMounted(() => {
   // You might want to check or wait for actual client-only components to mount
   clientHydrated.value = true
+
+  fetchPrices()
+  setInterval(fetchPrices, 60000) // Update prices every 60 seconds
 })
 </script>
