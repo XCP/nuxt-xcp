@@ -58,7 +58,7 @@
             </nuxt-link>
             <nuxt-link to="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium">Counterparty XCP</nuxt-link>
           </div>
-          <div class="hidden lg:flex md:items-center md:space-x-4">
+          <div class="hidden lg:flex md:items-center md:space-x-3">
             <template v-for="item in navigation" :key="item.name">
               <nuxt-link :to="item.href" class="bg-gray-900 text-white rounded-md px-2 py-2 text-base font-medium flex items-center">
                 {{ item.name }}
@@ -79,7 +79,7 @@
                 <ComboboxButton class="absolute inset-y-0 left-0 flex items-center pr-2">
                   <MagnifyingGlassIcon class="h-4 w-4 text-gray-400" aria-hidden="true" />
                 </ComboboxButton>
-                <ComboboxOptions v-if="suggestions.length > 0" class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <ComboboxOptions v-if="suggestions.length > 0" class="absolute z-10 mt-1 max-h-56 xl:max-h-72	w-full overflow-auto rounded-md bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   <ComboboxOption v-for="suggestion in suggestions" :key="suggestion.id" :value="suggestion" as="template" v-slot="{ active }">
                     <li :class="['relative cursor-default select-none py-2 pl-3 pr-9', active ? 'bg-indigo-600 text-white' : 'text-gray-400']">
                       <nuxt-link :to="`/${suggestion.type.toLowerCase()}/${suggestion.slug}`" class="flex items-center">
@@ -93,22 +93,26 @@
               </div>
             </Combobox>
           </ClientOnly>
-          <div class="hidden xl:flex md:items-center md:space-x-4">
-            <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base font-medium">
-              {{ btcPrice }}
-              <span :class="{'text-green-500': btcChange > 0, 'text-red-500': btcChange < 0}">
-                <span v-if="btcChange > 0">▲</span>
-                <span v-if="btcChange < 0">▼</span>
+          <div class="hidden xl:flex md:items-center md:space-x-3">
+            <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base flex items-center">
+              <span v-html="`<b>${btcPrice.symbol}</b> ${btcPrice.price}`"></span>
+              <span class="text-sm ml-2 flex items-center" :class="{'text-green-500': btcChange > 0, 'text-red-500': btcChange < 0}" title="24 Hour Change">
+                <span v-if="btcChange > 0" class="text-xs mr-1">▲</span>
+                <span v-if="btcChange < 0" class="text-xs mr-1">▼</span>
                 {{ btcChange }}%
               </span>
             </a>
-            <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base font-medium">
-              {{ xcpPrice }}
-              <span :class="{'text-green-500': xcpChange > 0, 'text-red-500': xcpChange < 0}">
-                <span v-if="xcpChange > 0">▲</span>
-                <span v-if="xcpChange < 0">▼</span>
+            <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base flex items-center">
+              <span v-html="`<b>${xcpPrice.symbol}</b> ${xcpPrice.price}`"></span>
+              <span class="text-sm ml-2 flex items-center" :class="{'text-green-500': xcpChange > 0, 'text-red-500': xcpChange < 0}" title="24 Hour Change">
+                <span v-if="xcpChange > 0" class="text-xs mr-1">▲</span>
+                <span v-if="xcpChange < 0" class="text-xs mr-1">▼</span>
                 {{ xcpChange }}%
               </span>
+            </a>
+            <a href="https://mempool.space/" class="bg-gray-900 text-white rounded-md px-2 py-2 text-sm flex items-center" target="_blank">
+              <span><CubeIcon class="h-5 w-5 text-white mr-1" aria-hidden="true" /></span>
+              <span>{{ fastestFee }} sats/vB</span>
             </a>
           </div>
           <div class="flex shrink-0 items-center">
@@ -174,6 +178,7 @@ import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOption
 import {
   CircleStackIcon,
   PhotoIcon,
+  CubeIcon,
   XMarkIcon,
   AcademicCapIcon,
 } from '@heroicons/vue/24/outline'
@@ -196,25 +201,40 @@ const btcPrice = ref('Loading...')
 const xcpPrice = ref('Loading...')
 const btcChange = ref(null)
 const xcpChange = ref(null)
+const fastestFee = ref(null)
 
 // Function to fetch the BTC and XCP prices from CoinPaprika
 async function fetchPrices() {
   try {
     const btcResponse = await fetch('https://api.coinpaprika.com/v1/tickers/btc-bitcoin')
     const btcData = await btcResponse.json()
-    btcPrice.value = `BTC: $${btcData.quotes.USD.price.toFixed(2)}`
+    const btcPriceValue = btcData.quotes.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    btcPrice.value = { symbol: 'BTC', price: `$${btcPriceValue}` }
     btcChange.value = btcData.quotes.USD.percent_change_24h
 
     const xcpResponse = await fetch('https://api.coinpaprika.com/v1/tickers/xcp-counterparty')
     const xcpData = await xcpResponse.json()
-    xcpPrice.value = `XCP: $${xcpData.quotes.USD.price.toFixed(2)}`
+    const xcpPriceValue = xcpData.quotes.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    xcpPrice.value = { symbol: 'XCP', price: `$${xcpPriceValue}` }
     xcpChange.value = xcpData.quotes.USD.percent_change_24h
   } catch (error) {
     console.error('Failed to fetch prices:', error)
-    btcPrice.value = 'BTC: N/A'
-    xcpPrice.value = 'XCP: N/A'
+    btcPrice.value = { symbol: 'BTC', price: 'N/A' }
+    xcpPrice.value = { symbol: 'XCP', price: 'N/A' }
     btcChange.value = null
     xcpChange.value = null
+  }
+}
+
+// Function to fetch the fastest fee from mempool.space API
+async function fetchFastestFee() {
+  try {
+    const response = await fetch('https://mempool.space/api/v1/fees/recommended')
+    const data = await response.json()
+    fastestFee.value = data.fastestFee
+  } catch (error) {
+    console.error('Failed to fetch fastest fee:', error)
+    fastestFee.value = 'N/A'
   }
 }
 
@@ -334,6 +354,8 @@ onMounted(() => {
   clientHydrated.value = true
 
   fetchPrices()
+  fetchFastestFee()
   setInterval(fetchPrices, 60000) // Update prices every 60 seconds
+  setInterval(fetchFastestFee, 60000) // Update fees every 60 seconds
 })
 </script>

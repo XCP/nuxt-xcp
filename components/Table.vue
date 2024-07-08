@@ -42,7 +42,7 @@
 
 <script setup>
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
-import { defineProps, ref, watch, computed } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useFetch } from 'nuxt/app'
 
 const props = defineProps({
