@@ -1,5 +1,4 @@
 import apiClient from '../apiClient';
-import redis from '../redisClient';
 
 /**
  * Handle pagination by either cursor or offset.
@@ -28,21 +27,12 @@ export const handlePagination = (params) => {
  * @returns {Promise<Object>} - The API response data
  */
 export const handleApiCall = async (apiFunction, endpoint, config) => {
-  const cacheKey = `${endpoint}:${JSON.stringify(config.params || {})}`;
-  const cachedResponse = await redis.json.get(cacheKey, '$');
-
-  if (cachedResponse) {
-    return cachedResponse[0];
-  }
-
   try {
     const response = await apiFunction(endpoint, config);
     const responseData = {
       headers: response.headers,
       data: response.data
     };
-    await redis.json.set(cacheKey, '$', responseData);
-    await redis.expire(cacheKey, 300); // Set expiration for 5 minutes
     return responseData;
   } catch (error) {
     console.error(`API call failed: ${JSON.stringify(error, null, 2)}`);
