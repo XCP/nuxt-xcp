@@ -11,10 +11,10 @@
       </div>
       <div class="mb-8">
         <h2 class="text-2xl font-semibold mb-2">Monthly Hosting Expenses</h2>
-        <p>Google Cloud (c3-standard-4): $284/mo - 16GB / 1024GB Disk</p>
+        <p>Google Cloud (c3-standard-4): $319/mo - 16GB / 1500GB Disk</p>
         <p>Digital Ocean: $96/mo - 16GB / 320GB Disk</p>
         <p>Vercel: $20/mo - 1 Team Member</p>
-        <p class="mt-1 font-medium">Total: $400 per month</p>
+        <p class="mt-1 font-medium">Total: $435 per month</p>
         <p class="mt-1"><a href="https://app.usefathom.com/share/fvfgofsg/xcp-io" target="_blank" class="font-medium hover:underline">Review Web Analytics</a></p>
       </div>
       <div>
@@ -55,7 +55,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 
-const totalMonthlyExpenses = 284 + 96 + 20; // Total expenses in USD
+const totalMonthlyExpenses = 319 + 96 + 20; // Total expenses in USD
 const btcPrice = ref(0); // Example BTC price in USD
 const currentInSats = ref(0);
 const currentInBTC = ref(0);

@@ -197,11 +197,11 @@ const searchQuery = ref('')
 const selectedSuggestion = ref(null)
 const suggestions = ref([])
 
-const btcPrice = ref('Loading...')
-const xcpPrice = ref('Loading...')
+const btcPrice = ref({ symbol: 'BTC', price: 'N/A' })
+const xcpPrice = ref({ symbol: 'XCP', price: 'N/A' })
 const btcChange = ref(null)
 const xcpChange = ref(null)
-const fastestFee = ref(null)
+const fastestFee = ref('N/A')
 
 // Function to fetch the BTC and XCP prices from CoinPaprika
 async function fetchPrices() {

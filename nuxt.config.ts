@@ -9,6 +9,11 @@ export default defineNuxtConfig({
     },
   },
   modules: ["nuxt-fathom", "@nuxt/image", "@nuxtjs/device"],
+  nitro: {
+    storage: {
+      data: { driver: 'vercelKV' }
+    }
+  },
   fathom: {
     siteId: "FVFGOFSG",
   },

@@ -19,112 +19,112 @@ const callApiWithHealthCheck = async (apiFunction, endpoint, config) => {
 export default {
   getBlocks(params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, '/blocks', { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, '/v2/blocks', { params: paginationParams });
   },
   getLastBlock(params) {
-    return callApiWithHealthCheck(apiClient.get, '/blocks/last', { params });
+    return callApiWithHealthCheck(apiClient.get, '/v2/blocks/last', { params });
   },
   getBlockByIndex(blockIndex, params) {
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}`, { params });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}`, { params });
   },
   getBlockByHash(blockHash, params) {
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockHash}`, { params });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockHash}`, { params });
   },
   getBlockTransactions(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/transactions`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/transactions`, { params: paginationParams });
   },
   getBlockEvents(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/events`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/events`, { params: paginationParams });
   },
   getBlockEventCounts(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/events/counts`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/events/counts`, { params: paginationParams });
   },
   getBlockEventsByType(blockIndex, eventType, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/events/${eventType}`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/events/${eventType}`, { params: paginationParams });
   },
   getBlockCredits(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/credits`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/credits`, { params: paginationParams });
   },
   getBlockDebits(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/debits`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/debits`, { params: paginationParams });
   },
   getBlockExpirations(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/expirations`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/expirations`, { params: paginationParams });
   },
   getBlockCancels(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/cancels`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/cancels`, { params: paginationParams });
   },
   getBlockDestructions(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/destructions`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/destructions`, { params: paginationParams });
   },
   getBlockIssuances(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/issuances`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/issuances`, { params: paginationParams });
   },
   getBlockSends(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/sends`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/sends`, { params: paginationParams });
   },
   getBlockDispenses(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/dispenses`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/dispenses`, { params: paginationParams });
   },
   getBlockSweeps(blockIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/blocks/${blockIndex}/sweeps`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/blocks/${blockIndex}/sweeps`, { params: paginationParams });
   },
   getTransactions(params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, '/transactions', { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, '/v2/transactions', { params: paginationParams });
   },
   getTransactionInfo(rawTransaction, blockIndex = null, verbose = false) {
-    return callApiWithHealthCheck(apiClient.post, '/transactions/info', {
+    return callApiWithHealthCheck(apiClient.post, '/v2/transactions/info', {
       rawtransaction: rawTransaction,
       block_index: blockIndex,
       verbose,
     });
   },
   unpackTransaction(dataHex, blockIndex = null, verbose = false) {
-    return callApiWithHealthCheck(apiClient.post, '/transactions/unpack', {
+    return callApiWithHealthCheck(apiClient.post, '/v2/transactions/unpack', {
       datahex: dataHex,
       block_index: blockIndex,
       verbose,
     });
   },
   getTransactionByIndex(txIndex, verbose = false) {
-    return callApiWithHealthCheck(apiClient.get, `/transactions/${txIndex}`, { params: { verbose } });
+    return callApiWithHealthCheck(apiClient.get, `/v2/transactions/${txIndex}`, { params: { verbose } });
   },
   getTransactionByHash(txHash, verbose = false) {
-    return callApiWithHealthCheck(apiClient.get, `/transactions/${txHash}`, { params: { verbose } });
+    return callApiWithHealthCheck(apiClient.get, `/v2/transactions/${txHash}`, { params: { verbose } });
   },
   getTransactionEventsByIndex(txIndex, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/transactions/${txIndex}/events`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/transactions/${txIndex}/events`, { params: paginationParams });
   },
   getTransactionEventsByHash(txHash, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/transactions/${txHash}/events`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/transactions/${txHash}/events`, { params: paginationParams });
   },
   getTransactionEventsByTypeIndex(txIndex, eventType, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/transactions/${txIndex}/events/${eventType}`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/transactions/${txIndex}/events/${eventType}`, { params: paginationParams });
   },
   getTransactionEventsByTypeHash(txHash, eventType, params) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/transactions/${txHash}/events/${eventType}`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/transactions/${txHash}/events/${eventType}`, { params: paginationParams });
   },
-  getAddressBalances(address, params) {
+  getAddressBalances(address, params, verbose = true) {
     const paginationParams = handlePagination(params);
-    return callApiWithHealthCheck(apiClient.get, `/v2/addresses/${address}/balances`, { params: paginationParams });
+    return callApiWithHealthCheck(apiClient.get, `/v2/addresses/${address}/balances`, { params: {...paginationParams, verbose} });
   },
   getAddressBalanceByAsset(address, asset, params) {
     return callApiWithHealthCheck(apiClient.get, `/v2/addresses/${address}/balances/${asset}`, { params });

@@ -14,7 +14,7 @@ import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 
 definePageMeta({
-  layout: 'empty'
+  layout: false
 });
 
 const data = ref(null);
@@ -25,7 +25,7 @@ const { $apiClient } = useNuxtApp();
 
 onMounted(async () => {
   try {
-    const response = await $apiClient.getBlocks({ limit: 1 });
+    const response = await $apiClient.getEventCounts();
     data.value = response;
   } catch (err) {
     error.value = err;

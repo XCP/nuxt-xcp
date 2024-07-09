@@ -8,7 +8,7 @@ import apiClient from '../apiClient';
  * @param {number} params.offset - Offset for pagination
  * @returns {Object} - Pagination parameters
  */
-export const handlePagination = (params) => {
+export const handlePagination = (params = {}) => {
   const { cursor, limit, offset } = params;
   if (cursor) {
     return { cursor, limit };
@@ -33,7 +33,7 @@ export const handleApiCall = async (apiFunction, endpoint, config) => {
       headers: response.headers,
       data: response.data
     };
-    return responseData;
+    return response;
   } catch (error) {
     console.error(`API call failed: ${JSON.stringify(error, null, 2)}`);
     throw formatError(error);

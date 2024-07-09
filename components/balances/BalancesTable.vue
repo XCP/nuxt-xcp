@@ -82,7 +82,6 @@
         <tr>
           <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
           <th scope="col" class="py-2 pr-2 font-semibold">Amount</th>
-          <th scope="col" class="py-2 pr-2 font-semibold">% of Supply</th>
           <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
         </tr>
       </thead>
@@ -90,18 +89,15 @@
         <tr v-for="balance in state.balances" :key="balance.asset">
           <td class="whitespace-nowrap py-3 pr-3 min-w-64">
             <div class="flex items-center gap-x-4">
-              <NuxtImg :src="`https://api.xcp.io/img/icon/${balance.asset_name}`" :alt="balance.asset" class="h-10 w-10 bg-gray-800" loading="lazy" />
-              <NuxtLink :to="`/asset/${balance.asset}`" class="font-medium leading-6 text-base text-white">{{ balance.asset }}</NuxtLink>
+              <NuxtImg :src="`https://api.xcp.io/img/icon/${balance.asset}`" :alt="formatAssetName(balance.asset, balance.asset_info)" class="h-10 w-10 bg-gray-800" loading="lazy" />
+              <NuxtLink :to="`/asset/${formatAssetName(balance.asset, balance.asset_info)}`" class="font-medium leading-6 text-base text-white">{{ formatAssetName(balance.asset, balance.asset_info) }}</NuxtLink>
             </div>
           </td>
           <td class="whitespace-nowrap py-3 pl-0 text-base leading-6 text-gray-300">
-            {{ formatBalance(balance.quantity, balance) }}
-          </td>
-          <td class="whitespace-nowrap py-3 pl-0 text-base leading-6 text-gray-300">
-            {{ ((balance.quantity / balance.supply) * 100).toFixed(8) }}%
+            {{ balance.quantity_normalized }}
           </td>
           <td class="whitespace-nowrap py-3 pl-3 text-base font-medium text-right">
-            <NuxtLink :to="`/asset/${balance.asset}`" class="text-primary">View</NuxtLink>
+            <NuxtLink :to="`/asset/${formatAssetName(balance.asset, balance.asset_info)}`" class="text-primary">View</NuxtLink>
           </td>
         </tr>
       </tbody>
@@ -124,28 +120,34 @@ const state = reactive({
   loading: false,
   allDataLoaded: false,
   initialLoad: true,
+  nextCursor: null
 });
 
 const observer = ref(null);
 const lastElement = ref(null);
 const viewMode = ref('table');
 
+const { $apiClient } = useNuxtApp();
+
 const fetchData = async () => {
   if (state.loading || state.allDataLoaded) return;
 
   state.loading = true;
-  const query = `address=${props.address}&page=${Math.floor(state.balances.length / 30) + 1}`;
+  const params = {
+    cursor: state.nextCursor,
+    limit: 100
+  };
 
   try {
-    const response = await fetch(`https://api.xcp.io/api/v1/balances?${query}`);
-    if (!response.ok) throw new Error('Network response was not ok');
-    const data = await response.json();
+    const response = await $apiClient.getAddressBalances(props.address, params);
+    const data = response.data;
 
-    if (data.length < 30) {
+    if (data.result.length < 30) {
       state.allDataLoaded = true;
     }
 
-    state.balances.push(...data);
+    state.balances.push(...data.result);
+    state.nextCursor = data.next_cursor;  // Update cursor for next API call
   } catch (error) {
     console.error('Fetch error:', error);
   } finally {

@@ -1,5 +1,5 @@
 const config = {
-  baseURL: 'https://api.counterparty.info/v2',
+  baseURL: 'https://api.counterparty.info',
 };
 
 export default config;
