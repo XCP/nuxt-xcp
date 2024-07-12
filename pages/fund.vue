@@ -46,7 +46,7 @@
     <div class="text-center mb-8">
       <h2 class="text-2xl font-semi bold mb-4">Months of Hosting Offset</h2>
       <div class="flex flex-wrap justify-center gap-2">
-        <div v-for="n in shownMonths" :key="n" class="w-16 h-16 flex text-center justify-center items-center text-sm rounded-lg" :class="n <= fundedMonths ? 'bg-green-600' : 'bg-transparent border-2 border-green-600'" v-html="monthIndexToMonth(n - 1)"></div>
+        <div v-for="n in shownMonths" :key="n" class="w-16 h-16 flex text-center justify-center items-center text-sm rounded-lg" :class="n <= fundedMonths ? 'bg-green-600' : 'bg-transparent border-2 border-green-600'" v-html="monthIndexToMonth(n - 1)"/>
       </div>
     </div>
   </div>
@@ -76,8 +76,8 @@ const shownMonths = computed(() => {
   // If fundedMonths is more than 24, adjust to the closest multiple of 12 above fundedMonths
   if (fundedMonths.value > 24) {
     // Calculate the excess months over 24 and find the next multiple of 12
-    let excessMonths = fundedMonths.value - 24;
-    let additionalMonths = 12 - (excessMonths % 12);
+    const excessMonths = fundedMonths.value - 24;
+    const additionalMonths = 12 - (excessMonths % 12);
     baseMonths = fundedMonths.value + (additionalMonths === 12 ? 0 : additionalMonths);
   }
 
@@ -149,8 +149,8 @@ onMounted(() => {
 function monthIndexToMonth(index) {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const startYear = 2024;
-  let yearOffset = Math.floor(index / 12);
-  let monthIndex = index % 12;
+  const yearOffset = Math.floor(index / 12);
+  const monthIndex = index % 12;
   return `${months[monthIndex]} <br /> ${startYear + yearOffset}`;
 }
 

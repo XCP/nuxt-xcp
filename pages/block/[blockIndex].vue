@@ -1,42 +1,42 @@
 <template>
-  <BlockHeader :blockIndex="blockIndex" />
+  <BlockHeader :block-index="blockIndex" />
 
   <div class="my-6">
     <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
 
     <!-- Tab content -->
     <div v-if="activeTab === 'Transactions'">
-      <TransactionsTable :blockIndex="blockIndex" />
+      <TransactionsTable :block-index="blockIndex" />
     </div>
     <div v-if="activeTab === 'Events'">
-      <EventsTable :blockIndex="blockIndex" />
+      <EventsTable :block-index="blockIndex" />
     </div>
     <div v-if="activeTab === 'Credits'">
-      <CreditsTable :blockIndex="blockIndex" />
+      <CreditsTable :block-index="blockIndex" />
     </div>
     <div v-if="activeTab === 'Debits'">
-      <DebitsTable :blockIndex="blockIndex" />
+      <DebitsTable :block-index="blockIndex" />
     </div>
     <div v-if="activeTab === 'Expirations'">
-      <ExpirationsTable :blockIndex="blockIndex" />
+      <ExpirationsTable :block-index="blockIndex" />
     </div>
     <div v-if="activeTab === 'Cancels'">
-      <CancelsTable :blockIndex="blockIndex" />
+      <CancelsTable :block-index="blockIndex" />
     </div>
     <div v-if="activeTab === 'Destructions'">
-      <DestructionsTable :blockIndex="blockIndex" />
+      <DestructionsTable :block-index="blockIndex" />
     </div>
     <div v-if="activeTab === 'Issuances'">
-      <IssuancesTable :blockIndex="blockIndex" />
+      <IssuancesTable :block-index="blockIndex" />
     </div>
     <div v-if="activeTab === 'Sends'">
-      <SendsTable :blockIndex="blockIndex" />
+      <SendsTable :block-index="blockIndex" />
     </div>
     <div v-if="activeTab === 'Dispenses'">
-      <DispensesTable :blockIndex="blockIndex" />
+      <DispensesTable :block-index="blockIndex" />
     </div>
     <div v-if="activeTab === 'Sweeps'">
-      <SweepsTable :blockIndex="blockIndex" />
+      <SweepsTable :block-index="blockIndex" />
     </div>
 </div>
 </template>

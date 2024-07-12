@@ -2,10 +2,10 @@
   <div class="container mx-auto">
     <div class="lg:flex lg:items-start lg:justify-between lg:gap-x-8">
       <!-- Image Container -->
-      <div @click="toggleModal" class="lg:w-1/3 lg:cursor-pointer">
+      <div class="lg:w-1/3 lg:cursor-pointer" @click="toggleModal">
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full rounded-3xl border border-gray-700 rounded bg-gray-800">
-          <Image :asset="asset" :apiData="apiData" />
+          <Image :asset="asset" :api-data="apiData" />
         </div>
       </div>
 
@@ -80,13 +80,13 @@
       <DispensersTable :asset="asset" />
     </div>
     <div v-if="activeTab === 'Orders'">
-      <OrdersTable :baseAsset="asset" />
+      <OrdersTable :base-asset="asset" />
     </div>
   </div>
 
   <div v-if="showModal" class="fixed inset-0 z-50 overflow-y-auto">
     <div class="flex min-h-screen items-end justify-center p-4 text-center sm:items-center">
-      <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" @click="toggleModal"></div>
+      <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" @click="toggleModal"/>
 
       <!-- Modal Content -->
       <div class="inline-block transform overflow-hidden bg-black rounded-3xl shadow-xl transition-all my-8 align-middle max-w-xl w-full">
@@ -94,7 +94,7 @@
           <!-- Here you put the content you want inside the modal, for example, an image -->
           <div class="w-full">
             <!-- Image goes here -->
-            <Image :asset="asset" :apiData="apiData" />
+            <Image :asset="asset" :api-data="apiData" />
           </div>
         </div>
       </div>
@@ -204,7 +204,7 @@ const encodedData = computed(() => {
     name: asset.value,
     imageUrl: !asset.value.includes('.') 
       ? `https://api.xcp.io/img/full/${asset.value}` 
-      : `https://api.xcp.io/img/full/${apiData.asset_name}`
+      : `https://api.xcp.io/img/full/${apiData.value.asset_name}`
   });
   return btoa(encodeURIComponent(jsonData));
 });

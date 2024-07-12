@@ -1,6 +1,6 @@
 <template>
-  <Table apiUrl="https://api.xcp.io/api/v1/messages" :queryParams="queryParams" :initialPage="props.initialPage">
-    <template v-slot:table-headers>
+  <Table api-url="https://api.xcp.io/api/v1/messages" :query-params="queryParams" :initial-page="props.initialPage">
+    <template #table-headers>
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
@@ -9,7 +9,7 @@
         <th scope="col" class="py-2 pl-3"><span class="sr-only">View</span></th>
       </tr>
     </template>
-    <template v-slot:table-rows="{ data }">
+    <template #table-rows="{ data }">
       <tr v-for="(item, index) in data" :key="index">
         <td class="py-3 pr-8">
           <div class="flex items-center gap-x-4 leading-6">
@@ -32,10 +32,10 @@
         </td>
       </tr>
     </template>
-    <template v-slot:table-controls>
+    <template #table-controls>
       <!-- Category filter dropdown -->
       <div class="ml-4">
-        <select v-model="selectedCategory" @change="changeCategory" class="text-white bg-gray-800 rounded px-3 py-1 text-base focus:outline-none md:w-auto">
+        <select v-model="selectedCategory" class="text-white bg-gray-800 rounded px-3 py-1 text-base focus:outline-none md:w-auto" @change="changeCategory">
           <option value="" selected>Show All</option>
           <option v-for="category in availableCategories" :key="category" :value="category">{{ formatSnakeCase(category) }}</option>
         </select>
@@ -68,7 +68,7 @@ const selectedCategory = ref(props.category || "");
 const queryParams = computed(() => {
   const params = {};  
   if (props.collection) params.collection = props.collection;
-  if (selectedCategory) params.category = selectedCategory.value;
+  if (selectedCategory.value) params.category = selectedCategory.value;
   if (props.address) params.address = props.address;
   if (props.asset) params.asset_name = props.asset;
 

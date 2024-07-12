@@ -19,17 +19,17 @@
     <div class="flex">
       <!-- Table View Button -->
       <button
-        @click="viewMode = 'table'; trackEvent('List View')"
         class="h-10	inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
         :class="{ 'bg-gray-700 text-white': viewMode === 'table', 'bg-gray-800 text-gray-300': viewMode === 'grid' }"
+        @click="viewMode = 'table'; trackEvent('List View')"
       >
         <ListBulletIcon class="h-4 w-4" />
       </button>
       <!-- Grid View Button -->
       <button
-        @click="viewMode = 'grid'; trackEvent('Grid View')"
         class="h-10	ml-2 inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
         :class="{ 'bg-gray-700 text-white ': viewMode === 'grid', 'bg-gray-800 text-gray-300': viewMode === 'table' }"
+        @click="viewMode = 'grid'; trackEvent('Grid View')"
       >
         <ViewColumnsIcon class="h-4 w-4" />
       </button>
@@ -58,7 +58,7 @@
         
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full">
-          <Image :assetName="asset.asset_name" :formatAssetName="formatAssetName" />
+          <Image :asset-name="asset.asset_name" :format-asset-name="formatAssetName" />
         </div>
 
         <div class="p-4 pb-0">
@@ -111,7 +111,7 @@
       </tbody>
     </table>
   </div>
-  <div ref="lastElement" v-if="!state.allDataLoaded"></div>
+  <div v-if="!state.allDataLoaded" ref="lastElement"/>
 </template>
 
 <script setup>

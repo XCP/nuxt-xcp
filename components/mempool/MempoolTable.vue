@@ -19,8 +19,8 @@
     <div class="flex">
       <!-- Refresh Results -->
       <button
-        @click="refreshData(); trackEvent('Refresh Results')"
         class="bg-gray-800 text-gray-300 h-10	inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-semibold hover:bg-gray-700 focus:outline-none"
+        @click="refreshData(); trackEvent('Refresh Results')"
       >
         <ArrowPathIcon class="h-4 w-4" />
       </button>
@@ -85,7 +85,7 @@
       </tbody>
     </table>
   </div>
-  <div ref="lastElement" v-if="!state.allDataLoaded"></div>
+  <div v-if="!state.allDataLoaded" ref="lastElement"/>
 </template>
 
 <script setup>

@@ -3,7 +3,7 @@
     <!-- Responsive container for title and dropdown -->
     <div class="flex flex-col md:flex-row justify-between items-center mb-4 w-full">
       <!-- Dropdown for selecting metric type -->
-      <select v-model="selectedMetric" @change="changeMetricType" class="text-white bg-gray-800 font-medium rounded px-3 py-2 focus:outline-none md:w-auto w-full">
+      <select v-model="selectedMetric" class="text-white bg-gray-800 font-medium rounded px-3 py-2 focus:outline-none md:w-auto w-full" @change="changeMetricType">
         <option value="messages" class="font-semibold">Network Activity</option>
         <option value="stamps_dominance">% of Total (Stamps)</option>
         <option value="rares_dominance">% of Total (Rare Pepe)</option>
@@ -23,9 +23,9 @@
         <button
           v-for="period in ['day', 'week', 'month', 'year']"
           :key="period"
-          @click="changePeriod(period)"
           :class="buttonClasses(period)"
           class="text-base px-4 py-2 mx-1 rounded focus:outline-none focus:ring w-full md:w-auto"
+          @click="changePeriod(period)"
         >
           {{ period.charAt(0).toUpperCase() + period.slice(1) }}
         </button>
@@ -33,8 +33,8 @@
     </div>
 
     <!-- Chart Canvas -->
-    <div class="chart-container" ref="chartContainer">
-      <canvas ref="chartRef"></canvas>
+    <div ref="chartContainer" class="chart-container">
+      <canvas ref="chartRef"/>
     </div>
   </div>
 </template>

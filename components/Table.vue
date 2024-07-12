@@ -4,13 +4,13 @@
     <Pagination
       :current-page="state.currentPage"
       :results-per-page="state.resultsPerPage"
-      :startItem="startItem"
-      :endItem="endItem"
-      :totalItems="state.totalItems"
-      :fetchData="fetchData"
+      :start-item="startItem"
+      :end-item="endItem"
+      :total-items="state.totalItems"
+      :fetch-data="fetchData"
     >
-      <template v-slot:table-controls>
-        <slot name="table-controls"></slot>
+      <template #table-controls>
+        <slot name="table-controls"/>
       </template>
     </Pagination>
 
@@ -18,7 +18,7 @@
     <div class="mt-6 relative overflow-x-auto">
       <table class="w-full whitespace-nowrap text-left border-white/10" role="table" aria-live="polite">
         <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
-          <slot name="table-headers"></slot>
+          <slot name="table-headers"/>
         </thead>
         <tbody class="divide-y divide-white/5 border-b border-white/10">
           <template v-if="state.loading">
@@ -50,7 +50,7 @@
             </tr>
           </template>
           <template v-else>
-            <slot name="table-rows" :data="state.items"></slot>
+            <slot name="table-rows" :data="state.items"/>
           </template>
         </tbody>
       </table>

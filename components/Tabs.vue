@@ -17,7 +17,6 @@
       <ul class="flex w-full border-b border-white/5">
         <li v-for="tab in tabs" :key="tab.hash" class="last:mr-0">
           <button
-            @click="emitTabChange(tab.name)"
             :class="[
               'px-4 py-2 mr-[1px] text-base font-medium rounded-none',
               tab.name === props.activeTab
@@ -25,6 +24,7 @@
                 : 'bg-gray-700/10 text-gray-300 hover:bg-white/20 hover:text-white'
             ]"
             class="first:rounded-tl-md last:rounded-tr-md"
+            @click="emitTabChange(tab.name)"
           >
             {{ tab.name }}
           </button>

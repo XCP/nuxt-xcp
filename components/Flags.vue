@@ -16,7 +16,7 @@ export default {
       const FLAG_OWNERSHIP = 2;
       const FLAG_BINARY_MEMO = 4;
 
-      let texts = [];
+      const texts = [];
 
       if (this.flags & FLAG_BALANCES) {
         texts.push('Balances');

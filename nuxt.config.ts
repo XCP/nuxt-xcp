@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["nuxt-fathom", "@nuxt/image", "@nuxtjs/device"],
+  modules: ["nuxt-fathom", "@nuxt/image", "@nuxtjs/device", "@nuxt/eslint"],
   nitro: {
     storage: {
       data: { driver: 'vercelKV' }

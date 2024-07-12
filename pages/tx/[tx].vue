@@ -1,5 +1,5 @@
 <template>
-  <TxHeader :tx="tx" :apiData="apiData" />
+  <TxHeader :tx="tx" :api-data="apiData" />
 
   <header class="hidden lg:block mt-6 mb-8">
     <!-- Heading -->
@@ -77,7 +77,7 @@ const timestamp = computed(() => {
 const stats = [
   { name: 'Block #', value: blockIndex },
   { name: 'TX Index', value: txIndex },
-  { name: 'Time Ago', value: timeAgo(apiData.timestamp) },
+  { name: 'Time Ago', value: timeAgo(apiData.value.timestamp) },
 ]
 
 const tabs = [

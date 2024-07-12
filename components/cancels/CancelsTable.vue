@@ -1,5 +1,5 @@
 <template>
-  <Table :apiClientFunction="apiClientFunction">
+  <Table :api-client-function="apiClientFunction">
     <template #table-headers>
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold">Source</th>

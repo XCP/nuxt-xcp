@@ -1,5 +1,5 @@
 <template>
-  <Table :apiClientFunction="apiClientFunction">
+  <Table :api-client-function="apiClientFunction">
     <template #table-headers>
       <tr>
         <th v-if="!props.address" scope="col" class="py-2 pr-2 font-semibold min-w-[100px]">Source</th>

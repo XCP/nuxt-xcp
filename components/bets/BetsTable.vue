@@ -1,5 +1,5 @@
 <template>
-  <Table :apiClientFunction="apiClientFunction" :changeKey="selectedStatus">
+  <Table :api-client-function="apiClientFunction" :change-key="selectedStatus">
     <template #table-controls>
       <!-- Status filter dropdown -->
       <div class="ml-4">
@@ -49,8 +49,7 @@
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ bet.leverage }}
           </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
+        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300"/><td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           <NuxtLink :to="`/block/${bet.expire_index}`" class="leading-6 text-white">
             {{ bet.expire_index.toLocaleString() }}
           </NuxtLink>

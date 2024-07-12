@@ -15,33 +15,33 @@
     <div class="flex flex-1 justify-between sm:justify-end">
       <!-- First Page Button -->
       <button
-        @click="goToPage(1)"
         class="relative inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
         :disabled="state.currentPage === 1"
+        @click="goToPage(1)"
       >
         &laquo;
       </button>
       <!-- Previous Page Button -->
       <button
-        @click="goToPage(state.currentPage - 1)"
         class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
         :disabled="state.currentPage <= 1"
+        @click="goToPage(state.currentPage - 1)"
       >
         &lsaquo;
       </button>
       <!-- Next Page Button -->
       <button
-        @click="goToPage(state.currentPage + 1)"
         class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
         :disabled="state.currentPage >= state.lastPage"
+        @click="goToPage(state.currentPage + 1)"
       >
         &rsaquo;
       </button>
       <!-- Last Page Button -->
       <button
-        @click="goToPage(state.lastPage)"
         class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
         :disabled="state.currentPage === state.lastPage"
+        @click="goToPage(state.lastPage)"
       >
         &raquo;
       </button>
@@ -62,11 +62,11 @@
   <div v-else class="mt-6 relative overflow-x-auto">
     <table class="w-full whitespace-nowrap text-left border-white/10">
       <colgroup>
-        <col class="w-full sm:w-2/12" />
-        <col class="lg:w-3/12" />
-        <col class="lg:w-2/12" />
-        <col class="lg:w-3/12" />
-        <col class="lg:w-2/12" />
+        <col class="w-full sm:w-2/12" >
+        <col class="lg:w-3/12" >
+        <col class="lg:w-2/12" >
+        <col class="lg:w-3/12" >
+        <col class="lg:w-2/12" >
       </colgroup>
       <thead class="border-b border-white/10 text-base leading-6 text-white">
         <tr>

@@ -1,6 +1,6 @@
 <template>
-  <Table apiUrl="https://api.xcp.io/api/v1/messages" :queryParams="{ tx_hash: props.tx }" :initialPage="props.initialPage">
-    <template v-slot:table-headers>
+  <Table api-url="https://api.xcp.io/api/v1/messages" :query-params="{ tx_hash: props.tx }" :initial-page="props.initialPage">
+    <template #table-headers>
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Action</th>
@@ -9,7 +9,7 @@
         <th scope="col" class="py-2 pl-3"><span class="sr-only">View</span></th>
       </tr>
     </template>
-    <template v-slot:table-rows="{ data }">
+    <template #table-rows="{ data }">
       <tr v-for="(item, index) in data" :key="index">
         <td class="py-3 pr-8">
           <div class="flex items-center gap-x-4 leading-6">

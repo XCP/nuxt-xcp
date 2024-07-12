@@ -20,7 +20,7 @@
               <!-- Sidebar component, swap this element with another sidebar if you like -->
               <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 ring-1 ring-white/10">
                 <div class="flex h-16 shrink-0 items-center">
-                  <img class="h-7 w-auto" src="/img/xcpio.png" alt="XCP" />
+                  <img class="h-7 w-auto" src="/img/xcpio.png" alt="XCP" >
                 </div>
                 <nav class="flex flex-1 flex-col">
                   <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -54,7 +54,7 @@
         <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
           <div class="hidden sm:flex h-16 shrink-0 items-center" :class="{'flex-1': !clientHydrated}">
             <nuxt-link to="/">
-              <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" height="33" width="22" />
+              <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" height="33" width="22" >
             </nuxt-link>
             <nuxt-link to="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium">Counterparty XCP</nuxt-link>
           </div>
@@ -68,22 +68,22 @@
           </div>
           <!-- Combobox for Search -->
           <ClientOnly>
-            <Combobox as="div" v-model="selectedSuggestion" class="flex flex-1">
+            <Combobox v-model="selectedSuggestion" as="div" class="flex flex-1">
               <div class="relative w-full">
                 <ComboboxInput
+                  v-model="searchQuery"
                   class="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-white focus:ring-0 sm:text-base"
                   placeholder="Search..."
-                  v-model="searchQuery"
                   @input="event => fetchSuggestions(event.target.value)"
                 />
                 <ComboboxButton class="absolute inset-y-0 left-0 flex items-center pr-2">
                   <MagnifyingGlassIcon class="h-4 w-4 text-gray-400" aria-hidden="true" />
                 </ComboboxButton>
                 <ComboboxOptions v-if="suggestions.length > 0" class="absolute z-10 mt-1 max-h-56 xl:max-h-72	w-full overflow-auto rounded-md bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  <ComboboxOption v-for="suggestion in suggestions" :key="suggestion.id" :value="suggestion" as="template" v-slot="{ active }">
+                  <ComboboxOption v-for="suggestion in suggestions" :key="suggestion.id" v-slot="{ active }" :value="suggestion" as="template">
                     <li :class="['relative cursor-default select-none py-2 pl-3 pr-9', active ? 'bg-indigo-600 text-white' : 'text-gray-400']">
                       <nuxt-link :to="`/${suggestion.type.toLowerCase()}/${suggestion.slug}`" class="flex items-center">
-                        <img :src="suggestion.imageUrl" alt="" class="h-6 w-6 flex-shrink-0 rounded-full" />
+                        <img :src="suggestion.imageUrl" alt="" class="h-6 w-6 flex-shrink-0 rounded-full" >
                         <span class="ml-3 block truncate">{{ suggestion.name }}</span>
                         <span class="ml-auto text-sm text-gray-500">{{ suggestion.type }}</span>
                       </nuxt-link>
@@ -95,7 +95,7 @@
           </ClientOnly>
           <div class="hidden xl:flex md:items-center md:space-x-3">
             <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base flex items-center">
-              <span v-html="`<b>${btcPrice.symbol}</b> ${btcPrice.price}`"></span>
+              <span v-html="`<b>${btcPrice.symbol}</b> ${btcPrice.price}`"/>
               <span class="text-sm ml-2 flex items-center" :class="{'text-green-500': btcChange > 0, 'text-red-500': btcChange < 0}" title="24 Hour Change">
                 <span v-if="btcChange > 0" class="text-xs mr-1">▲</span>
                 <span v-if="btcChange < 0" class="text-xs mr-1">▼</span>
@@ -103,7 +103,7 @@
               </span>
             </a>
             <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base flex items-center">
-              <span v-html="`<b>${xcpPrice.symbol}</b> ${xcpPrice.price}`"></span>
+              <span v-html="`<b>${xcpPrice.symbol}</b> ${xcpPrice.price}`"/>
               <span class="text-sm ml-2 flex items-center" :class="{'text-green-500': xcpChange > 0, 'text-red-500': xcpChange < 0}" title="24 Hour Change">
                 <span v-if="xcpChange > 0" class="text-xs mr-1">▲</span>
                 <span v-if="xcpChange < 0" class="text-xs mr-1">▼</span>
@@ -149,7 +149,7 @@
             <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
               <div>
                 <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full">
-                  <img class="h-6 w-auto" src="/img/xcpio.png" alt="XCP" />
+                  <img class="h-6 w-auto" src="/img/xcpio.png" alt="XCP" >
                 </div>
                 <div class="mt-3 text-center sm:mt-5">
                   <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Wallet Functionality Not Ready Yet</DialogTitle>
@@ -170,8 +170,6 @@
 </template>
 
 <script setup>
-const { trackEvent } = useFathom();
-
 import { ref, onMounted } from 'vue'
 import { SpeedInsights } from "@vercel/speed-insights/nuxt"
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
@@ -183,6 +181,8 @@ import {
   AcademicCapIcon,
 } from '@heroicons/vue/24/outline'
 import { SparklesIcon, Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
+
+const { trackEvent } = useFathom();
 
 const navigation = [
   { name: 'Collect', href: '/collect', icon: PhotoIcon, current: false },
@@ -260,7 +260,7 @@ async function fetchSuggestions(query) {
 
 // Processing function to map API response to the expected format
 function processSuggestions(data) {
-  let mappedSuggestions = [];
+  const mappedSuggestions = [];
 
   // Process 'tags' if they exist in the response
   if (data.tags && data.tags.length > 0) {

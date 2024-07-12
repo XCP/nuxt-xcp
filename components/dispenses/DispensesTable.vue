@@ -1,5 +1,5 @@
 <template>
-  <Table :apiClientFunction="apiClientFunction" :changeKey="selectedType">
+  <Table :api-client-function="apiClientFunction" :change-key="selectedType">
     <template #table-controls>
       <!-- Category filter dropdown -->
       <div v-if="!props.blockIndex" class="ml-4">

@@ -13,34 +13,34 @@
       </p>
     </div>
     <div class="hidden lg:flex items-center">
-      <slot name="table-controls"></slot>
+      <slot name="table-controls"/>
     </div>
     <div class="flex flex-1 items-center justify-end">
       <button
-        @click="loadFirst"
         class="inline-flex items-center justify-center rounded-md bg-white/10 px-3 sm:px-2 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
         :disabled="!hasPrevious"
+        @click="loadFirst"
       >
         &laquo;
       </button>
       <button
-        @click="loadPrevious"
         class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 sm:px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
         :disabled="!hasPrevious"
+        @click="loadPrevious"
       >
         &lsaquo;
       </button>
       <button
-        @click="loadNext"
         class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 sm:px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
         :disabled="!hasNext"
+        @click="loadNext"
       >
         &rsaquo;
       </button>
       <button
-        @click="loadLast"
         class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 sm:px-2 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
         :disabled="!hasNext"
+        @click="loadLast"
       >
         &raquo;
       </button>
