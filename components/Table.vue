@@ -1,84 +1,96 @@
+<!-- Table.vue -->
 <template>
-  <!-- Pagination and Additional Controls -->
-  <Pagination :total-items="totalItems" :current-page="currentPage" :items-per-page="100" @update:currentPage="updateCurrentPage">
-    <template v-slot:table-controls>
-      <slot name="table-controls"></slot>
-    </template>
-  </Pagination>
-  
-  <!-- Loading -->
-  <div v-if="pending" class="flex justify-center items-center my-20 py-20 text-gray-300">
-    <ArrowPathIcon class="animate-spin h-8 w-8 text-gray-500" aria-hidden="true" />
-  </div>
+  <div>
+    <!-- Pagination -->
+    <Pagination
+      :current-page="state.currentPage"
+      :results-per-page="state.resultsPerPage"
+      :startItem="startItem"
+      :endItem="endItem"
+      :totalItems="state.totalItems"
+      :fetchData="fetchData"
+    />
 
-  <!-- Errors -->
-  <div v-else-if="error" class="my-20 flex justify-center items-center">
-    <div class="text-center">
-      <p class="text-lg text-gray-500">Failed to load data.</p>
-      <p class="text-base text-gray-400">We are experiencing an issue. Please try again later.</p>
+    <!-- Loading Spinner -->
+    <div v-if="state.loading" class="my-96 flex justify-center items-center" role="status" aria-live="polite">
+      <ArrowPathIcon class="h-8 w-8 text-gray-300 animate-spin my-24" />
+      <span class="sr-only">Loading...</span>
     </div>
-  </div>
 
-  <!-- No Data -->
-  <div v-else-if="items.length === 0" class="my-20 flex justify-center items-center">
-    <div class="text-center">
-      <p class="text-lg text-gray-500">No results found.</p>
-      <p class="text-base text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>
+    <!-- Errors -->
+    <div v-else-if="state.error" class="my-20 flex justify-center items-center" role="alert">
+      <div class="text-center">
+        <p class="text-lg text-gray-500">Failed to load data.</p>
+        <p class="text-base text-gray-400">We are experiencing an issue. Please try again later.</p>
+      </div>
     </div>
-  </div>
 
-  <!-- Table -->
-  <div v-else class="mt-6 relative overflow-x-auto">
-    <table class="w-full whitespace-nowrap text-left border-white/10">
-      <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
-        <slot name="table-headers"></slot>
-      </thead>
-      <tbody class="divide-y divide-white/5">
-        <slot name="table-rows" :data="items"></slot>
-      </tbody>
-    </table>
+    <!-- No Data -->
+    <div v-else-if="state.items.length === 0" class="my-20 flex justify-center items-center" role="alert">
+      <div class="text-center">
+        <p class="text-lg text-gray-500">No results found.</p>
+        <p class="text-base text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div v-else class="mt-6 relative overflow-x-auto">
+      <table class="w-full whitespace-nowrap text-left border-white/10" role="table" aria-live="polite">
+        <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
+          <slot name="table-headers"></slot>
+        </thead>
+        <tbody class="divide-y divide-white/5 border-b border-white/10">
+          <slot name="table-rows" :data="state.items"></slot>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
-import { ref, watch, computed } from 'vue'
-import { useFetch } from 'nuxt/app'
+import { ref, computed } from 'vue'
 
 const props = defineProps({
-  apiUrl: String,
-  queryParams: Object,
-  initialPage: Number,
-  emit: Boolean,
+  apiClientFunction: Function,
 })
 
-const emits = defineEmits(['last-message'])
-
-const currentPage = ref(props.initialPage || 1)
-const queryParams = computed(() => new URLSearchParams({
-  ...props.queryParams,
-  page: currentPage.value,
-}).toString())
-
-const { data, pending, refresh, error } = useFetch(() => `${props.apiUrl}?${queryParams.value}`, {
-  watch: [queryParams],
+const state = ref({
+  loading: false,
+  error: null,
+  items: [],
+  totalItems: 0,
+  currentPage: 1,
+  resultsPerPage: 100,
 })
 
-const totalItems = computed(() => data.value?.total || 0)
-const items = computed(() => data.value?.data || [])
-const lastPage = computed(() => data.value?.last_page || 1)
+const startItem = computed(() => (state.value.currentPage - 1) * state.value.resultsPerPage + 1)
+const endItem = computed(() => Math.min(state.value.currentPage * state.value.resultsPerPage, state.value.totalItems))
 
-watch(currentPage, () => {
-  refresh()
-})
+const fetchData = async (offset = 0) => {
+  if (state.value.loading) return
 
-if (props.emit && currentPage.value === 1 && items.value.length > 0) {
-  emits('last-message', items.value[0])
-}
+  state.value.loading = true
+  state.value.items = []
 
-function updateCurrentPage(page) {
-  if (page > 0 && page <= lastPage.value) {
-    currentPage.value = page
+  const params = {
+    offset: offset,
+    limit: state.value.resultsPerPage,
+  }
+
+  try {
+    const response = await props.apiClientFunction(params)
+    const data = response.data
+
+    state.value.items = data.result
+    state.value.totalItems = data.result_count
+    state.value.currentPage = offset / state.value.resultsPerPage + 1
+  } catch (error) {
+    state.value.error = 'Fetch error: ' + error
+  } finally {
+    state.value.loading = false
   }
 }
+
+fetchData()
 </script>

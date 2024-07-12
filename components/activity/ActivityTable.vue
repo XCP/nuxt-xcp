@@ -1,5 +1,5 @@
 <template>
-  <Table apiUrl="https://api.xcp.io/api/v1/messages" :queryParams="queryParams" :initialPage="props.initialPage" :emit="true" @last-message="handleLastMessage">
+  <Table apiUrl="https://api.xcp.io/api/v1/messages" :queryParams="queryParams" :initialPage="props.initialPage">
     <template v-slot:table-headers>
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
@@ -46,12 +46,6 @@
 
 <script setup>
 const { trackEvent } = useFathom();
-
-const emit = defineEmits(['last-message']);
-
-function handleLastMessage(message) {
-  emit('last-message', message);
-}
 
 const props = defineProps({
   asset: String,

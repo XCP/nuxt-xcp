@@ -1,4 +1,3 @@
-
 <template>
   <div class="lg:flex lg:items-center lg:justify-between">
     <div class="flex-1">
@@ -10,22 +9,22 @@
         <!-- Item 1 -->
         <div class="flex items-center w-full lg:w-auto mt-2">
           <BriefcaseIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ props.address }}
+          {{ address }}
         </div>
         <!-- Item 2 -->
         <div class="flex items-center w-full lg:w-auto mt-2 order-last lg:order-none">
           <FireIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ props.apiData.xcpValue }} XCP
+          {{ apiData.xcpValue }} XCP
         </div>
         <!-- Item 3 -->
         <div class="flex items-center w-auto mt-2">
           <CurrencyDollarIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ props.apiData.btcValue }} BTC
+          {{ apiData.btcValue }} BTC
         </div>
         <!-- Item 4 -->
         <div class="flex items-center w-auto mt-2">
           <LinkIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ props.apiData.tx_count }} Transactions
+          {{ apiData.tx_count }} Transactions
         </div>
       </div>
     </div>
@@ -35,16 +34,38 @@
   </div>
 </template>
 
-
 <script setup>
-import { computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { BriefcaseIcon, CurrencyDollarIcon, FireIcon, LinkIcon } from '@heroicons/vue/20/solid';
+import { useNuxtApp } from '#app';
 
 // Define props
 const props = defineProps({
-  address: String,
-  apiData: Object
+  address: String
 });
+
+// Reactive state
+const apiData = ref({ tx_count: 0, btcValue: 0, xcpValue: 0 });
+const { $apiClient } = useNuxtApp();
+
+// Fetch API data
+const fetchData = async () => {
+  try {
+    const btcData = await $fetch(`https://blockstream.info/api/address/${props.address}`);
+    const xcpData = await $apiClient.getAddressBalanceByAsset(props.address, 'XCP');
+
+    apiData.value = {
+      tx_count: btcData.chain_stats.tx_count.toLocaleString(),
+      btcValue: formatBalance(btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum, { divisible: true }).replace('.00000000', ''),
+      xcpValue: formatBalance(xcpData.data.result.quantity, { divisible: true }).replace('.00000000', '')
+    };
+  } catch (e) {
+    console.error('Fetch error:', e);
+    // Handle fetch error, optionally redirect to an error page
+  }
+};
+
+onMounted(fetchData);
 
 // Computed properties for display
 const dropdownItems = computed(() => [

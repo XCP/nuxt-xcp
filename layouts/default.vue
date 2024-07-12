@@ -110,7 +110,7 @@
                 {{ xcpChange }}%
               </span>
             </a>
-            <a href="https://mempool.space/" class="bg-gray-900 text-white rounded-md px-2 py-2 text-sm flex items-center" target="_blank">
+            <a href="https://mempool.space/" class="bg-gray-900 text-white rounded-md px-2 py-2 text-sm flex lg:hidden 2xl:flex items-center" target="_blank">
               <span><CubeIcon class="h-5 w-5 text-white mr-1" aria-hidden="true" /></span>
               <span>{{ fastestFee }} sats/vB</span>
             </a>
@@ -201,7 +201,7 @@ const btcPrice = ref({ symbol: 'BTC', price: 'N/A' })
 const xcpPrice = ref({ symbol: 'XCP', price: 'N/A' })
 const btcChange = ref(null)
 const xcpChange = ref(null)
-const fastestFee = ref('N/A')
+const fastestFee = ref('')
 
 // Function to fetch the BTC and XCP prices from CoinPaprika
 async function fetchPrices() {

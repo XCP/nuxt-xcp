@@ -188,12 +188,12 @@ const fetchData = async () => {
     delete asset.addresses;
   });
 
-  // Sort assets by number of transactions and then by number of addresses
+  // Sort assets by number of addresses and then by number of transactions
   state.assets.sort((a, b) => {
-    if (b.numberOfTransactions === a.numberOfTransactions) {
-      return b.numberOfAddresses - a.numberOfAddresses;
+    if (b.numberOfAddresses === a.numberOfAddresses) {
+      return b.numberOfTransactions - a.numberOfTransactions;
     }
-    return b.numberOfTransactions - a.numberOfTransactions;
+    return b.numberOfAddresses - a.numberOfAddresses;
   });
 
   state.loading = false;

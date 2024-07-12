@@ -1,6 +1,7 @@
+<!-- Pagination.vue -->
 <template>
   <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
-    <div class="hidden sm:block">
+    <div>
       <p class="text-base text-gray-300">
         Showing
         <span class="font-medium">{{ startItem.toLocaleString() }}</span>
@@ -11,54 +12,35 @@
         results
       </p>
     </div>
-    <div class="hidden lg:flex items-center">
-      <slot name="table-controls"></slot>
-    </div>
-    <div class="flex flex-1 items-center justify-between sm:justify-end">
-      <div>
-        <!-- First Page Button -->
-        <button
-          @click="updateCurrentPage(1)"
-          class="inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
-          :disabled="currentPage === 1"
-        >
-          &laquo;
-        </button>
-        <!-- Previous Page Button -->
-        <button
-          @click="updateCurrentPage(currentPage - 1)"
-          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
-          :disabled="currentPage <= 1"
-        >
-          &lsaquo;
-        </button>
-      </div>
-      <div class="sm:hidden text-center flex-1">
-        <p class="text-base text-gray-300">
-          Page
-          <span class="font-medium">{{ currentPage }}</span>
-          of
-          <span class="font-medium">{{ lastPage }}</span>
-        </p>
-      </div>
-      <div>
-        <!-- Next Page Button -->
-        <button
-          @click="updateCurrentPage(currentPage + 1)"
-          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
-          :disabled="currentPage >= lastPage"
-        >
-          &rsaquo;
-        </button>
-        <!-- Last Page Button -->
-        <button
-          @click="updateCurrentPage(lastPage)"
-          class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
-          :disabled="currentPage === lastPage"
-        >
-          &raquo;
-        </button>
-      </div>
+    <div class="flex flex-1 items-center justify-end">
+      <button
+        @click="loadFirst"
+        class="inline-flex items-center justify-center rounded-md bg-white/10 px-3 sm:px-2 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
+        :disabled="!hasPrevious"
+      >
+        &laquo;
+      </button>
+      <button
+        @click="loadPrevious"
+        class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 sm:px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
+        :disabled="!hasPrevious"
+      >
+        &lsaquo;
+      </button>
+      <button
+        @click="loadNext"
+        class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 sm:px-3 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
+        :disabled="!hasNext"
+      >
+        &rsaquo;
+      </button>
+      <button
+        @click="loadLast"
+        class="ml-2 inline-flex items-center justify-center rounded-md bg-white/10 px-3 sm:px-2 py-2 text-base font-semibold text-gray-300 hover:bg-white/20 focus:outline-none disabled:bg-gray-700/10 disabled:text-gray-300 disabled:cursor-not-allowed"
+        :disabled="!hasNext"
+      >
+        &raquo;
+      </button>
     </div>
   </nav>
 </template>
@@ -67,18 +49,39 @@
 import { computed } from 'vue'
 
 const props = defineProps({
+  fetchData: Function,
+  startItem: Number,
+  endItem: Number,
   totalItems: Number,
   currentPage: Number,
-  itemsPerPage: Number,
+  resultsPerPage: Number,
 })
 
-const emits = defineEmits(['update:currentPage'])
+const hasPrevious = computed(() => props.currentPage > 1)
+const hasNext = computed(() => props.endItem < props.totalItems)
 
-const lastPage = computed(() => Math.ceil(props.totalItems / props.itemsPerPage))
-const startItem = computed(() => (props.currentPage - 1) * props.itemsPerPage + 1)
-const endItem = computed(() => Math.min(props.currentPage * props.itemsPerPage, props.totalItems))
+function loadFirst() {
+  if (hasPrevious.value) {
+    props.fetchData(0)
+  }
+}
 
-function updateCurrentPage(page) {
-  emits('update:currentPage', page)
+function loadPrevious() {
+  if (hasPrevious.value) {
+    props.fetchData((props.currentPage - 2) * props.resultsPerPage)
+  }
+}
+
+function loadNext() {
+  if (hasNext.value) {
+    props.fetchData(props.currentPage * props.resultsPerPage)
+  }
+}
+
+function loadLast() {
+  if (hasNext.value) {
+    const lastPage = Math.ceil(props.totalItems / props.resultsPerPage)
+    props.fetchData((lastPage - 1) * props.resultsPerPage)
+  }
 }
 </script>

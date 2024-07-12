@@ -9,13 +9,13 @@ import apiClient from '../apiClient';
  * @returns {Object} - Pagination parameters
  */
 export const handlePagination = (params = {}) => {
-  const { cursor, limit, offset } = params;
+  const { cursor, limit, offset, verbose } = params;
   if (cursor) {
-    return { cursor, limit };
+    return { cursor, limit, verbose };
   } else if (offset) {
-    return { offset, limit };
+    return { offset, limit, verbose };
   } else {
-    return { limit };
+    return { limit, verbose };
   }
 };
 
@@ -28,12 +28,7 @@ export const handlePagination = (params = {}) => {
  */
 export const handleApiCall = async (apiFunction, endpoint, config) => {
   try {
-    const response = await apiFunction(endpoint, config);
-    const responseData = {
-      headers: response.headers,
-      data: response.data
-    };
-    return response;
+    return await apiFunction(endpoint, config);
   } catch (error) {
     console.error(`API call failed: ${JSON.stringify(error, null, 2)}`);
     throw formatError(error);

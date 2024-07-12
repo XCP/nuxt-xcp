@@ -32,7 +32,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { InformationCircleIcon } from '@heroicons/vue/20/solid';
-import { getCachedData } from '~/utils/cache';
 
 const { $apiClient } = useNuxtApp();
 
