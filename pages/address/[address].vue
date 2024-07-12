@@ -17,6 +17,9 @@
     <div v-if="activeTab === 'Debits'">
       <DebitsTable :address="address" />
     </div>
+    <div v-if="activeTab === 'Bets'">
+      <BetsTable :address="address" />
+    </div>
     <div v-if="activeTab === 'Broadcasts'">
       <BroadcastsTable :address="address" />
     </div>
@@ -26,11 +29,8 @@
     <div v-if="activeTab === 'Dispensers'">
       <DispensersTable :address="address" />
     </div>
-    <div v-if="activeTab === 'Dispenses (+)'">
-      <DispensesTable :address="address" type="receives" />
-    </div>
-    <div v-if="activeTab === 'Dispenses (-)'">
-      <DispensesTable :address="address" type="sends" />
+    <div v-if="activeTab === 'Dispenses'">
+      <DispensesTable :address="address" />
     </div>
     <div v-if="activeTab === 'Dividends'">
       <DividendsTable :address="address" />
@@ -71,11 +71,11 @@ const tabs = [
   { name: 'Balances', hash: 'balances' },
   { name: 'Credits', hash: 'credits' },
   { name: 'Debits', hash: 'debits' },
+  { name: 'Bets', hash: 'bets' },
   { name: 'Broadcasts', hash: 'broadcasts' },
   { name: 'Burns', hash: 'burns' },
   { name: 'Dispensers', hash: 'dispensers' },
-  { name: 'Dispenses (+)', hash: 'dispenses-receives' },
-  { name: 'Dispenses (-)', hash: 'dispenses-sends' },
+  { name: 'Dispenses', hash: 'dispenses' },
   { name: 'Dividends', hash: 'dividends' },
   { name: 'Issuances', hash: 'issuances' },
   { name: 'Transactions', hash: 'transactions' },

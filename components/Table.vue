@@ -1,4 +1,3 @@
-<!-- Table.vue -->
 <template>
   <div>
     <!-- Pagination -->
@@ -9,38 +8,50 @@
       :endItem="endItem"
       :totalItems="state.totalItems"
       :fetchData="fetchData"
-    />
-
-    <!-- Loading Spinner -->
-    <div v-if="state.loading" class="my-96 flex justify-center items-center" role="status" aria-live="polite">
-      <ArrowPathIcon class="h-8 w-8 text-gray-300 animate-spin my-24" />
-      <span class="sr-only">Loading...</span>
-    </div>
-
-    <!-- Errors -->
-    <div v-else-if="state.error" class="my-20 flex justify-center items-center" role="alert">
-      <div class="text-center">
-        <p class="text-lg text-gray-500">Failed to load data.</p>
-        <p class="text-base text-gray-400">We are experiencing an issue. Please try again later.</p>
-      </div>
-    </div>
-
-    <!-- No Data -->
-    <div v-else-if="state.items.length === 0" class="my-20 flex justify-center items-center" role="alert">
-      <div class="text-center">
-        <p class="text-lg text-gray-500">No results found.</p>
-        <p class="text-base text-gray-400">Try adjusting your search or filter to find what you're looking for.</p>
-      </div>
-    </div>
+    >
+      <template v-slot:table-controls>
+        <slot name="table-controls"></slot>
+      </template>
+    </Pagination>
 
     <!-- Table -->
-    <div v-else class="mt-6 relative overflow-x-auto">
+    <div class="mt-6 relative overflow-x-auto">
       <table class="w-full whitespace-nowrap text-left border-white/10" role="table" aria-live="polite">
         <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
           <slot name="table-headers"></slot>
         </thead>
         <tbody class="divide-y divide-white/5 border-b border-white/10">
-          <slot name="table-rows" :data="state.items"></slot>
+          <template v-if="state.loading">
+            <tr>
+              <td :colspan="columnCount" class="py-96 text-center">
+                <ArrowPathIcon class="h-8 w-8 text-gray-300 animate-spin mx-auto" />
+                <span class="sr-only">Loading...</span>
+              </td>
+            </tr>
+          </template>
+          <template v-else-if="state.error">
+            <tr>
+              <td :colspan="columnCount" class="py-96 text-center">
+                <div>
+                  <p class="text-lg text-gray-500">Failed to load data.</p>
+                  <p class="text-base text-gray-400">We are experiencing an issue. Please try again later.</p>
+                </div>
+              </td>
+            </tr>
+          </template>
+          <template v-else-if="state.items.length === 0">
+            <tr>
+              <td :colspan="columnCount" class="py-96 text-center">
+                <div>
+                  <p class="text-lg text-gray-500">No results found.</p>
+                  <p class="text-base text-gray-400">Try adjusting your search to find what you're looking for.</p>
+                </div>
+              </td>
+            </tr>
+          </template>
+          <template v-else>
+            <slot name="table-rows" :data="state.items"></slot>
+          </template>
         </tbody>
       </table>
     </div>
@@ -49,10 +60,11 @@
 
 <script setup>
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 const props = defineProps({
   apiClientFunction: Function,
+  changeKey: String,
 })
 
 const state = ref({
@@ -62,6 +74,15 @@ const state = ref({
   totalItems: 0,
   currentPage: 1,
   resultsPerPage: 100,
+})
+
+// Use a ref to track the number of columns
+const columnCount = ref(0)
+
+// After rendering the slot content, count the number of columns
+onMounted(() => {
+  const tableHeaders = document.querySelectorAll('thead > tr > th')
+  columnCount.value = tableHeaders.length
 })
 
 const startItem = computed(() => (state.value.currentPage - 1) * state.value.resultsPerPage + 1)
@@ -91,6 +112,10 @@ const fetchData = async (offset = 0) => {
     state.value.loading = false
   }
 }
+
+watch(() => props.changeKey, () => {
+  fetchData()
+})
 
 fetchData()
 </script>

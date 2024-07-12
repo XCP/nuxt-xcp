@@ -2,29 +2,29 @@
   <div class="lg:flex lg:items-center lg:justify-between">
     <div class="flex-1">
       <h1 class="text-2xl font-bold leading-7 text-white sm:text-4xl sm:tracking-tight">
-        Counterparty Address
+        Counterparty Block
       </h1>
       <!-- Main container for items, ensuring flex-wrap and responsive gap -->
       <div class="mt-1 flex flex-wrap items-center text-base text-gray-300 gap-x-3 sm:gap-x-6">
-        <!-- Item 1 -->
+        <!-- Block Index -->
         <div class="flex items-center w-full lg:w-auto mt-2">
           <BriefcaseIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ address }}
+          Block Index: {{ blockData.block_index }}
         </div>
-        <!-- Item 2 -->
-        <div class="flex items-center w-full lg:w-auto mt-2 order-last lg:order-none">
+        <!-- Block Hash -->
+        <div class="flex items-center w-full lg:w-auto mt-2">
           <FireIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ apiData.xcpValue }} XCP
+          Block Hash: {{ blockData.block_hash }}
         </div>
-        <!-- Item 3 -->
+        <!-- Previous Block Hash -->
         <div class="flex items-center w-auto mt-2">
           <CurrencyDollarIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ apiData.btcValue }} BTC
+          Previous Block Hash: {{ blockData.previous_block_hash }}
         </div>
-        <!-- Item 4 -->
+        <!-- Transaction Count -->
         <div class="flex items-center w-auto mt-2">
           <LinkIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
-          {{ apiData.tx_count }} Transactions
+          Transactions: {{ blockData.transaction_count }}
         </div>
       </div>
     </div>
@@ -41,24 +41,18 @@ import { useNuxtApp } from '#app';
 
 // Define props
 const props = defineProps({
-  address: String
+  blockIndex: String,
 });
 
 // Reactive state
-const apiData = ref({ tx_count: 0, btcValue: 0, xcpValue: 0 });
+const blockData = ref({});
 const { $apiClient } = useNuxtApp();
 
 // Fetch API data
 const fetchData = async () => {
   try {
-    const btcData = await $fetch(`https://blockstream.info/api/address/${props.address}`);
-    const xcpData = await $apiClient.getAddressBalanceByAsset(props.address, 'XCP');
-
-    apiData.value = {
-      tx_count: btcData.chain_stats.tx_count.toLocaleString(),
-      btcValue: formatBalance(btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum, { divisible: true }),
-      xcpValue: formatBalance(xcpData.data.result.quantity, { divisible: true })
-    };
+    const response = await $apiClient.getBlockByIndex(props.blockIndex);
+    blockData.value = response.data.result;
   } catch (e) {
     console.error('Fetch error:', e);
     // Handle fetch error, optionally redirect to an error page
@@ -69,11 +63,8 @@ onMounted(fetchData);
 
 // Computed properties for display
 const dropdownItems = computed(() => [
-  { href: `https://blockstream.info/address/${props.address}`, imgSrc: '/img/blockstreaminfo.png', title: 'blockstream.info' },
-  { href: `https://mempool.space/address/${props.address}`, imgSrc: '/img/mempoolspace.png', title: 'mempool.space' },
-  { href: `https://pepe.wtf/${props.address}/collection`, imgSrc: '/img/pepewtf.png', title: 'pepe.wtf' },
-  { href: `https://www.xchain.io/address/${props.address}`, imgSrc: '/img/xchainio.png', title: 'xchain.io' },
-  { href: `https://www.xcp.dev/address/${props.address}`, imgSrc: '/img/xcpdev.png', title: 'xcp.dev' },
-  { href: `https://xcp.ninja/profile/${props.address}`, imgSrc: '/img/xcpninja.png', title: 'xcp.ninja' }
+  { href: `https://blockstream.info/block/${blockData.value.block_hash}`, imgSrc: '/img/blockstreaminfo.png', title: 'blockstream.info' },
+  { href: `https://mempool.space/block/${blockData.value.block_hash}`, imgSrc: '/img/mempoolspace.png', title: 'mempool.space' },
+  { href: `https://www.xchain.io/block/${blockData.value.block_index}`, imgSrc: '/img/xchainio.png', title: 'xchain.io' },
 ]);
 </script>

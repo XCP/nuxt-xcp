@@ -3,19 +3,16 @@ import apiClient from '../apiClient';
 /**
  * Handle pagination by either cursor or offset.
  * @param {Object} params - Parameters for pagination
- * @param {string} params.cursor - Cursor for pagination
- * @param {number} params.limit - Limit of items per page
- * @param {number} params.offset - Offset for pagination
- * @returns {Object} - Pagination parameters
+ * @returns {Object} - Pagination parameters including additional params
  */
 export const handlePagination = (params = {}) => {
-  const { cursor, limit, offset, verbose } = params;
+  const { cursor, limit, offset, ...rest } = params;
   if (cursor) {
-    return { cursor, limit, verbose };
+    return { cursor, limit, ...rest };
   } else if (offset) {
-    return { offset, limit, verbose };
+    return { offset, limit, ...rest };
   } else {
-    return { limit, verbose };
+    return { limit, ...rest };
   }
 };
 

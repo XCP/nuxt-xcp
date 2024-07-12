@@ -12,6 +12,9 @@
         results
       </p>
     </div>
+    <div class="hidden lg:flex items-center">
+      <slot name="table-controls"></slot>
+    </div>
     <div class="flex flex-1 items-center justify-end">
       <button
         @click="loadFirst"

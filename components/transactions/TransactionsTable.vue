@@ -3,10 +3,9 @@
     <template #table-headers>
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold min-w-[100px]">Source</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Destination</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">BTC Amount</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Fee</th>
-        <th scope="col" class="py-2 pr-2 font-semibold w-20">Block #</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">TX Hash</th>
+        <th scope="col" class="py-2 pr-2 font-semibold">TX Index</th>
+        <th v-if="!props.blockIndex" scope="col" class="py-2 pr-2 font-semibold w-20">Block #</th>
         <th scope="col" class="py-2 pr-2 font-semibold w-20">Time</th>
         <th scope="col" class="py-2 pl-0 w-20"><span class="sr-only">View</span></th>
       </tr>
@@ -18,17 +17,18 @@
             {{ transaction.source }}
           </NuxtLink>
         </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ transaction.destination || 'N/A' }}
+        <td class="whitespace-nowrap py-3 pr-3 min-w-[100px]">
+          <NuxtLink :to="`/tx/${transaction.tx_hash}`" class="font-medium leading-6 text-base text-white">
+            {{ transaction.tx_hash }}
+          </NuxtLink>
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ transaction.btc_amount_normalized }}
+          {{ transaction.tx_index.toLocaleString() }}
         </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ transaction.fee }}
-        </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ transaction.block_index.toLocaleString() }}
+        <td v-if="!props.blockIndex" class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
+          <NuxtLink :to="`/block/${transaction.block_index}`" class="leading-6 text-white">
+            {{ transaction.block_index.toLocaleString() }}
+          </NuxtLink>
         </td>
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
           {{ formatTimeAgo(transaction.block_time) }}
@@ -46,6 +46,7 @@ import { useNuxtApp } from '#app'
 
 const props = defineProps({
   address: String,
+  blockIndex: String,
 })
 
 const { $apiClient } = useNuxtApp()
@@ -55,8 +56,10 @@ const apiClientFunction = (params = {}) => {
 
   if (props.address) {
     return $apiClient.getAddressTransactions(props.address, params)
+  } else if (props.blockIndex) {
+    return $apiClient.getBlockTransactions(props.blockIndex, params)
   } else {
-    throw new Error('Address prop is required for API call')
+    throw new Error('Address or Block Index prop is required for API call')
   }
 }
 

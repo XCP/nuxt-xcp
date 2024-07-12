@@ -4,11 +4,12 @@
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Quantity</th>
+        <th v-if="!props.address" scope="col" class="py-2 pr-2 font-semibold">Source</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Lock</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Reset</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Transfer</th>
         <th scope="col" class="py-2 pr-2 font-semibold">Fee Paid (XCP)</th>
-        <th scope="col" class="py-2 pr-2 font-semibold w-20">Block #</th>
+        <th v-if="!props.blockIndex" scope="col" class="py-2 pr-2 font-semibold w-20">Block #</th>
         <th scope="col" class="py-2 pr-2 font-semibold w-20">Time</th>
         <th scope="col" class="py-2 pl-0 w-20"><span class="sr-only">View</span></th>
       </tr>
@@ -26,6 +27,11 @@
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ formatBalance(issuance.quantity, issuance) }}
         </td>
+        <td v-if="!props.address" class="whitespace-nowrap py-3 pr-3 min-w-[100px]">
+          <NuxtLink :to="`/address/${issuance.source}`" class="font-medium leading-6 text-base text-white">
+            {{ issuance.source }}
+          </NuxtLink>
+        </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ issuance.locked ? 'Yes' : 'No' }}
         </td>
@@ -38,7 +44,7 @@
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ issuance.fee_paid_normalized }}
         </td>
-        <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
+        <td v-if="!props.blockIndex" class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
           <NuxtLink :to="`/block/${issuance.block_index}`" class="leading-6 text-white">
             {{ issuance.block_index.toLocaleString() }}
           </NuxtLink>
@@ -59,6 +65,7 @@ import { useNuxtApp } from '#app'
 
 const props = defineProps({
   address: String,
+  blockIndex: String,
 })
 
 const { $apiClient } = useNuxtApp()
@@ -68,8 +75,10 @@ const apiClientFunction = (params = {}) => {
 
   if (props.address) {
     return $apiClient.getAddressIssuances(props.address, params)
+  } else if (props.blockIndex) {
+    return $apiClient.getBlockIssuances(props.blockIndex, params)
   } else {
-    throw new Error('Address prop is required for API call')
+    throw new Error('Address or Index Block prop is required for API call')
   }
 }
 

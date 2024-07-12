@@ -12,34 +12,34 @@
       </tr>
     </template>
     <template #table-rows="{ data }">
-      <tr v-for="(dispense, index) in data" :key="index">
+      <tr v-for="(dispenser, index) in data" :key="index">
         <td class="whitespace-nowrap py-3 pr-3 min-w-64">
           <div class="flex items-center gap-x-4">
-            <NuxtImg :src="`https://api.xcp.io/img/icon/${formatAssetName(dispense.asset, dispense.asset_info)}`" :alt="formatAssetName(dispense.asset, dispense.asset_info)" class="h-10 w-10 bg-gray-800" loading="lazy" />
-            <NuxtLink :to="`/asset/${formatAssetName(dispense.asset, dispense.asset_info)}`" class="font-medium leading-6 text-base text-white">
-              {{ formatAssetName(dispense.asset, dispense.asset_info) }}
+            <NuxtImg :src="`https://api.xcp.io/img/icon/${formatAssetName(dispenser.asset, dispenser.asset_info)}`" :alt="formatAssetName(dispense.asset, dispense.asset_info)" class="h-10 w-10 bg-gray-800" loading="lazy" />
+            <NuxtLink :to="`/asset/${formatAssetName(dispenser.asset, dispenser.asset_info)}`" class="font-medium leading-6 text-base text-white">
+              {{ formatAssetName(dispenser.asset, dispenser.asset_info) }}
             </NuxtLink>
           </div>
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ dispense.satoshirate_normalized }}
+          {{ dispenser.satoshirate_normalized }}
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ dispense.give_quantity_normalized }}
+          {{ dispenser.give_quantity_normalized }}
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ dispense.give_remaining_normalized }} / {{ dispense.escrow_quantity_normalized }}
+          {{ dispenser.give_remaining_normalized }} / {{ dispenser.escrow_quantity_normalized }}
         </td>
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
-          <NuxtLink :to="`/block/${dispense.block_index}`" class="leading-6 text-white">
-            {{ dispense.block_index.toLocaleString() }}
+          <NuxtLink :to="`/block/${dispenser.block_index}`" class="leading-6 text-white">
+            {{ dispenser.block_index.toLocaleString() }}
           </NuxtLink>
         </td>
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
-          {{ formatTimeAgo(dispense.block_time) }}
+          {{ formatTimeAgo(dispenser.block_time) }}
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right">
-          <NuxtLink :to="`/tx/${dispense.tx_hash}`" class="text-primary">View</NuxtLink>
+          <NuxtLink :to="`/tx/${dispenser.tx_hash}`" class="text-primary">View</NuxtLink>
         </td>
       </tr>
     </template>
