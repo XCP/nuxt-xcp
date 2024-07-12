@@ -16,11 +16,26 @@
 import { ref, computed, watchEffect } from 'vue';
 
 const props = defineProps({
-  asset: String,
-  assetName: String,
-  apiData: Object,
-  balance: Object,
-  formatAssetName: Function
+  asset: {
+    type: String,
+    default: '',
+  },
+  assetName: {
+    type: String,
+    default: '',
+  },
+  apiData: {
+    type: Object,
+    default: () => ({}),
+  },
+  balance: {
+    type: Object,
+    default: () => ({}),
+  },
+  formatAssetName: {
+    type: Function,
+    default: () => (name) => name,
+  },
 });
 
 const hover = ref(false);

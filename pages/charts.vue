@@ -1,5 +1,5 @@
 <template>
-  <Chart />
+  <ChartCanvas />
 </template>
 <script setup>
 useSeoMeta({

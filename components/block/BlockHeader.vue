@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="hidden sm:block mt-5 lg:mt-0 lg:ml-4">
-      <Dropdown :items="dropdownItems" />
+      <DropdownLinks :items="dropdownItems" />
     </div>
   </div>
 </template>
@@ -41,7 +41,10 @@ import { useNuxtApp } from '#app';
 
 // Define props
 const props = defineProps({
-  blockIndex: String,
+  blockIndex: {
+    type: String,
+    default: ''
+  }
 });
 
 // Reactive state

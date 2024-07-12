@@ -14,7 +14,12 @@ export default defineNuxtConfig({
       data: { driver: 'vercelKV' }
     }
   },
+  eslint: {
+    config: {
+      stylistic: true
+    }
+  },
   fathom: {
-    siteId: "FVFGOFSG",
+    siteId: "FVFGOFSG"
   },
 })

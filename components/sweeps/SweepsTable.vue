@@ -1,5 +1,5 @@
 <template>
-  <Table :api-client-function="apiClientFunction">
+  <TableTemplate :api-client-function="apiClientFunction">
     <template #table-headers>
       <tr>
         <th v-if="!props.address" scope="col" class="py-2 pr-2 font-semibold">Source</th>
@@ -25,13 +25,13 @@
           </NuxtLink>
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          <Flags :flags="sweep.flags" />
+          <SweepFlagsBadge :flags="sweep.flags" />
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ sweep.fee_paid_normalized }}
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          <Status :status="sweep.status" />
+          <StatusBadge :status="sweep.status" />
         </td>
         <td v-if="!props.blockIndex" class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
           <NuxtLink :to="`/block/${sweep.block_index}`" class="leading-6 text-white">
@@ -46,15 +46,21 @@
         </td>
       </tr>
     </template>
-  </Table>
+  </TableTemplate>
 </template>
 
 <script setup>
 import { useNuxtApp } from '#app'
 
 const props = defineProps({
-  address: String,
-  blockIndex: String,
+  address: {
+    type: String,
+    default: ''
+  },
+  blockIndex: {
+    type: String,
+    default: ''
+  }
 })
 
 const { $apiClient } = useNuxtApp()

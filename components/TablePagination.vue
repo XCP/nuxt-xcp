@@ -52,13 +52,31 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-  fetchData: Function,
-  startItem: Number,
-  endItem: Number,
-  totalItems: Number,
-  currentPage: Number,
-  resultsPerPage: Number,
-})
+  fetchData: {
+    type: Function,
+    default: () => () => {},
+  },
+  startItem: {
+    type: Number,
+    default: 0,
+  },
+  endItem: {
+    type: Number,
+    default: 0,
+  },
+  totalItems: {
+    type: Number,
+    default: 0,
+  },
+  currentPage: {
+    type: Number,
+    default: 1,
+  },
+  resultsPerPage: {
+    type: Number,
+    default: 10,
+  },
+});
 
 const hasPrevious = computed(() => props.currentPage > 1)
 const hasNext = computed(() => props.endItem < props.totalItems)

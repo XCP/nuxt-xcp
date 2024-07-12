@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="hidden sm:block mt-5 lg:mt-0 lg:ml-4">
-      <Dropdown :items="dropdownItems" />
+      <DropdownLinks :items="dropdownItems" />
     </div>
   </div>
   <!-- Stats -->

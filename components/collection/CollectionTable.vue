@@ -58,7 +58,7 @@
         
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full">
-          <Image :asset-name="asset.asset_name" :format-asset-name="formatAssetName" />
+          <ImageHelper :asset-name="asset.asset_name" :format-asset-name="formatAssetName" />
         </div>
 
         <div class="p-4 pb-0">
@@ -77,7 +77,7 @@
 
   <!-- Table View -->
   <div v-else-if="state.assets.length > 0" class="mt-6 relative overflow-x-auto">
-    <table class="w-full whitespace-nowrap text-left border-white/10">
+    <TableTemplate class="w-full whitespace-nowrap text-left border-white/10">
       <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
         <tr>
           <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
@@ -109,7 +109,7 @@
           </td>
         </tr>
       </tbody>
-    </table>
+    </TableTemplate>
   </div>
   <div v-if="!state.allDataLoaded" ref="lastElement"/>
 </template>

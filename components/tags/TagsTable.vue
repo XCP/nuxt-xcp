@@ -66,7 +66,7 @@
 
   <!-- Table View -->
   <div v-else-if="state.tags.length > 0" class="mt-6 relative overflow-x-auto">
-    <table class="w-full whitespace-nowrap text-left border-white/10">
+    <TableTemplate class="w-full whitespace-nowrap text-left border-white/10">
       <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
         <tr>
           <th scope="col" class="py-2 pr-2 font-semibold">Collection</th>
@@ -91,7 +91,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </tabletemplate></div>
 </template>
 
 <script setup>

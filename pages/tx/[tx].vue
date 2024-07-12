@@ -18,7 +18,7 @@
         </div>
         <p class="mt-2 text-xs leading-6 text-gray-400">{{ timestamp }}</p>
       </div>
-      <Badge :category="apiData.type" />
+      <CategoryBadge :category="apiData.type" />
     </div>
 
     <!-- Stats -->
@@ -34,7 +34,7 @@
   </header>
 
   <div v-if="apiData.valid" class="my-6">
-    <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
+    <NavigationTabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
 
     <!-- Tab content -->
     <div v-if="activeTab === 'Actions'">

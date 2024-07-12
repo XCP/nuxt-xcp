@@ -10,7 +10,7 @@
   </div>
 
   <div class="my-6">
-    <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
+    <NavigationTabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
 
     <!-- Tab content -->
     <div v-if="activeTab === 'Activity'">

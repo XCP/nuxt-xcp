@@ -19,7 +19,7 @@
       </div>
       <div>
         <h2 class="text-2xl font-semibold mb-2">How Far Your Sats Can Go</h2>
-        <table class="table-auto border-collapse border border-green-800 w-72 mx-auto">
+        <TableTemplate class="table-auto border-collapse border border-green-800 w-72 mx-auto">
           <thead>
             <tr>
               <th class="border border-green-600">Uptime</th>
@@ -41,7 +41,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </tabletemplate></div>
     </div>
     <div class="text-center mb-8">
       <h2 class="text-2xl font-semi bold mb-4">Months of Hosting Offset</h2>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Pagination -->
-    <Pagination
+    <TablePagination
       :current-page="state.currentPage"
       :results-per-page="state.resultsPerPage"
       :start-item="startItem"
@@ -12,7 +12,7 @@
       <template #table-controls>
         <slot name="table-controls"/>
       </template>
-    </Pagination>
+    </TablePagination>
 
     <!-- Table -->
     <div class="mt-6 relative overflow-x-auto">
@@ -63,9 +63,15 @@ import { ArrowPathIcon } from '@heroicons/vue/20/solid'
 import { ref, computed, watch } from 'vue'
 
 const props = defineProps({
-  apiClientFunction: Function,
-  changeKey: String,
-})
+  apiClientFunction: {
+    type: Function,
+    default: () => {}
+  },
+  changeKey: {
+    type: String,
+    default: ''
+  }
+});
 
 const state = ref({
   loading: false,

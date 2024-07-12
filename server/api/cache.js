@@ -1,4 +1,5 @@
 import { kv } from "@vercel/kv";
+import { defineEventHandler, getQuery } from 'h3';
 
 export default defineEventHandler(async (event) => {
   try {

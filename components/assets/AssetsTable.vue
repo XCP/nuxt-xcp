@@ -1,5 +1,5 @@
 <template>
-  <Table :api-client-function="apiClientFunction">
+  <TableTemplate :api-client-function="apiClientFunction">
     <template #table-headers>
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold w-20">Lock</th>
@@ -46,7 +46,7 @@
         </td>
       </tr>
     </template>
-  </Table>
+  </TableTemplate>
 </template>
 
 <script setup>
@@ -54,11 +54,10 @@ import { LockClosedIcon, LockOpenIcon } from '@heroicons/vue/20/solid'
 import { useNuxtApp } from '#app'
 
 const props = defineProps({
-  address: String,
-  initialPage: {
-    type: Number,
-    default: 1
-  }
+  address: {
+    type: String,
+    default: ''
+  },
 })
 
 const { $apiClient } = useNuxtApp()

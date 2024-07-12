@@ -1,5 +1,5 @@
 <template>
-  <Table :api-client-function="apiClientFunction" :change-key="selectedType">
+  <TableTemplate :api-client-function="apiClientFunction" :change-key="selectedType">
     <template #table-controls>
       <!-- Category filter dropdown -->
       <div v-if="!props.blockIndex" class="ml-4">
@@ -64,15 +64,21 @@
         </td>
       </tr>
     </template>
-  </Table>
+  </TableTemplate>
 </template>
 
 <script setup>
 import { useNuxtApp } from '#app'
 
 const props = defineProps({
-  address: String,
-  blockIndex: String,
+  address: {
+    type: String,
+    default: ''
+  },
+  blockIndex: {
+    type: String,
+    default: ''
+  }
 })
 
 const { $apiClient } = useNuxtApp()

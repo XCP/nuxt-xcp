@@ -1,68 +1,69 @@
 <template>
-  <AddressHeader :address="address" />
+  <div>
+    <AddressHeader :address="address" />
 
-  <div class="my-6">
-    <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
+    <div class="my-6">
+      <NavigationTabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
 
-    <!-- Tab content -->
-    <div v-if="activeTab === 'Assets'">
-      <AssetsTable :address="address" />
+      <!-- Tab content -->
+      <div v-if="activeTab === 'Assets'">
+        <AssetsTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Balances'">
+        <BalancesTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Credits'">
+        <CreditsTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Debits'">
+        <DebitsTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Bets'">
+        <BetsTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Broadcasts'">
+        <BroadcastsTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Burns'">
+        <BurnsTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Dispensers'">
+        <DispensersTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Dispenses'">
+        <DispensesTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Dividends'">
+        <DividendsTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Issuances'">
+        <IssuancesTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Transactions'">
+        <TransactionsTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Orders'">
+        <OrdersTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Sends'">
+        <SendsTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Receives'">
+        <ReceivesTable :address="address" />
+      </div>
+      <div v-if="activeTab === 'Sweeps'">
+        <SweepsTable :address="address" />
+      </div>
     </div>
-    <div v-if="activeTab === 'Balances'">
-      <BalancesTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Credits'">
-      <CreditsTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Debits'">
-      <DebitsTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Bets'">
-      <BetsTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Broadcasts'">
-      <BroadcastsTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Burns'">
-      <BurnsTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Dispensers'">
-      <DispensersTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Dispenses'">
-      <DispensesTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Dividends'">
-      <DividendsTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Issuances'">
-      <IssuancesTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Transactions'">
-      <TransactionsTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Orders'">
-      <OrdersTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Sends'">
-      <SendsTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Receives'">
-      <ReceivesTable :address="address" />
-    </div>
-    <div v-if="activeTab === 'Sweeps'">
-      <SweepsTable :address="address" />
-    </div>
-</div>
+  </div>
 </template>
 
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
-import { ref, watchEffect, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { ref, watchEffect } from 'vue';
 
 // Reactive state
 const route = useRoute();
-const router = useRouter();
 const address = ref(route.params.address);
 
 // Tab navigation

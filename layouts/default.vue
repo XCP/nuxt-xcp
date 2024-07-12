@@ -17,10 +17,9 @@
                   </button>
                 </div>
               </TransitionChild>
-              <!-- Sidebar component, swap this element with another sidebar if you like -->
               <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 ring-1 ring-white/10">
                 <div class="flex h-16 shrink-0 items-center">
-                  <img class="h-7 w-auto" src="/img/xcpio.png" alt="XCP" >
+                  <img class="h-7 w-auto" src="/img/xcpio.png" alt="XCP">
                 </div>
                 <nav class="flex flex-1 flex-col">
                   <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -44,7 +43,6 @@
     </TransitionRoot>
 
     <div>
-      <!-- Sticky search header -->
       <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-gray-900 px-4 shadow-sm sm:px-6 lg:px-8">
         <button type="button" class="lg:hidden -m-2.5 p-2.5 text-white" @click="sidebarOpen = true">
           <span class="sr-only">Open sidebar</span>
@@ -54,7 +52,7 @@
         <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
           <div class="hidden sm:flex h-16 shrink-0 items-center" :class="{'flex-1': !clientHydrated}">
             <nuxt-link to="/">
-              <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" height="33" width="22" >
+              <img class="h-5 w-auto" src="/img/xcpio.png" alt="XCP" height="33" width="22">
             </nuxt-link>
             <nuxt-link to="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium">Counterparty XCP</nuxt-link>
           </div>
@@ -66,7 +64,6 @@
               </nuxt-link>
             </template>
           </div>
-          <!-- Combobox for Search -->
           <ClientOnly>
             <Combobox v-model="selectedSuggestion" as="div" class="flex flex-1">
               <div class="relative w-full">
@@ -79,11 +76,11 @@
                 <ComboboxButton class="absolute inset-y-0 left-0 flex items-center pr-2">
                   <MagnifyingGlassIcon class="h-4 w-4 text-gray-400" aria-hidden="true" />
                 </ComboboxButton>
-                <ComboboxOptions v-if="suggestions.length > 0" class="absolute z-10 mt-1 max-h-56 xl:max-h-72	w-full overflow-auto rounded-md bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <ComboboxOptions v-if="suggestions.length > 0" class="absolute z-10 mt-1 max-h-56 xl:max-h-72 w-full overflow-auto rounded-md bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   <ComboboxOption v-for="suggestion in suggestions" :key="suggestion.id" v-slot="{ active }" :value="suggestion" as="template">
                     <li :class="['relative cursor-default select-none py-2 pl-3 pr-9', active ? 'bg-indigo-600 text-white' : 'text-gray-400']">
                       <nuxt-link :to="`/${suggestion.type.toLowerCase()}/${suggestion.slug}`" class="flex items-center">
-                        <img :src="suggestion.imageUrl" alt="" class="h-6 w-6 flex-shrink-0 rounded-full" >
+                        <img :src="suggestion.imageUrl" alt="" class="h-6 w-6 flex-shrink-0 rounded-full">
                         <span class="ml-3 block truncate">{{ suggestion.name }}</span>
                         <span class="ml-auto text-sm text-gray-500">{{ suggestion.type }}</span>
                       </nuxt-link>
@@ -95,7 +92,7 @@
           </ClientOnly>
           <div class="hidden xl:flex md:items-center md:space-x-3">
             <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base flex items-center">
-              <span v-html="`<b>${btcPrice.symbol}</b> ${btcPrice.price}`"/>
+              <b>{{ btcPrice.value.symbol }}</b> {{ btcPrice.value.price }}
               <span class="text-sm ml-2 flex items-center" :class="{'text-green-500': btcChange > 0, 'text-red-500': btcChange < 0}" title="24 Hour Change">
                 <span v-if="btcChange > 0" class="text-xs mr-1">▲</span>
                 <span v-if="btcChange < 0" class="text-xs mr-1">▼</span>
@@ -103,7 +100,7 @@
               </span>
             </a>
             <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base flex items-center">
-              <span v-html="`<b>${xcpPrice.symbol}</b> ${xcpPrice.price}`"/>
+              <b>{{ xcpPrice.value.symbol }}</b> {{ xcpPrice.value.price }}
               <span class="text-sm ml-2 flex items-center" :class="{'text-green-500': xcpChange > 0, 'text-red-500': xcpChange < 0}" title="24 Hour Change">
                 <span v-if="xcpChange > 0" class="text-xs mr-1">▲</span>
                 <span v-if="xcpChange < 0" class="text-xs mr-1">▼</span>
@@ -133,40 +130,40 @@
         </div>
       </footer>
     </div>
-  </div>
 
-  <SpeedInsights />
+    <SpeedInsights />
 
-  <TransitionRoot as="template" :show="connectWalletDialogOpen">
-    <Dialog as="div" class="relative z-50" @close="connectWalletDialogOpen = false">
-      <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
-        <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
-      </TransitionChild>
+    <TransitionRoot as="template" :show="connectWalletDialogOpen">
+      <Dialog as="div" class="relative z-50" @close="connectWalletDialogOpen = false">
+        <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+          <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
+        </TransitionChild>
 
-      <div class="fixed inset-0 z-50 w-screen overflow-y-auto">
-        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-          <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-            <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
-              <div>
-                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full">
-                  <img class="h-6 w-auto" src="/img/xcpio.png" alt="XCP" >
-                </div>
-                <div class="mt-3 text-center sm:mt-5">
-                  <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Wallet Functionality Not Ready Yet</DialogTitle>
-                  <div class="mt-2">
-                    <p class="text-sm text-gray-500">Are you a wallet developer? Get in touch!</p>
+        <div class="fixed inset-0 z-50 w-screen overflow-y-auto">
+          <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+              <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                <div>
+                  <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full">
+                    <img class="h-6 w-auto" src="/img/xcpio.png" alt="XCP">
+                  </div>
+                  <div class="mt-3 text-center sm:mt-5">
+                    <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Wallet Functionality Not Ready Yet</DialogTitle>
+                    <div class="mt-2">
+                      <p class="text-sm text-gray-500">Are you a wallet developer? Get in touch!</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="mt-5 sm:mt-6">
-                <button type="button" class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" @click="connectWalletDialogOpen = false">Close Window</button>
-              </div>
-            </DialogPanel>
-          </TransitionChild>
+                <div class="mt-5 sm:mt-6">
+                  <button type="button" class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" @click="connectWalletDialogOpen = false">Close Window</button>
+                </div>
+              </DialogPanel>
+            </TransitionChild>
+          </div>
         </div>
-      </div>
-    </Dialog>
-  </TransitionRoot>
+      </Dialog>
+    </TransitionRoot>
+  </div>
 </template>
 
 <script setup>
@@ -250,7 +247,6 @@ async function fetchSuggestions(query) {
       baseURL: 'https://api.xcp.io',
     })
 
-    // Assuming the API returns data in the format { addresses: [], assets: [], tags: [], txs: [] }
     suggestions.value = processSuggestions(data)
   } catch (error) {
     console.error('Fetch error:', error)
@@ -262,49 +258,45 @@ async function fetchSuggestions(query) {
 function processSuggestions(data) {
   const mappedSuggestions = [];
 
-  // Process 'tags' if they exist in the response
   if (data.tags && data.tags.length > 0) {
     const tagSuggestions = data.tags.map(item => ({
-      id: item.id, // Assuming each tag has a unique ID
-      name: item.name, // The tag name
-      slug: item.slug, // The tag name
-      type: 'Collection', // Type to distinguish in the UI
+      id: item.id,
+      name: item.name,
+      slug: item.slug,
+      type: 'Collection',
       imageUrl: `https://api.xcp.io/img/logo-icon/${item.slug}`
     }));
     mappedSuggestions.push(...tagSuggestions);
   }
 
-  // Process 'assets' if they exist in the response
   if (data.assets && data.assets.length > 0) {
     const assetSuggestions = data.assets.map(item => ({
-      id: item.id, // Assuming each asset has a unique ID
-      name: item.asset_longname || item.asset_name, // Some assets might have a long name
-      slug: item.asset_longname || item.asset_name, // Some assets might have a long name
-      type: 'Asset', // Type to distinguish in the UI
+      id: item.id,
+      name: item.asset_longname || item.asset_name,
+      slug: item.asset_longname || item.asset_name,
+      type: 'Asset',
       imageUrl: `https://api.xcp.io/img/icon/${item.asset_name}`
     }));
     mappedSuggestions.push(...assetSuggestions);
   }
 
-  // Process 'addresses' if they exist in the response
   if (data.addresses && data.addresses.length > 0) {
     const addressSuggestions = data.addresses.map(item => ({
-      id: item.id, // Assuming each address has a unique ID
-      name: item.address, // The address string
+      id: item.id,
+      name: item.address,
       slug: item.address,
-      type: 'Address', // Type to distinguish in the UI
+      type: 'Address',
       imageUrl: "https://api.xcp.io/img/icon/default.png"
     }));
     mappedSuggestions.push(...addressSuggestions);
   }
 
-  // Process 'txs' (transactions) if they exist in the response
   if (data.txs && data.txs.length > 0) {
     const txSuggestions = data.txs.map(item => ({
-      id: item.id, // Assuming each transaction has a unique ID
-      name: item.tx_hash, // The transaction hash
-      slug: item.tx_hash, // The transaction hash
-      type: 'TX', // Type to distinguish in the UI
+      id: item.id,
+      name: item.tx_hash,
+      slug: item.tx_hash,
+      type: 'TX',
       imageUrl: "https://api.xcp.io/img/icon/default.png"
     }));
     mappedSuggestions.push(...txSuggestions);
@@ -337,25 +329,20 @@ watchEffect(() => {
   navigation.forEach(item => {
     item.current = false;
   });
-  // Check if the current route path contains the substring of any navigation item href
-  // If so, set that item's current property to true
   const activeItem = navigation.find(item => route.path.includes(item.path));
   if (activeItem) {
     activeItem.current = true;
   }
 });
 
-// State to track client-side hydration
 const clientHydrated = ref(false)
 
-// Simulate client-side hydration completion
 onMounted(() => {
-  // You might want to check or wait for actual client-only components to mount
   clientHydrated.value = true
 
   fetchPrices()
   fetchFastestFee()
-  setInterval(fetchPrices, 60000) // Update prices every 60 seconds
-  setInterval(fetchFastestFee, 60000) // Update fees every 60 seconds
+  setInterval(fetchPrices, 60000)
+  setInterval(fetchFastestFee, 60000)
 })
 </script>

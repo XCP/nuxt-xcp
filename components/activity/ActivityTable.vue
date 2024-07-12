@@ -1,5 +1,5 @@
 <template>
-  <Table api-url="https://api.xcp.io/api/v1/messages" :query-params="queryParams" :initial-page="props.initialPage">
+  <TableTemplate api-url="https://api.xcp.io/api/v1/messages" :query-params="queryParams" :initial-page="props.initialPage">
     <template #table-headers>
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
@@ -13,7 +13,7 @@
       <tr v-for="(item, index) in data" :key="index">
         <td class="py-3 pr-8">
           <div class="flex items-center gap-x-4 leading-6">
-            <Badge :category="item.category" />
+            <CategoryBadge :category="item.category" />
           </div>
         </td>
         <td class="whitespace-nowrap py-3 pr-3">
@@ -22,7 +22,7 @@
             </div>
           </td>
         <td class="py-3 pl-0 pr-8 text-base leading-6 text-gray-300">
-          <Summary :message="item" />
+          <MempoolSummary :message="item" />
         </td>
         <td class="py-3 pl-0 text-right text-base leading-6 text-gray-300">
           {{ item.block_index.toLocaleString() }}
@@ -41,7 +41,7 @@
         </select>
       </div>
     </template>
-  </Table>
+  </TableTemplate>
 </template>
 
 <script setup>
@@ -49,7 +49,10 @@ const { trackEvent } = useFathom();
 
 const props = defineProps({
   asset: String,
-  address: String,
+  address: {
+    type: String,
+    default: ''
+  },
   category: String,
   collection: String,
   initialPage: {

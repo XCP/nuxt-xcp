@@ -1,5 +1,5 @@
 <template>
-  <Table :api-client-function="apiClientFunction">
+  <TableTemplate :api-client-function="apiClientFunction">
     <template #table-headers>
       <tr>
         <th v-if="!props.address" scope="col" class="py-2 pr-2 font-semibold min-w-[100px]">Source</th>
@@ -36,14 +36,17 @@
         </td>
       </tr>
     </template>
-  </Table>
+  </TableTemplate>
 </template>
 
 <script setup>
 import { useNuxtApp } from '#app'
 
 const props = defineProps({
-  address: String,
+  address: {
+    type: String,
+    default: ''
+  },
 })
 
 const { $apiClient } = useNuxtApp()

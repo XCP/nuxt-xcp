@@ -60,7 +60,7 @@
   </div>
   <!-- Table -->
   <div v-else class="mt-6 relative overflow-x-auto">
-    <table class="w-full whitespace-nowrap text-left border-white/10">
+    <TableTemplate class="w-full whitespace-nowrap text-left border-white/10">
       <colgroup>
         <col class="w-full sm:w-2/12" >
         <col class="lg:w-3/12" >
@@ -81,7 +81,7 @@
         <tr v-for="item in state.messages" :key="item.id">
           <td class="py-3 pr-8">
             <div class="flex items-center gap-x-4 leading-6">
-              <Badge :category="item.category" />
+              <CategoryBadge :category="item.category" />
             </div>
           </td>
           <td class="py-3 pl-0 pr-4 sm:table-cell sm:pr-8">
@@ -101,7 +101,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </tabletemplate></div>
 </template>
 
 <script setup>
@@ -110,7 +110,10 @@ import { onMounted, reactive, watchEffect } from 'vue'
 
 const props = defineProps({
   asset: String,
-  address: String,
+  address: {
+    type: String,
+    default: ''
+  },
   command: String,
   category: String,
   initialPage: {

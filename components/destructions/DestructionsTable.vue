@@ -1,5 +1,5 @@
 <template>
-  <Table :api-client-function="apiClientFunction">
+  <TableTemplate :api-client-function="apiClientFunction">
     <template #table-headers>
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
@@ -29,7 +29,7 @@
           </NuxtLink>
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          <Status :status="destruction.status" />
+          <StatusBadge :status="destruction.status" />
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ formatTimeAgo(destruction.block_time) }}
@@ -39,14 +39,17 @@
         </td>
       </tr>
     </template>
-  </Table>
+  </TableTemplate>
 </template>
 
 <script setup>
 import { useNuxtApp } from '#app'
 
 const props = defineProps({
-  blockIndex: String,
+  blockIndex: {
+    type: String,
+    default: ''
+  }
 })
 
 const { $apiClient } = useNuxtApp()

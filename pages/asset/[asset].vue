@@ -5,7 +5,7 @@
       <div class="lg:w-1/3 lg:cursor-pointer" @click="toggleModal">
         <!-- Aspect Ratio Block -->
         <div class="aspect-w-5 aspect-h-7 w-full rounded-3xl border border-gray-700 rounded bg-gray-800">
-          <Image :asset="asset" :api-data="apiData" />
+          <ImageHelper :asset="asset" :api-data="apiData" />
         </div>
       </div>
 
@@ -18,7 +18,7 @@
             </h1>
           </div>
           <div class="hidden sm:block mt-5 flex lg:ml-4 lg:mt-0">
-            <Dropdown :items="dropdownItems" /> 
+            <DropdownLinks :items="dropdownItems" /> 
           </div>
         </div>
         <div v-if="filteredTags" class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-2">
@@ -70,7 +70,7 @@
   </div>
 
   <div class="my-6">
-    <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
+    <NavigationTabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
 
     <!-- Tab content -->
     <div v-if="activeTab === 'Balances'">
@@ -94,7 +94,7 @@
           <!-- Here you put the content you want inside the modal, for example, an image -->
           <div class="w-full">
             <!-- Image goes here -->
-            <Image :asset="asset" :api-data="apiData" />
+            <ImageHelper :asset="asset" :api-data="apiData" />
           </div>
         </div>
       </div>

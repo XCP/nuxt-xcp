@@ -45,7 +45,7 @@
     <NuxtLink :to="`/address/${event.params.address}`" class="leading-6 font-medium text-white">
       {{ event.params.address }}
     </NuxtLink>
-    <Action context="debit" :action="event.params.action" class="ml-4" />
+    <ActionBadge context="debit" :action="event.params.action" class="ml-4" />
   </span>
   <span v-else-if="event.event === 'CREDIT'">
     +{{ event.params.quantity_normalized }}
@@ -56,7 +56,7 @@
     <NuxtLink :to="`/address/${event.params.address}`" class="leading-6 font-medium text-white">
       {{ event.params.address }}
     </NuxtLink>
-    <Action context="credit" :action="event.params.calling_function" class="ml-4" />
+    <ActionBadge context="credit" :action="event.params.calling_function" class="ml-4" />
   </span>
   <span v-else-if="event.event === 'ENHANCED_SEND'">
     <NuxtLink :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`" class="leading-6 font-medium text-white">
@@ -112,7 +112,7 @@
       {{ event.params.destination }}
     </NuxtLink>
     (Fee: {{ event.params.fee_paid_normalized }} XCP)
-    <Flags :flags="event.params.flags" class="ml-3" />
+    <SweepFlagsBadge :flags="event.params.flags" class="ml-3" />
   </span>
   <span v-else-if="event.event === 'ASSET_DIVIDEND'">
     {{ event.params.quantity_per_unit_normalized }} 

@@ -1,5 +1,5 @@
 <template>
-  <Table :api-client-function="apiClientFunction" :change-key="selectedStatus">
+  <TableTemplate :api-client-function="apiClientFunction" :change-key="selectedStatus">
     <template #table-controls>
       <!-- Status filter dropdown -->
       <div class="ml-4">
@@ -35,7 +35,7 @@
           </NuxtLink>
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          <BetType :type="bet.bet_type" />
+          <BetTypeBadge :type="bet.bet_type" />
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ formatBalance(bet.wager_quantity, {divisible: true}) }}
@@ -45,18 +45,17 @@
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ bet.target_value }}
-          </td>
+        </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ bet.leverage }}
-          </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300"/><td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
+        </td>
+        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           <NuxtLink :to="`/block/${bet.expire_index}`" class="leading-6 text-white">
             {{ bet.expire_index.toLocaleString() }}
           </NuxtLink>
         </td>
-        </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          <Status :status="bet.status" />
+          <StatusBadge :status="bet.status" />
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           <NuxtLink :to="`/block/${bet.block_index}`" class="leading-6 text-white">
@@ -71,14 +70,17 @@
         </td>
       </tr>
     </template>
-  </Table>
+  </TableTemplate>
 </template>
 
 <script setup>
 import { useNuxtApp } from '#app'
 
 const props = defineProps({
-  address: String,
+  address: {
+    type: String,
+    default: ''
+  },
 })
 
 const { $apiClient } = useNuxtApp()

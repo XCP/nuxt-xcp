@@ -38,8 +38,14 @@
 const { trackEvent } = useFathom();
 
 const props = defineProps({
-  tabs: Array,
-  activeTab: String
+  tabs: {
+    type: Array,
+    default: () => []
+  },
+  activeTab: {
+    type: String,
+    default: ''
+  }
 });
 
 const emit = defineEmits(['tab-change']);

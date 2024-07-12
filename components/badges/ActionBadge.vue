@@ -7,13 +7,13 @@ export default {
   props: {
     action: {
       type: String,
-      required: true
+      required: true,
     },
     context: {
       type: String,
       required: true,
-      validator: value => ['credit', 'debit'].includes(value)
-    }
+      validator: value => ['credit', 'debit'].includes(value),
+    },
   },
   computed: {
     badgeText() {
@@ -51,7 +51,7 @@ export default {
           return 'Sweep';
         case 'sweep fee':
           return 'Sweep Fee';
-        
+
         // CreditAction cases
         case 'Closed: Max dispenses reached':
           return 'Closed: Max Dispenses Reached';
@@ -73,18 +73,12 @@ export default {
           return 'Dispense';
         case 'dispenser close':
           return 'Dispenser Close';
-        case 'dividend':
-          return 'Dividend';
         case 'feed fee':
           return 'Feed Fee';
         case 'filled':
           return 'Filled';
         case 'issuance':
           return 'Issuance';
-        case 'mpma send':
-          return 'MPMA Send';
-        case 'open dispenser empty addr':
-          return 'Open Dispenser Empty Addr';
         case 'order cancelled':
           return 'Order Cancelled';
         case 'order expired':
@@ -101,13 +95,9 @@ export default {
           return 'Recredit Wager Remaining';
         case 'reset issuance':
           return 'Reset Issuance';
-        case 'send':
-          return 'Send';
-        case 'sweep':
-          return 'Sweep';
         case 'wins':
           return 'Wins';
-        
+
         // Default case
         default:
           return this.action;
@@ -120,7 +110,7 @@ export default {
         return 'bg-red-400/10 text-red-400 ring-red-400/20';
       }
       return 'bg-gray-400/10 text-gray-400 ring-gray-400/20';
-    }
-  }
+    },
+  },
 };
 </script>

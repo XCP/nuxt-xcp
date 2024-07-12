@@ -1,5 +1,5 @@
 <template>
-  <Table :api-client-function="apiClientFunction">
+  <TableTemplate :api-client-function="apiClientFunction">
     <template #table-headers>
       <tr>
         <th scope="col" class="py-2 pr-2 font-semibold">Type</th>
@@ -11,7 +11,7 @@
     <template #table-rows="{ data }">
       <tr v-for="(expiration, index) in data" :key="index">
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          <Badge :category="expiration.type" />
+          <CategoryBadge :category="expiration.type" />
         </td>
         <td class="whitespace-nowrap py-3 pr-3 min-w-64">
           <NuxtLink :to="`/tx/${expiration.object_id}`" class="font-medium leading-6 text-base text-white">
@@ -26,14 +26,17 @@
         </td>
       </tr>
     </template>
-  </Table>
+  </TableTemplate>
 </template>
 
 <script setup>
 import { useNuxtApp } from '#app'
 
 const props = defineProps({
-  blockIndex: String,
+  blockIndex: {
+    type: String,
+    default: ''
+  }
 })
 
 const { $apiClient } = useNuxtApp()

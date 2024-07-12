@@ -1,53 +1,54 @@
 <template>
-  <BlockHeader :block-index="blockIndex" />
+  <div>
+    <BlockHeader :block-index="blockIndex" />
 
-  <div class="my-6">
-    <Tabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
+    <div class="my-6">
+      <NavigationTabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
 
-    <!-- Tab content -->
-    <div v-if="activeTab === 'Transactions'">
-      <TransactionsTable :block-index="blockIndex" />
+      <!-- Tab content -->
+      <div v-if="activeTab === 'Transactions'">
+        <TransactionsTable :block-index="blockIndex" />
+      </div>
+      <div v-if="activeTab === 'Events'">
+        <EventsTable :block-index="blockIndex" />
+      </div>
+      <div v-if="activeTab === 'Credits'">
+        <CreditsTable :block-index="blockIndex" />
+      </div>
+      <div v-if="activeTab === 'Debits'">
+        <DebitsTable :block-index="blockIndex" />
+      </div>
+      <div v-if="activeTab === 'Expirations'">
+        <ExpirationsTable :block-index="blockIndex" />
+      </div>
+      <div v-if="activeTab === 'Cancels'">
+        <CancelsTable :block-index="blockIndex" />
+      </div>
+      <div v-if="activeTab === 'Destructions'">
+        <DestructionsTable :block-index="blockIndex" />
+      </div>
+      <div v-if="activeTab === 'Issuances'">
+        <IssuancesTable :block-index="blockIndex" />
+      </div>
+      <div v-if="activeTab === 'Sends'">
+        <SendsTable :block-index="blockIndex" />
+      </div>
+      <div v-if="activeTab === 'Dispenses'">
+        <DispensesTable :block-index="blockIndex" />
+      </div>
+      <div v-if="activeTab === 'Sweeps'">
+        <SweepsTable :block-index="blockIndex" />
+      </div>
     </div>
-    <div v-if="activeTab === 'Events'">
-      <EventsTable :block-index="blockIndex" />
-    </div>
-    <div v-if="activeTab === 'Credits'">
-      <CreditsTable :block-index="blockIndex" />
-    </div>
-    <div v-if="activeTab === 'Debits'">
-      <DebitsTable :block-index="blockIndex" />
-    </div>
-    <div v-if="activeTab === 'Expirations'">
-      <ExpirationsTable :block-index="blockIndex" />
-    </div>
-    <div v-if="activeTab === 'Cancels'">
-      <CancelsTable :block-index="blockIndex" />
-    </div>
-    <div v-if="activeTab === 'Destructions'">
-      <DestructionsTable :block-index="blockIndex" />
-    </div>
-    <div v-if="activeTab === 'Issuances'">
-      <IssuancesTable :block-index="blockIndex" />
-    </div>
-    <div v-if="activeTab === 'Sends'">
-      <SendsTable :block-index="blockIndex" />
-    </div>
-    <div v-if="activeTab === 'Dispenses'">
-      <DispensesTable :block-index="blockIndex" />
-    </div>
-    <div v-if="activeTab === 'Sweeps'">
-      <SweepsTable :block-index="blockIndex" />
-    </div>
-</div>
+  </div>
 </template>
 
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
-import { ref, watchEffect, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { ref, watchEffect } from 'vue';
 
 // Reactive state
 const route = useRoute();
-const router = useRouter();
 const blockIndex = ref(route.params.blockIndex);
 
 // Tab navigation
@@ -64,10 +65,12 @@ const tabs = [
   { name: 'Dispenses', hash: 'dispenses' },
   { name: 'Sweeps', hash: 'sweeps' },
 ];
-const { activeTab, handleTabChange } = useTabs('Balances', tabs);
+const { activeTab, handleTabChange } = useTabs('Transactions', tabs);
 
 // Watchers and lifecycle hooks
-watchEffect(() => blockIndex.value = route.params.blockIndex);
+watchEffect(() => {
+  blockIndex.value = route.params.blockIndex;
+});
 
 // SEO
 useSeoMeta({

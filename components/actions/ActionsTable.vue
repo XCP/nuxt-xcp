@@ -1,5 +1,5 @@
 <template>
-  <Table api-url="https://api.xcp.io/api/v1/messages" :query-params="{ tx_hash: props.tx }" :initial-page="props.initialPage">
+  <TableTemplate api-url="https://api.xcp.io/api/v1/messages" :query-params="{ tx_hash: props.tx }" :initial-page="props.initialPage">
     <template #table-headers>
       <tr>
         <th scope="col" class="py-2 pl-2 font-semibold">Type</th>
@@ -13,16 +13,16 @@
       <tr v-for="(item, index) in data" :key="index">
         <td class="py-3 pr-8">
           <div class="flex items-center gap-x-4 leading-6">
-            <Badge :category="item.category" />
+            <CategoryBadge :category="item.category" />
           </div>
         </td>
         <td class="py-3 pr-8">
           <div class="flex items-center gap-x-4 leading-6 capitalize">
-            <Badge :category="item.command" />
+            <CategoryBadge :category="item.command" />
           </div>
         </td>
         <td class="py-3 pl-0 pr-8 text-base leading-6 text-gray-300">
-          <Summary :message="item" />
+          <MempoolSummary :message="item" />
         </td>
         <td class="py-3 pl-0 text-right text-base leading-6 text-gray-300">
           {{ item.block_index.toLocaleString() }}
@@ -32,7 +32,7 @@
         </td>
       </tr>
     </template>
-  </Table>
+  </TableTemplate>
 </template>
 
 <script setup>

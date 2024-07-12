@@ -42,7 +42,7 @@
 
   <!-- Table View -->
   <div v-else class="mt-6 relative overflow-x-auto">
-    <table class="w-full whitespace-nowrap text-left border-white/10">
+    <TableTemplate class="w-full whitespace-nowrap text-left border-white/10">
       <thead class="border-t border-b border-white/10 text-base leading-6 text-white">
         <tr>
           <th scope="col" class="py-2 pr-2 font-semibold">Time</th>
@@ -60,7 +60,7 @@
             {{ formatTimeAgo(transaction.timestamp) }}
           </td>
           <td class="whitespace-nowrap py-3 pl-0 pr-3 text-base leading-6 text-gray-300">
-            <Badge :category="transaction.category" />
+            <CategoryBadge :category="transaction.category" />
           </td>
           <td class="whitespace-nowrap py-3 pr-3 min-w-64">
             <NuxtLink :to="`/address/${transaction.creditSource || transaction.bindings.source}`" class="font-medium leading-6 text-base text-white">
@@ -73,7 +73,7 @@
             </div>
           </td>
           <td class="whitespace-nowrap py-3 pl-0 pr-3 text-base leading-6 text-gray-300">
-            <Summary :event="transaction" />
+            <MempoolSummary :event="transaction" />
           </td>
           <td class="hidden xl:block whitespace-nowrap py-3 pr-3 min-w-64">
             <NuxtLink :to="`/tx/${transaction.tx_hash}`" class="font-medium leading-6 text-base text-white">{{ transaction.tx_hash }}</NuxtLink>
@@ -84,7 +84,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </tabletemplate></div>
   <div v-if="!state.allDataLoaded" ref="lastElement"/>
 </template>
 

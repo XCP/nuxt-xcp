@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="hidden sm:block mt-5 flex lg:ml-4 lg:mt-0">
-      <Dropdown :items="dropdownItems" />
+      <DropdownLinks :items="dropdownItems" />
     </div>
   </div>
 </template>
