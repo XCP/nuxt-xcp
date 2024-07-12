@@ -1,8 +1,12 @@
 <template>
   <div>
     <h1>API Test</h1>
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="error">Error: {{ error.message }}</div>
+    <div v-if="loading">
+      Loading...
+    </div>
+    <div v-else-if="error">
+      Error: {{ error.message }}
+    </div>
     <div v-else>
       <pre>{{ data }}</pre>
     </div>
@@ -10,27 +14,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useNuxtApp } from '#app';
+import { ref, onMounted } from 'vue'
+import { useNuxtApp } from '#app'
 
 definePageMeta({
-  layout: false
-});
+  layout: false,
+})
 
-const data = ref(null);
-const loading = ref(true);
-const error = ref(null);
+const data = ref(null)
+const loading = ref(true)
+const error = ref(null)
 
-const { $apiClient } = useNuxtApp();
+const { $apiClient } = useNuxtApp()
 
 onMounted(async () => {
   try {
-    const response = await $apiClient.getEventCounts();
-    data.value = response;
-  } catch (err) {
-    error.value = err;
-  } finally {
-    loading.value = false;
+    const response = await $apiClient.getEventCounts()
+    data.value = response
   }
-});
+  catch (err) {
+    error.value = err
+  }
+  finally {
+    loading.value = false
+  }
+})
 </script>

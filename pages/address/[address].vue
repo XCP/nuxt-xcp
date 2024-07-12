@@ -3,7 +3,11 @@
     <AddressHeader :address="address" />
 
     <div class="my-6">
-      <NavigationTabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
+      <NavigationTabs
+        :tabs="tabs"
+        :active-tab="activeTab"
+        @tab-change="handleTabChange"
+      />
 
       <!-- Tab content -->
       <div v-if="activeTab === 'Assets'">
@@ -59,12 +63,12 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-import { ref, watchEffect } from 'vue';
+import { useRoute } from 'vue-router'
+import { ref, watchEffect } from 'vue'
 
 // Reactive state
-const route = useRoute();
-const address = ref(route.params.address);
+const route = useRoute()
+const address = ref(route.params.address)
 
 // Tab navigation
 const tabs = [
@@ -84,11 +88,11 @@ const tabs = [
   { name: 'Sends', hash: 'sends' },
   { name: 'Receives', hash: 'receives' },
   { name: 'Sweeps', hash: 'sweeps' },
-];
-const { activeTab, handleTabChange } = useTabs('Balances', tabs);
+]
+const { activeTab, handleTabChange } = useTabs('Balances', tabs)
 
 // Watchers and lifecycle hooks
-watchEffect(() => address.value = route.params.address);
+watchEffect(() => address.value = route.params.address)
 
 // SEO
 useSeoMeta({
@@ -98,5 +102,5 @@ useSeoMeta({
   ogDescription: 'Detailed insights into Counterparty addresses and their activities.',
   ogImage: 'https://api.xcp.io/img/full/default.png',
   twitterCard: 'summary_large_image',
-});
+})
 </script>

@@ -1,5 +1,8 @@
 <template>
-  <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset" :class="badgeClass">{{ badgeText }}</span>
+  <span
+    class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset"
+    :class="badgeClass"
+  >{{ badgeText }}</span>
 </template>
 
 <script>
@@ -20,97 +23,98 @@ export default {
       switch (this.action) {
         // DebitAction cases
         case 'bet':
-          return 'Bet';
+          return 'Bet'
         case 'destroy':
-          return 'Destroy';
+          return 'Destroy'
         case 'dividend':
-          return 'Dividend';
+          return 'Dividend'
         case 'dividend fee':
-          return 'Dividend Fee';
+          return 'Dividend Fee'
         case 'issuance fee':
-          return 'Issuance Fee';
+          return 'Issuance Fee'
         case 'mpma send':
-          return 'MPMA Send';
+          return 'MPMA Send'
         case 'open RPS':
-          return 'Open RPS';
+          return 'Open RPS'
         case 'open dispenser':
-          return 'Open Dispenser';
+          return 'Open Dispenser'
         case 'open dispenser empty addr':
-          return 'Open Dispenser Empty Addr';
+          return 'Open Dispenser Empty Addr'
         case 'open order':
-          return 'Open Order';
+          return 'Open Order'
         case 'refill dispenser':
-          return 'Refill Dispenser';
+          return 'Refill Dispenser'
         case 'reopen RPS after matching expiration':
-          return 'Reopen RPS After Matching Expiration';
+          return 'Reopen RPS After Matching Expiration'
         case 'reset destroy':
-          return 'Reset Destroy';
+          return 'Reset Destroy'
         case 'send':
-          return 'Send';
+          return 'Send'
         case 'sweep':
-          return 'Sweep';
+          return 'Sweep'
         case 'sweep fee':
-          return 'Sweep Fee';
+          return 'Sweep Fee'
 
         // CreditAction cases
         case 'Closed: Max dispenses reached':
-          return 'Closed: Max Dispenses Reached';
+          return 'Closed: Max Dispenses Reached'
         case 'bet settled: for equal':
-          return 'Bet Settled: For Equal';
+          return 'Bet Settled: For Equal'
         case 'bet settled: for notequal':
-          return 'Bet Settled: For Not Equal';
+          return 'Bet Settled: For Not Equal'
         case 'bet settled: liquidated for bear':
-          return 'Bet Settled: Liquidated For Bear';
+          return 'Bet Settled: Liquidated For Bear'
         case 'btcpay':
-          return 'BTC Pay';
+          return 'BTC Pay'
         case 'burn':
-          return 'Burn';
+          return 'Burn'
         case 'cancel order':
-          return 'Cancel Order';
+          return 'Cancel Order'
         case 'close dispenser':
-          return 'Close Dispenser';
+          return 'Close Dispenser'
         case 'dispense':
-          return 'Dispense';
+          return 'Dispense'
         case 'dispenser close':
-          return 'Dispenser Close';
+          return 'Dispenser Close'
         case 'feed fee':
-          return 'Feed Fee';
+          return 'Feed Fee'
         case 'filled':
-          return 'Filled';
+          return 'Filled'
         case 'issuance':
-          return 'Issuance';
+          return 'Issuance'
         case 'order cancelled':
-          return 'Order Cancelled';
+          return 'Order Cancelled'
         case 'order expired':
-          return 'Order Expired';
+          return 'Order Expired'
         case 'order match':
-          return 'Order Match';
+          return 'Order Match'
         case 'recredit backward quantity':
-          return 'Recredit Backward Quantity';
+          return 'Recredit Backward Quantity'
         case 'recredit forward quantity':
-          return 'Recredit Forward Quantity';
+          return 'Recredit Forward Quantity'
         case 'recredit wager':
-          return 'Recredit Wager';
+          return 'Recredit Wager'
         case 'recredit wager remaining':
-          return 'Recredit Wager Remaining';
+          return 'Recredit Wager Remaining'
         case 'reset issuance':
-          return 'Reset Issuance';
+          return 'Reset Issuance'
         case 'wins':
-          return 'Wins';
+          return 'Wins'
 
         // Default case
         default:
-          return this.action;
+          return this.action
       }
     },
     badgeClass() {
       if (this.context === 'credit') {
-        return 'bg-green-400/10 text-green-400 ring-green-400/20';
-      } else if (this.context === 'debit') {
-        return 'bg-red-400/10 text-red-400 ring-red-400/20';
+        return 'bg-green-400/10 text-green-400 ring-green-400/20'
       }
-      return 'bg-gray-400/10 text-gray-400 ring-gray-400/20';
+      else if (this.context === 'debit') {
+        return 'bg-red-400/10 text-red-400 ring-red-400/20'
+      }
+      return 'bg-gray-400/10 text-gray-400 ring-gray-400/20'
     },
   },
-};
+}
 </script>

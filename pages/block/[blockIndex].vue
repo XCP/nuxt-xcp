@@ -3,7 +3,11 @@
     <BlockHeader :block-index="blockIndex" />
 
     <div class="my-6">
-      <NavigationTabs :tabs="tabs" :active-tab="activeTab" @tab-change="handleTabChange" />
+      <NavigationTabs
+        :tabs="tabs"
+        :active-tab="activeTab"
+        @tab-change="handleTabChange"
+      />
 
       <!-- Tab content -->
       <div v-if="activeTab === 'Transactions'">
@@ -44,12 +48,12 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-import { ref, watchEffect } from 'vue';
+import { useRoute } from 'vue-router'
+import { ref, watchEffect } from 'vue'
 
 // Reactive state
-const route = useRoute();
-const blockIndex = ref(route.params.blockIndex);
+const route = useRoute()
+const blockIndex = ref(route.params.blockIndex)
 
 // Tab navigation
 const tabs = [
@@ -64,13 +68,13 @@ const tabs = [
   { name: 'Sends', hash: 'sends' },
   { name: 'Dispenses', hash: 'dispenses' },
   { name: 'Sweeps', hash: 'sweeps' },
-];
-const { activeTab, handleTabChange } = useTabs('Transactions', tabs);
+]
+const { activeTab, handleTabChange } = useTabs('Transactions', tabs)
 
 // Watchers and lifecycle hooks
 watchEffect(() => {
-  blockIndex.value = route.params.blockIndex;
-});
+  blockIndex.value = route.params.blockIndex
+})
 
 // SEO
 useSeoMeta({
@@ -80,5 +84,5 @@ useSeoMeta({
   ogDescription: 'Detailed insights into Counterparty block and their activities.',
   ogImage: 'https://api.xcp.io/img/full/default.png',
   twitterCard: 'summary_large_image',
-});
+})
 </script>

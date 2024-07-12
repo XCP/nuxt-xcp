@@ -8,22 +8,34 @@
       <div class="mt-1 flex flex-wrap items-center text-base text-gray-300 gap-x-3 sm:gap-x-6">
         <!-- Item 1 -->
         <div class="flex items-center w-full lg:w-auto mt-2">
-          <BriefcaseIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
+          <BriefcaseIcon
+            class="mr-1.5 h-5 w-5 text-gray-500"
+            aria-hidden="true"
+          />
           {{ address }}
         </div>
         <!-- Item 2 -->
         <div class="flex items-center w-full lg:w-auto mt-2 order-last lg:order-none">
-          <FireIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
+          <FireIcon
+            class="mr-1.5 h-5 w-5 text-gray-500"
+            aria-hidden="true"
+          />
           {{ apiData.xcpValue }} XCP
         </div>
         <!-- Item 3 -->
         <div class="flex items-center w-auto mt-2">
-          <CurrencyDollarIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
+          <CurrencyDollarIcon
+            class="mr-1.5 h-5 w-5 text-gray-500"
+            aria-hidden="true"
+          />
           {{ apiData.btcValue }} BTC
         </div>
         <!-- Item 4 -->
         <div class="flex items-center w-auto mt-2">
-          <LinkIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
+          <LinkIcon
+            class="mr-1.5 h-5 w-5 text-gray-500"
+            aria-hidden="true"
+          />
           {{ apiData.tx_count }} Transactions
         </div>
       </div>
@@ -35,40 +47,41 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import { BriefcaseIcon, CurrencyDollarIcon, FireIcon, LinkIcon } from '@heroicons/vue/20/solid';
-import { useNuxtApp } from '#app';
+import { ref, computed, onMounted } from 'vue'
+import { BriefcaseIcon, CurrencyDollarIcon, FireIcon, LinkIcon } from '@heroicons/vue/20/solid'
+import { useNuxtApp } from '#app'
 
 // Define props
 const props = defineProps({
   address: {
     type: String,
-    default: ''
-  }
-});
+    default: '',
+  },
+})
 
 // Reactive state
-const apiData = ref({ tx_count: 0, btcValue: 0, xcpValue: 0 });
-const { $apiClient } = useNuxtApp();
+const apiData = ref({ tx_count: 0, btcValue: 0, xcpValue: 0 })
+const { $apiClient } = useNuxtApp()
 
 // Fetch API data
 const fetchData = async () => {
   try {
-    const btcData = await $fetch(`https://blockstream.info/api/address/${props.address}`);
-    const xcpData = await $apiClient.getAddressBalanceByAsset(props.address, 'XCP');
+    const btcData = await $fetch(`https://blockstream.info/api/address/${props.address}`)
+    const xcpData = await $apiClient.getAddressBalanceByAsset(props.address, 'XCP')
 
     apiData.value = {
       tx_count: btcData.chain_stats.tx_count.toLocaleString(),
       btcValue: formatBalance(btcData.chain_stats.funded_txo_sum - btcData.chain_stats.spent_txo_sum, { divisible: true }),
-      xcpValue: formatBalance(xcpData.data.result.quantity, { divisible: true })
-    };
-  } catch (e) {
-    console.error('Fetch error:', e);
+      xcpValue: formatBalance(xcpData.data.result.quantity, { divisible: true }),
+    }
+  }
+  catch (e) {
+    console.error('Fetch error:', e)
     // Handle fetch error, optionally redirect to an error page
   }
-};
+}
 
-onMounted(fetchData);
+onMounted(fetchData)
 
 // Computed properties for display
 const dropdownItems = computed(() => [
@@ -77,6 +90,6 @@ const dropdownItems = computed(() => [
   { href: `https://pepe.wtf/${props.address}/collection`, imgSrc: '/img/pepewtf.png', title: 'pepe.wtf' },
   { href: `https://www.xchain.io/address/${props.address}`, imgSrc: '/img/xchainio.png', title: 'xchain.io' },
   { href: `https://www.xcp.dev/address/${props.address}`, imgSrc: '/img/xcpdev.png', title: 'xcp.dev' },
-  { href: `https://xcp.ninja/profile/${props.address}`, imgSrc: '/img/xcpninja.png', title: 'xcp.ninja' }
-]);
+  { href: `https://xcp.ninja/profile/${props.address}`, imgSrc: '/img/xcpninja.png', title: 'xcp.ninja' },
+])
 </script>

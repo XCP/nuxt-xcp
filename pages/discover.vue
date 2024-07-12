@@ -1,6 +1,12 @@
 <template>
-  <div v-if="loading" class="flex justify-center items-center my-36 py-36 text-gray-300">
-    <ArrowPathIcon class="animate-spin h-8 w-8 text-gray-500" aria-hidden="true" />
+  <div
+    v-if="loading"
+    class="flex justify-center items-center my-36 py-36 text-gray-300"
+  >
+    <ArrowPathIcon
+      class="animate-spin h-8 w-8 text-gray-500"
+      aria-hidden="true"
+    />
   </div>
 </template>
 
@@ -17,19 +23,22 @@ const fetchTagsAndRedirect = async () => {
     const response = await fetch('https://api.xcp.io/api/v1/tags?type=collection')
     if (!response.ok) throw new Error('Network response was not ok')
     const data = await response.json()
-    
+
     if (data.length > 0) {
       const randomIndex = Math.floor(Math.random() * data.length)
       const randomTag = data[randomIndex]
       router.push(`/collection/${randomTag.slug}`)
-    } else {
+    }
+    else {
       console.error('No tags found')
       // Handle the case where no tags are found, e.g., redirect to a default page or show an error message
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Fetch error:', error)
     // Handle fetch error, e.g., redirect to an error page or show an error message
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }

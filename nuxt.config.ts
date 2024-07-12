@@ -2,24 +2,31 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
-  modules: ["nuxt-fathom", "@nuxt/image", "@nuxtjs/device", "@nuxt/eslint"],
+
+  modules: ['nuxt-fathom', '@nuxt/image', '@nuxtjs/device', '@nuxt/eslint'],
+
   nitro: {
     storage: {
-      data: { driver: 'vercelKV' }
-    }
+      data: { driver: 'vercelKV' },
+    },
   },
+
   eslint: {
     config: {
-      stylistic: true
-    }
+      stylistic: true,
+    },
   },
+
   fathom: {
-    siteId: "FVFGOFSG"
+    siteId: 'FVFGOFSG',
   },
+
+  compatibilityDate: '2024-07-12',
 })

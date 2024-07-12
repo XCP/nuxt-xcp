@@ -8,22 +8,34 @@
       <div class="mt-1 flex flex-wrap items-center text-base text-gray-300 gap-x-3 sm:gap-x-6">
         <!-- Block Index -->
         <div class="flex items-center w-full lg:w-auto mt-2">
-          <BriefcaseIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
+          <BriefcaseIcon
+            class="mr-1.5 h-5 w-5 text-gray-500"
+            aria-hidden="true"
+          />
           Block Index: {{ blockData.block_index }}
         </div>
         <!-- Block Hash -->
         <div class="flex items-center w-full lg:w-auto mt-2">
-          <FireIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
+          <FireIcon
+            class="mr-1.5 h-5 w-5 text-gray-500"
+            aria-hidden="true"
+          />
           Block Hash: {{ blockData.block_hash }}
         </div>
         <!-- Previous Block Hash -->
         <div class="flex items-center w-auto mt-2">
-          <CurrencyDollarIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
+          <CurrencyDollarIcon
+            class="mr-1.5 h-5 w-5 text-gray-500"
+            aria-hidden="true"
+          />
           Previous Block Hash: {{ blockData.previous_block_hash }}
         </div>
         <!-- Transaction Count -->
         <div class="flex items-center w-auto mt-2">
-          <LinkIcon class="mr-1.5 h-5 w-5 text-gray-500" aria-hidden="true" />
+          <LinkIcon
+            class="mr-1.5 h-5 w-5 text-gray-500"
+            aria-hidden="true"
+          />
           Transactions: {{ blockData.transaction_count }}
         </div>
       </div>
@@ -35,39 +47,40 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import { BriefcaseIcon, CurrencyDollarIcon, FireIcon, LinkIcon } from '@heroicons/vue/20/solid';
-import { useNuxtApp } from '#app';
+import { ref, computed, onMounted } from 'vue'
+import { BriefcaseIcon, CurrencyDollarIcon, FireIcon, LinkIcon } from '@heroicons/vue/20/solid'
+import { useNuxtApp } from '#app'
 
 // Define props
 const props = defineProps({
   blockIndex: {
     type: String,
-    default: ''
-  }
-});
+    default: '',
+  },
+})
 
 // Reactive state
-const blockData = ref({});
-const { $apiClient } = useNuxtApp();
+const blockData = ref({})
+const { $apiClient } = useNuxtApp()
 
 // Fetch API data
 const fetchData = async () => {
   try {
-    const response = await $apiClient.getBlockByIndex(props.blockIndex);
-    blockData.value = response.data.result;
-  } catch (e) {
-    console.error('Fetch error:', e);
+    const response = await $apiClient.getBlockByIndex(props.blockIndex)
+    blockData.value = response.data.result
+  }
+  catch (e) {
+    console.error('Fetch error:', e)
     // Handle fetch error, optionally redirect to an error page
   }
-};
+}
 
-onMounted(fetchData);
+onMounted(fetchData)
 
 // Computed properties for display
 const dropdownItems = computed(() => [
   { href: `https://blockstream.info/block/${blockData.value.block_hash}`, imgSrc: '/img/blockstreaminfo.png', title: 'blockstream.info' },
   { href: `https://mempool.space/block/${blockData.value.block_hash}`, imgSrc: '/img/mempoolspace.png', title: 'mempool.space' },
   { href: `https://www.xchain.io/block/${blockData.value.block_index}`, imgSrc: '/img/xchainio.png', title: 'xchain.io' },
-]);
+])
 </script>

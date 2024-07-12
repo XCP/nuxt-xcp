@@ -1,6 +1,9 @@
 <!-- Pagination.vue -->
 <template>
-  <nav class="mt-6 sm:mt-0 flex items-center justify-between" aria-label="Pagination">
+  <nav
+    class="mt-6 sm:mt-0 flex items-center justify-between"
+    aria-label="Pagination"
+  >
     <div>
       <p class="text-base text-gray-300">
         Showing
@@ -13,7 +16,7 @@
       </p>
     </div>
     <div class="hidden lg:flex items-center">
-      <slot name="table-controls"/>
+      <slot name="table-controls" />
     </div>
     <div class="flex flex-1 items-center justify-end">
       <button
@@ -76,7 +79,7 @@ const props = defineProps({
     type: Number,
     default: 10,
   },
-});
+})
 
 const hasPrevious = computed(() => props.currentPage > 1)
 const hasNext = computed(() => props.endItem < props.totalItems)
