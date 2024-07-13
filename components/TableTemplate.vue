@@ -30,6 +30,8 @@
               <td
                 :colspan="columnCount"
                 class="py-48 text-center"
+                role="cell"
+                aria-busy="true"
               >
                 <ArrowPathIcon class="h-8 w-8 text-gray-300 animate-spin mx-auto" />
                 <span class="sr-only">Loading...</span>
@@ -41,6 +43,7 @@
               <td
                 :colspan="columnCount"
                 class="py-48 text-center"
+                role="cell"
               >
                 <div>
                   <p class="text-lg text-gray-500">
@@ -58,6 +61,7 @@
               <td
                 :colspan="columnCount"
                 class="py-48 text-center"
+                role="cell"
               >
                 <div>
                   <p class="text-lg text-gray-500">
@@ -84,7 +88,7 @@
 
 <script setup>
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 
 const props = defineProps({
   apiClientFunction: {
@@ -103,51 +107,27 @@ const state = ref({
   items: [],
   totalItems: 0,
   currentPage: 1,
-  resultsPerPage: 100,
+  resultsPerPage: 50,
 })
 
-// Use a ref to track the number of columns
+// Use a ref to track the number of columns for colspan attribute
 const columnCount = ref(0)
 
 // After rendering the slot content, count the number of columns
 onMounted(() => {
   const tableHeaders = document.querySelectorAll('thead > tr > th')
   columnCount.value = tableHeaders.length
+  fetchData() // Fetch data
 })
 
 const startItem = computed(() => (state.value.currentPage - 1) * state.value.resultsPerPage + 1)
 const endItem = computed(() => Math.min(state.value.currentPage * state.value.resultsPerPage, state.value.totalItems))
 
-const fetchData = async (offset = 0) => {
-  if (state.value.loading) return
+const { fetchData } = useFetchData(state, props.apiClientFunction)
 
-  state.value.loading = true
-  state.value.items = []
-
-  const params = {
-    offset: offset,
-    limit: state.value.resultsPerPage,
-  }
-
-  try {
-    const response = await props.apiClientFunction(params)
-    const data = response.data
-
-    state.value.items = data.result
-    state.value.totalItems = data.result_count
-    state.value.currentPage = offset / state.value.resultsPerPage + 1
-  }
-  catch (error) {
-    state.value.error = 'Fetch error: ' + error
-  }
-  finally {
-    state.value.loading = false
-  }
-}
+const debouncedFetchData = debounce(fetchData, 300)
 
 watch(() => props.changeKey, () => {
-  fetchData()
+  debouncedFetchData()
 })
-
-fetchData()
 </script>
