@@ -73,13 +73,13 @@ const address = ref(route.params.address)
 // Tab navigation
 const tabs = [
   { name: 'Assets', hash: 'assets' },
+  { name: 'Issuances', hash: 'issuances' },
+  { name: 'Dividends', hash: 'dividends' },
   { name: 'Balances', hash: 'balances' },
   { name: 'Credits', hash: 'credits' },
   { name: 'Debits', hash: 'debits' },
   { name: 'Sends', hash: 'sends' },
   { name: 'Receives', hash: 'receives' },
-  { name: 'Issuances', hash: 'issuances' },
-  { name: 'Dividends', hash: 'dividends' },
   { name: 'Orders', hash: 'orders' },
   { name: 'Dispensers', hash: 'dispensers' },
   { name: 'Dispenses', hash: 'dispenses' },
