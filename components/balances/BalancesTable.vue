@@ -3,7 +3,6 @@
     <template #table-headers>
       <tr>
         <th
-          v-if="!props.asset"
           scope="col"
           class="py-2 pr-2 font-semibold"
         >
@@ -36,47 +35,6 @@
         :key="balance.asset"
       >
         <td
-          v-if="!props.address"
-          class="whitespace-nowrap py-3 pr-3 min-w-64"
-        >
-          <div class="flex items-center gap-x-4">
-            <NuxtImg
-              :src="`https://api.xcp.io/img/icon/${balance.asset}`"
-              :alt="formatAssetName(balance.asset, balance.asset_info)"
-              class="h-10 w-10 bg-gray-800"
-              loading="lazy"
-            />
-            <span
-              class="leading-6 text-base text-white"
-            >
-              {{ balance.quantity_normalized }}
-            </span>
-          </div>
-        </td>
-        <td
-          v-if="!props.address"
-          class="whitespace-nowrap py-3 pr-3 min-w-64"
-        >
-          <NuxtLink
-            :to="`/address/${balance.address}`"
-            class="font-medium leading-6 text-base text-white"
-          >
-            {{ balance.address }}
-          </NuxtLink>
-        </td>
-        <td
-          v-if="!props.address"
-          class="whitespace-nowrap py-3 pl-3 text-base font-medium text-right"
-        >
-          <NuxtLink
-            :to="`/address/${balance.address}`"
-            class="text-primary"
-          >
-            View
-          </NuxtLink>
-        </td>
-        <td
-          v-if="!props.asset"
           class="whitespace-nowrap py-3 pr-3 min-w-64"
         >
           <div class="flex items-center gap-x-4">
@@ -95,10 +53,20 @@
           </div>
         </td>
         <td
-          v-if="!props.asset"
           class="whitespace-nowrap py-3 pl-0 text-base leading-6 text-gray-300"
         >
           {{ balance.quantity_normalized }}
+        </td>
+        <td
+          v-if="!props.address"
+          class="whitespace-nowrap py-3 pr-3 min-w-64"
+        >
+          <NuxtLink
+            :to="`/address/${balance.address}`"
+            class="font-medium leading-6 text-base text-white"
+          >
+            {{ balance.address }}
+          </NuxtLink>
         </td>
         <td
           v-if="!props.asset"
@@ -106,6 +74,17 @@
         >
           <NuxtLink
             :to="`/asset/${formatAssetName(balance.asset, balance.asset_info)}`"
+            class="text-primary"
+          >
+            View
+          </NuxtLink>
+        </td>
+        <td
+          v-if="!props.address"
+          class="whitespace-nowrap py-3 pl-3 text-base font-medium text-right"
+        >
+          <NuxtLink
+            :to="`/address/${balance.address}`"
             class="text-primary"
           >
             View
