@@ -3,6 +3,7 @@
     <template #table-headers>
       <tr>
         <th
+          v-if="!props.address"
           scope="col"
           class="py-2 pr-2 font-semibold min-w-[100px]"
         >
@@ -46,7 +47,7 @@
         v-for="(transaction, index) in data"
         :key="index"
       >
-        <td class="whitespace-nowrap py-3 pr-3 min-w-[100px]">
+        <td v-if="!props.address" class="whitespace-nowrap py-3 pr-3 min-w-[100px]">
           <NuxtLink
             :to="`/address/${transaction.source}`"
             class="font-medium leading-6 text-base text-white"

@@ -205,7 +205,7 @@
           </ClientOnly>
           <div class="hidden xl:flex md:items-center md:space-x-3">
             <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base flex items-center">
-              <b>{{ btcPrice.value.symbol }}</b> {{ btcPrice.value.price }}
+              <b class="mr-2">{{ btcPrice.symbol }}</b> {{ btcPrice.price }}
               <span
                 class="text-sm ml-2 flex items-center"
                 :class="{ 'text-green-500': btcChange > 0, 'text-red-500': btcChange < 0 }"
@@ -223,7 +223,7 @@
               </span>
             </a>
             <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base flex items-center">
-              <b>{{ xcpPrice.value.symbol }}</b> {{ xcpPrice.value.price }}
+              <b class="mr-2">{{ xcpPrice.symbol }}</b> {{ xcpPrice.price }}
               <span
                 class="text-sm ml-2 flex items-center"
                 :class="{ 'text-green-500': xcpChange > 0, 'text-red-500': xcpChange < 0 }"
