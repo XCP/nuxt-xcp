@@ -78,7 +78,7 @@ watchEffect(() => {
 
 // SEO
 useSeoMeta({
-  title: blockIndex.value,
+  title: `Bitcoin Block ${blockIndex.value} - Counterparty Protocol Transactions`,
   ogTitle: blockIndex.value,
   description: 'Explore detailed information about Counterparty block.',
   ogDescription: 'Detailed insights into Counterparty block and their activities.',

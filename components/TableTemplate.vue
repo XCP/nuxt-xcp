@@ -29,7 +29,7 @@
             <tr>
               <td
                 :colspan="columnCount"
-                class="py-96 text-center"
+                class="py-48 text-center"
               >
                 <ArrowPathIcon class="h-8 w-8 text-gray-300 animate-spin mx-auto" />
                 <span class="sr-only">Loading...</span>
@@ -40,7 +40,7 @@
             <tr>
               <td
                 :colspan="columnCount"
-                class="py-96 text-center"
+                class="py-48 text-center"
               >
                 <div>
                   <p class="text-lg text-gray-500">
@@ -57,7 +57,7 @@
             <tr>
               <td
                 :colspan="columnCount"
-                class="py-96 text-center"
+                class="py-48 text-center"
               >
                 <div>
                   <p class="text-lg text-gray-500">
