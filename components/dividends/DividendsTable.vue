@@ -152,9 +152,11 @@ const apiClientFunction = (params = {}) => {
 
   if (props.address) {
     return $apiClient.getAddressDividends(props.address, params)
-  } else if (props.asset) {
+  }
+  else if (props.asset) {
     return $apiClient.getAssetIssuances(props.asset, params)
-  } else {
+  }
+  else {
     throw new Error('Address or Asset prop is required for API call')
   }
 }
