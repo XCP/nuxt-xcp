@@ -47,7 +47,10 @@
         v-for="(transaction, index) in data"
         :key="index"
       >
-        <td v-if="!props.address" class="whitespace-nowrap py-3 pr-3 min-w-[100px]">
+        <td
+          v-if="!props.address"
+          class="whitespace-nowrap py-3 pr-3 min-w-[100px]"
+        >
           <NuxtLink
             :to="`/address/${transaction.source}`"
             class="font-medium leading-6 text-base text-white"

@@ -54,7 +54,7 @@
             as="div"
             class="relative"
           >
-            <MenuButton class="inline-flex items-center rounded-md px-3 py-2 text-base font-semibold shadow-sm bg-gray-700/10 text-gray-300 hover:bg-white/20 hover:text-white">
+            <MenuButton class="inline-flex items-center rounded-md bg-white/10 px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-white/20">
               More
               <ChevronDownIcon
                 class="-mr-1 ml-1.5 h-5 w-5"

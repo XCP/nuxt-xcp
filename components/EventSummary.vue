@@ -223,17 +223,15 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'ASSET_CREATION'">
-    Asset created:
     <NuxtLink
       :to="`/asset/${event.params.asset_name}`"
       class="leading-6 font-medium text-white"
     >
       {{ event.params.asset_name }}
     </NuxtLink>
-    with ID {{ event.params.asset_id }}
+    (ID: {{ event.params.asset_id }})
   </span>
   <span v-else-if="event.event === 'ASSET_ISSUANCE'">
-    Asset issuance:
     <NuxtLink
       :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
       class="leading-6 font-medium text-white"
@@ -247,17 +245,17 @@
     >
       {{ event.params.issuer }}
     </NuxtLink>
-    with quantity {{ event.params.quantity_normalized }}
+    (Quantity: {{ event.params.quantity_normalized }})
   </span>
   <span v-else-if="event.event === 'ASSET_DESTRUCTION'">
-    Asset destroyed:
+    {{ event.params.quantity_normalized }}
     <NuxtLink
       :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
     </NuxtLink>
-    quantity {{ event.params.quantity_normalized }} by
+    by
     <NuxtLink
       :to="`/address/${event.params.source}`"
       class="leading-6 font-medium text-white"
@@ -268,7 +266,6 @@
 
   <!-- DEX Handlers -->
   <span v-else-if="event.event === 'OPEN_ORDER'">
-    Open order to give
     {{ event.params.give_quantity_normalized }}
     <NuxtLink
       :to="`/asset/${formatAssetName(event.params.give_asset, event.params.give_asset_info)}`"
@@ -293,7 +290,6 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'ORDER_MATCH'">
-    Order match:
     {{ event.params.forward_quantity_normalized }}
     <NuxtLink
       :to="`/asset/${formatAssetName(event.params.forward_asset, event.params.forward_asset_info)}`"
@@ -325,17 +321,18 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'ORDER_UPDATE'">
-    Order update:
     <NuxtLink
       :to="`/tx/${event.params.tx_hash}`"
       class="leading-6 font-medium text-white"
     >
       {{ event.params.tx_hash }}
     </NuxtLink>
-    status changed to {{ event.params.status }}
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'ORDER_FILLED'">
-    Order filled:
     <NuxtLink
       :to="`/tx/${event.params.tx_hash}`"
       class="leading-6 font-medium text-white"
@@ -344,24 +341,26 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'ORDER_MATCH_UPDATE'">
-    Order match update:
     <NuxtLink
-      :to="`/tx/${event.params.tx_hash}`"
+      :to="`/tx/${event.tx_hash}`"
       class="leading-6 font-medium text-white"
     >
-      {{ event.params.tx_hash }}
+      {{ event.tx_hash }}
     </NuxtLink>
-    status changed to {{ event.params.status }}
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'BTC_PAY'">
-    BTC payment of {{ event.params.btc_amount_normalized }} BTC sent to
+    {{ event.params.btc_amount_normalized }} BTC sent to
     <NuxtLink
       :to="`/address/${event.params.destination}`"
       class="leading-6 font-medium text-white"
     >
       {{ event.params.destination }}
     </NuxtLink>
-    for order match
+    for
     <NuxtLink
       :to="`/tx/${event.params.order_match_id}`"
       class="leading-6 font-medium text-white"
@@ -370,7 +369,6 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'CANCEL_ORDER'">
-    Order cancelled:
     <NuxtLink
       :to="`/tx/${event.params.offer_hash}`"
       class="leading-6 font-medium text-white"
@@ -386,7 +384,6 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'ORDER_EXPIRATION'">
-    Order expired:
     <NuxtLink
       :to="`/tx/${event.params.order_hash}`"
       class="leading-6 font-medium text-white"
@@ -402,7 +399,6 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'ORDER_MATCH_EXPIRATION'">
-    Order match expired between
     <NuxtLink
       :to="`/address/${event.params.tx0_address}`"
       class="leading-6 font-medium text-white"
@@ -420,7 +416,6 @@
 
   <!-- Dispenser Handlers -->
   <span v-else-if="event.event === 'OPEN_DISPENSER'">
-    Open dispenser for
     {{ event.params.give_quantity_normalized }}
     <NuxtLink
       :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
@@ -437,7 +432,6 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'DISPENSER_UPDATE'">
-    Dispenser update for
     <NuxtLink
       :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
       class="leading-6 font-medium text-white"
@@ -453,7 +447,6 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'REFILL_DISPENSER'">
-    Refill dispenser for
     {{ event.params.dispense_quantity_normalized }}
     <NuxtLink
       :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
@@ -470,7 +463,6 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'DISPENSE'">
-    Dispensed
     {{ event.params.dispense_quantity_normalized }}
     <NuxtLink
       :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
@@ -489,7 +481,7 @@
 
   <!-- Broadcast Handler -->
   <span v-else-if="event.event === 'BROADCAST'">
-    Broadcast message: "{{ event.params.text }}" from
+    "{{ event.params.text }}" from
     <NuxtLink
       :to="`/address/${event.params.source}`"
       class="leading-6 font-medium text-white"
@@ -500,20 +492,33 @@
 
   <!-- Bets Handlers -->
   <span v-else-if="event.event === 'OPEN_BET'">
-    Open bet by
     <NuxtLink
       :to="`/address/${event.params.source}`"
       class="leading-6 font-medium text-white"
     >
       {{ event.params.source }}
     </NuxtLink>
-    with wager quantity of {{ event.params.wager_quantity }}
+    with wager quantity of {{ formatBalance(event.params.wager_quantity, { divisible: true }) }}
+    <NuxtLink
+      :to="`/asset/XCP`"
+      class="leading-6 font-medium text-white"
+    >
+      XCP
+    </NuxtLink>
   </span>
   <span v-else-if="event.event === 'BET_UPDATE'">
-    Bet update: status changed to {{ event.params.status }}
+    <NuxtLink
+      :to="`/tx/${event.params.tx_hash}`"
+      class="leading-6 font-medium text-white"
+    >
+      {{ event.params.tx_hash }}
+    </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'BET_MATCH'">
-    Bet match between
     <NuxtLink
       :to="`/address/${event.params.tx0_address}`"
       class="leading-6 font-medium text-white"
@@ -529,10 +534,18 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'BET_MATCH_UPDATE'">
-    Bet match update: status changed to {{ event.params.status }}
+    <NuxtLink
+      :to="`/tx/${event.params.id}`"
+      class="leading-6 font-medium text-white"
+    >
+      {{ event.params.id }}
+    </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'BET_EXPIRATION'">
-    Bet expired:
     <NuxtLink
       :to="`/tx/${event.params.bet_hash}`"
       class="leading-6 font-medium text-white"
@@ -541,7 +554,6 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'BET_MATCH_EXPIRATION'">
-    Bet match expired between
     <NuxtLink
       :to="`/address/${event.params.tx0_address}`"
       class="leading-6 font-medium text-white"
@@ -557,7 +569,6 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'BET_MATCH_RESOLUTION'">
-    Bet match resolution for
     <NuxtLink
       :to="`/tx/${event.params.bet_match_id}`"
       class="leading-6 font-medium text-white"
@@ -566,7 +577,13 @@
     </NuxtLink>
   </span>
   <span v-else-if="event.event === 'CANCEL_BET'">
-    Bet cancelled by
+    <NuxtLink
+      :to="`/tx/${event.params.offer_hash}`"
+      class="leading-6 font-medium text-white"
+    >
+      {{ event.params.offer_hash }}
+    </NuxtLink>
+    by
     <NuxtLink
       :to="`/address/${event.params.source}`"
       class="leading-6 font-medium text-white"
@@ -577,14 +594,27 @@
 
   <!-- Burns Handler -->
   <span v-else-if="event.event === 'BURN'">
-    Burn of {{ event.params.burned_normalized }} by
+    {{ event.params.burned_normalized }}
+    <NuxtLink
+      :to="`/asset/BTC`"
+      class="leading-6 font-medium text-white"
+    >
+      BTC
+    </NuxtLink>
+    by
     <NuxtLink
       :to="`/address/${event.params.source}`"
       class="leading-6 font-medium text-white"
     >
       {{ event.params.source }}
     </NuxtLink>
-    earning {{ event.params.earned_normalized }}
+    to earn {{ event.params.earned_normalized }}
+    <NuxtLink
+      :to="`/asset/XCP`"
+      class="leading-6 font-medium text-white"
+    >
+      XCP
+    </NuxtLink>
   </span>
   <span v-else>
     Unknown event: {{ event.event }}

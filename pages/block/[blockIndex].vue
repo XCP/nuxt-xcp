@@ -59,17 +59,17 @@ const blockIndex = ref(route.params.blockIndex)
 const tabs = [
   { name: 'Transactions', hash: 'transactions' },
   { name: 'Events', hash: 'events' },
+  { name: 'Issuances', hash: 'issuances' },
+  { name: 'Destructions', hash: 'destructions' },
   { name: 'Credits', hash: 'credits' },
   { name: 'Debits', hash: 'debits' },
-  { name: 'Expirations', hash: 'expirations' },
-  { name: 'Cancels', hash: 'cancels' },
-  { name: 'Destructions', hash: 'destructions' },
-  { name: 'Issuances', hash: 'issuances' },
   { name: 'Sends', hash: 'sends' },
   { name: 'Dispenses', hash: 'dispenses' },
+  { name: 'Expirations', hash: 'expirations' },
+  { name: 'Cancels', hash: 'cancels' },
   { name: 'Sweeps', hash: 'sweeps' },
 ]
-const { activeTab, handleTabChange } = useTabs('Transactions', tabs)
+const { activeTab, handleTabChange } = useTabs('Events', tabs)
 
 // Watchers and lifecycle hooks
 watchEffect(() => {
