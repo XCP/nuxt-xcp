@@ -6,7 +6,7 @@
     <template #table-controls>
       <!-- Category filter dropdown -->
       <div
-        v-if="!props.blockIndex"
+        v-if="props.address"
         class="ml-4"
       >
         <select
@@ -166,6 +166,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  asset: {
+    type: String,
+    default: '',
+  },
   blockIndex: {
     type: String,
     default: '',
@@ -186,6 +190,9 @@ const apiClientFunction = (params = {}) => {
     else if (selectedType.value === 'receives') {
       return $apiClient.getAddressDispensesReceives(props.address, params)
     }
+  }
+  else if (props.asset) {
+    return $apiClient.getAssetDispenses(props.asset, params)
   }
   else if (props.blockIndex) {
     return $apiClient.getBlockDispenses(props.blockIndex, params)

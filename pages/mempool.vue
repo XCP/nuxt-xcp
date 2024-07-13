@@ -14,7 +14,7 @@
         <MempoolTable />
       </div>
       <div v-if="activeTab === 'Assets'">
-        <MempoolAssetsTable />
+        <MempoolSummaryTable />
       </div>
     </div>
   </div>

@@ -135,6 +135,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  asset: {
+    type: String,
+    default: '',
+  },
   blockIndex: {
     type: String,
     default: '',
@@ -148,6 +152,9 @@ const apiClientFunction = (params = {}) => {
 
   if (props.address) {
     return $apiClient.getAddressSends(props.address, params)
+  }
+  else if (props.asset) {
+    return $apiClient.getAssetSends(props.asset, params)
   }
   else if (props.blockIndex) {
     return $apiClient.getBlockSends(props.blockIndex, params)

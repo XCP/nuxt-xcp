@@ -139,6 +139,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  asset: {
+    type: String,
+    default: '',
+  },
 })
 
 const { $apiClient } = useNuxtApp()
@@ -148,9 +152,10 @@ const apiClientFunction = (params = {}) => {
 
   if (props.address) {
     return $apiClient.getAddressDividends(props.address, params)
-  }
-  else {
-    throw new Error('Address prop is required for API call')
+  } else if (props.asset) {
+    return $apiClient.getAssetIssuances(props.asset, params)
+  } else {
+    throw new Error('Address or Asset prop is required for API call')
   }
 }
 </script>

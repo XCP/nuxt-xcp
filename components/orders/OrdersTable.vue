@@ -96,7 +96,7 @@
           {{ order.get_quantity_normalized }}
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ order.status }}
+          <StatusBadge :status="order.status" />
         </td>
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
           <NuxtLink
@@ -130,6 +130,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  asset: {
+    type: String,
+    default: '',
+  },
 })
 
 const { $apiClient } = useNuxtApp()
@@ -140,8 +144,11 @@ const apiClientFunction = (params = {}) => {
   if (props.address) {
     return $apiClient.getAddressOrders(props.address, params)
   }
+  else if (props.asset) {
+    return $apiClient.getAssetOrders(props.asset, params)
+  }
   else {
-    throw new Error('Address prop is required for API call')
+    throw new Error('Address or Asset prop is required for API call')
   }
 }
 </script>

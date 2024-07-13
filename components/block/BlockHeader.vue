@@ -33,7 +33,7 @@
     <div class="grid grid-cols-1 bg-gray-700/10">
       <div class="overflow-x-auto max-w-full">
         <div
-          v-for="(hash, statIdx) in hashes"
+          v-for="hash in hashes"
           :key="hash.name"
           class="border-t border-white/5 pt-1 pb-2 px-4 sm:px-6 lg:px-8"
         >
@@ -99,5 +99,4 @@ const hashes = computed(() => [
   { name: 'TX List Hash', value: blockData.value.txlist_hash },
   { name: 'Messages Hash', value: blockData.value.messages_hash },
 ])
-
 </script>

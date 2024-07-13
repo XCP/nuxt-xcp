@@ -45,7 +45,7 @@
         v-for="(asset, index) in data"
         :key="index"
       >
-        <td class="whitespace-nowrap py-3 pr-2">
+        <td class="whitespace-nowrap py-3 pr-">
           <div class="flex items-center gap-x-4 leading-6">
             <span
               v-if="asset.locked"
@@ -93,8 +93,13 @@
             {{ formatDescription(asset.description, 100) }}
           </div>
         </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ asset.first_issuance_block_index.toLocaleString() }}
+        <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
+          <NuxtLink
+            :to="`/block/${asset.first_issuance_block_index}`"
+            class="leading-6 text-white"
+          >
+            {{ asset.first_issuance_block_index.toLocaleString() }}
+          </NuxtLink>
         </td>
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
           {{ formatTimeAgo(asset.first_issuance_block_time) }}
@@ -132,7 +137,7 @@ const apiClientFunction = (params = {}) => {
     return $apiClient.getAddressAssets(props.address, params)
   }
   else {
-    throw new Error('Address prop is required for API call')
+    return $apiClient.getAssets(params)
   }
 }
 </script>

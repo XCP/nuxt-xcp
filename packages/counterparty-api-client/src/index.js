@@ -122,9 +122,9 @@ export default {
     const paginationParams = handlePagination(params)
     return callApiWithHealthCheck(apiClient.get, `/v2/transactions/${txHash}/events/${eventType}`, { params: paginationParams })
   },
-  getAddressBalances(address, params, verbose = true) {
+  getAddressBalances(address, params) {
     const paginationParams = handlePagination(params)
-    return callApiWithHealthCheck(apiClient.get, `/v2/addresses/${address}/balances`, { params: { ...paginationParams, verbose } })
+    return callApiWithHealthCheck(apiClient.get, `/v2/addresses/${address}/balances`, { params: paginationParams })
   },
   getAddressBalanceByAsset(address, asset, params) {
     return callApiWithHealthCheck(apiClient.get, `/v2/addresses/${address}/balances/${asset}`, { params })

@@ -55,7 +55,7 @@
           <div class="flex items-center gap-x-4">
             <NuxtImg
               :src="`https://api.xcp.io/img/icon/${formatAssetName(dispenser.asset, dispenser.asset_info)}`"
-              :alt="formatAssetName(dispense.asset, dispense.asset_info)"
+              :alt="formatAssetName(dispenser.asset, dispenser.asset_info)"
               class="h-10 w-10 bg-gray-800"
               loading="lazy"
             />
@@ -108,6 +108,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  asset: {
+    type: String,
+    default: '',
+  },
 })
 
 const { $apiClient } = useNuxtApp()
@@ -118,8 +122,11 @@ const apiClientFunction = (params = {}) => {
   if (props.address) {
     return $apiClient.getAddressDispensers(props.address, params)
   }
+  else if (props.asset) {
+    return $apiClient.getAssetDispensers(props.asset, params)
+  }
   else {
-    throw new Error('Address prop is required for API call')
+    throw new Error('Address or Asset prop is required for API call')
   }
 }
 </script>
