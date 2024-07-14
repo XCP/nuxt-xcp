@@ -20,7 +20,10 @@
       </div>
     </div>
 
-    <header class="mt-6 mb-8">
+    <header
+      v-if="serverReady !== null"
+      class="mt-6 mb-8"
+    >
       <!-- Heading -->
       <div class="flex flex-col items-start justify-between gap-x-8 gap-y-4 bg-gray-700/10 px-4 py-4 sm:flex-row sm:items-center sm:px-6 lg:px-8">
         <div class="flex flex-col flex-1 text-left">
@@ -65,7 +68,11 @@
 
       <!-- Stats -->
       <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 gap-x-8 text-base text-gray-300 bg-gray-700/10 p-4 rounded-md border-t border-white/5">
-        <div v-for="event in filteredEventCounts" :key="event.key" class="flex justify-between w-auto">
+        <div
+          v-for="event in filteredEventCounts"
+          :key="event.key"
+          class="flex justify-between w-auto"
+        >
           <span class="text-sm font-medium leading-6 text-gray-400 min-w-36">
             <template v-if="event.url">
               <NuxtLink :to="event.url">{{ event.displayName }}</NuxtLink>
@@ -93,7 +100,7 @@ const version = ref('')
 const network = ref('')
 const blockHeight = ref('')
 const counterpartyHeight = ref('')
-const serverReady = ref(false)
+const serverReady = ref(null)
 
 // Allowed events and their display names with optional URLs
 const allowedEvents = ref([
@@ -108,7 +115,7 @@ const allowedEvents = ref([
   { key: 'BROADCAST', displayName: 'Broadcasts', url: '/broadcasts' },
   { key: 'ASSET_DIVIDEND', displayName: 'Dividends', url: '/dividends' },
   { key: 'OPEN_BET', displayName: 'Bets', url: '/bets' },
-  { key: 'SWEEP', displayName: 'Sweeps', url: '/sweeps' }
+  { key: 'SWEEP', displayName: 'Sweeps', url: '/sweeps' },
 ])
 
 const { $apiClient } = useNuxtApp()
@@ -118,7 +125,8 @@ const fetchEventCounts = async () => {
   try {
     const response = await $apiClient.getEventCounts()
     eventCounts.value = response.data.result
-  } catch (e) {
+  }
+  catch (e) {
     console.error('Fetch error:', e)
     // Handle fetch error, optionally show an error message
   }
@@ -133,7 +141,8 @@ const fetchStatusInfo = async () => {
     network.value = response.data.result.network
     blockHeight.value = response.data.result.backend_height
     counterpartyHeight.value = response.data.result.counterparty_height
-  } catch (e) {
+  }
+  catch (e) {
     console.error('Fetch error:', e)
     // Handle fetch error, optionally show an error message
   }
@@ -146,19 +155,21 @@ onMounted(() => {
 
 // Filter and map the events based on the allowed list, preserving the order
 const filteredEventCounts = computed(() => {
-  return allowedEvents.value.map(event => {
+  return allowedEvents.value.map((event) => {
     let count = 0
     if (event.key === 'SEND') {
       const sendEvent = eventCounts.value.find(e => e.event === 'SEND')
       const mpmaSendEvent = eventCounts.value.find(e => e.event === 'MPMA_SEND')
       const enhancedSendEvent = eventCounts.value.find(e => e.event === 'ENHANCED_SEND')
       count = (sendEvent ? sendEvent.event_count : 0) + (mpmaSendEvent ? mpmaSendEvent.event_count : 0) + (enhancedSendEvent ? enhancedSendEvent.event_count : 0)
-    } else if (event.key === 'ISSUANCE') {
+    }
+    else if (event.key === 'ISSUANCE') {
       const assetIssuanceEvent = eventCounts.value.find(e => e.event === 'ASSET_ISSUANCE')
       const assetTransferEvent = eventCounts.value.find(e => e.event === 'ASSET_TRANSFER')
       const resetIssuanceEvent = eventCounts.value.find(e => e.event === 'RESET_ISSUANCE')
       count = (assetIssuanceEvent ? assetIssuanceEvent.event_count : 0) + (assetTransferEvent ? assetTransferEvent.event_count : 0) + (resetIssuanceEvent ? resetIssuanceEvent.event_count : 0)
-    } else {
+    }
+    else {
       const foundEvent = eventCounts.value.find(e => e.event === event.key)
       count = foundEvent ? foundEvent.event_count : 0
     }
@@ -166,7 +177,7 @@ const filteredEventCounts = computed(() => {
       key: event.key,
       displayName: event.displayName,
       count,
-      url: event.url
+      url: event.url,
     }
   })
 })

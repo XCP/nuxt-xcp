@@ -1,13 +1,24 @@
 export const getCachedData = async (key, fetchFunction, ttl = 10) => {
-  const response = await fetch(`/api/cache?key=${key}`)
+  const response = await fetch(`/api/cache`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ key }),
+  })
   const result = await response.json()
 
   if (result.success) {
-    return result.data
+    return JSON.parse(result.data)
   }
-  else {
-    const data = await fetchFunction()
-    await fetch(`/api/cache?key=${key}&value=${JSON.stringify(data)}&ttl=${ttl}`, { method: 'POST' })
-    return data
-  }
+
+  const data = await fetchFunction()
+  await fetch(`/api/cache`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ key, value: JSON.stringify(data), ttl }),
+  })
+  return data
 }

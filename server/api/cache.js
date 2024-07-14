@@ -1,18 +1,16 @@
 import { kv } from '@vercel/kv'
-import { defineEventHandler, getQuery } from 'h3'
+import { defineEventHandler, readBody } from 'h3'
 
 export default defineEventHandler(async (event) => {
   try {
-    const query = getQuery(event)
-    const { key, value, ttl } = query
+    const body = await readBody(event)
+    const { key, value, ttl } = body
 
     if (value) {
-      // Write data to cache
       await kv.set(key, { value, timestamp: Date.now(), ttl: parseInt(ttl, 10) })
       return { success: true, message: `Cached data for key: ${key}` }
     }
     else {
-      // Read data from cache
       const cachedData = await kv.get(key)
       if (cachedData && Date.now() - cachedData.timestamp < cachedData.ttl * 1000) {
         return { success: true, data: cachedData.value }

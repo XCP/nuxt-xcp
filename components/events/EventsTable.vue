@@ -40,8 +40,14 @@
           {{ event.event }}
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          <EventSummary v-if="isConfirmed !== false" :event="event" />
-          <MempoolSummary v-else :event="event" />
+          <EventSummary
+            v-if="isConfirmed !== false"
+            :event="event"
+          />
+          <MempoolSummary
+            v-else
+            :event="event"
+          />
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ event.timestamp ? formatTimeAgo(event.timestamp) : '' }}

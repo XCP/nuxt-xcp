@@ -114,28 +114,64 @@
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           <div class="flex gap-2 items-center font-medium">
-            <div v-if="issuance.locked" class="flex items-center gap-1">
-              <LockClosedIcon class="h-4 w-4 text-green-400" aria-hidden="true" />
+            <div
+              v-if="issuance.locked"
+              class="flex items-center gap-1"
+            >
+              <LockClosedIcon
+                class="h-4 w-4 text-green-400"
+                aria-hidden="true"
+              />
               <span class="text-xs text-green-400">Lock</span>
             </div>
-            <div v-if="issuance.reset" class="flex items-center gap-1">
-              <ArrowPathIcon class="h-4 w-4 text-blue-400" aria-hidden="true" />
+            <div
+              v-if="issuance.reset"
+              class="flex items-center gap-1"
+            >
+              <ArrowPathIcon
+                class="h-4 w-4 text-blue-400"
+                aria-hidden="true"
+              />
               <span class="text-xs text-blue-400">Reset</span>
             </div>
-            <div v-if="issuance.transfer" class="flex items-center gap-1">
-              <PaperAirplaneIcon class="h-4 w-4 text-purple-400" aria-hidden="true" />
+            <div
+              v-if="issuance.transfer"
+              class="flex items-center gap-1"
+            >
+              <PaperAirplaneIcon
+                class="h-4 w-4 text-purple-400"
+                aria-hidden="true"
+              />
               <span class="text-xs text-purple-400">Transfer</span>
             </div>
-            <div v-if="issuance.quantity > 0" class="flex items-center gap-1">
-              <PlusCircleIcon class="h-4 w-4 text-orange-400" aria-hidden="true" />
+            <div
+              v-if="issuance.quantity > 0"
+              class="flex items-center gap-1"
+            >
+              <PlusCircleIcon
+                class="h-4 w-4 text-orange-400"
+                aria-hidden="true"
+              />
               <span class="text-xs text-orange-400">Issue</span>
             </div>
-            <div v-if="index < data.length - 1 && issuance.description !== data[index + 1].description" class="flex items-center gap-1">
-              <PencilSquareIcon class="h-4 w-4 text-indigo-400" aria-hidden="true" />
+            <div
+              v-if="index < data.length - 1 && issuance.description !== data[index + 1].description"
+              class="flex items-center gap-1"
+            >
+              <PencilSquareIcon
+                class="h-4 w-4 text-indigo-400"
+                aria-hidden="true"
+              />
               <span class="text-xs text-indigo-400">Edit</span>
             </div>
-            <div v-if="props.asset && index === data.length - 1" class="flex items-center gap-1">
-              <SparklesIcon class="h-4 w-4 text-yellow-500" aria-hidden="true" />
+            <div
+              v-if="props.asset && index === data.length - 1"
+              class="flex items-center gap-1"
+            >
+              <SparklesIcon
+                class="h-4 w-4 text-yellow-500"
+                aria-hidden="true"
+              />
               <span class="text-xs text-yellow-500">Create</span>
             </div>
           </div>
