@@ -94,7 +94,7 @@
             class="truncate"
             :title="asset.description"
           >
-            {{ formatDescription(asset.description, 100) }}
+            {{ formatDescription(asset.description, 50) }}
           </div>
         </td>
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">

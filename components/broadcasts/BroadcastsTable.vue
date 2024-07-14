@@ -55,7 +55,7 @@
         :key="index"
       >
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300 truncate hidden xl:table-cell">
-          {{ formatDescription(broadcast.text, 100) }}
+          {{ formatDescription(broadcast.text, 50) }}
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ broadcast.value }}

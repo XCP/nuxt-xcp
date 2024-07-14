@@ -109,7 +109,7 @@
             class="truncate"
             :title="issuance.description"
           >
-            {{ formatDescription(issuance.description, 100) }}
+            {{ formatDescription(issuance.description, 50) }}
           </div>
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
@@ -134,7 +134,7 @@
               <PencilSquareIcon class="h-4 w-4 text-indigo-400" aria-hidden="true" />
               <span class="text-xs text-indigo-400">Edit</span>
             </div>
-            <div v-if="index === data.length - 1" class="flex items-center gap-1">
+            <div v-if="props.asset && index === data.length - 1" class="flex items-center gap-1">
               <SparklesIcon class="h-4 w-4 text-yellow-500" aria-hidden="true" />
               <span class="text-xs text-yellow-500">Create</span>
             </div>

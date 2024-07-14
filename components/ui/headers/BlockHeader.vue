@@ -39,7 +39,14 @@
         >
           <p class="mt-2 flex items-baseline gap-x-2 whitespace-nowrap">
             <span class="text-sm font-medium leading-6 text-gray-400 min-w-36">{{ hash.name }}</span>
-            <span class="text-sm font-medium leading-6 text-white">{{ hash.value }}</span>
+            <span class="text-sm font-medium leading-6 text-white">
+              <template v-if="hash.name === 'Previous Block Hash' && previousBlockData">
+                <router-link :to="`/block/${previousBlockData.block_index}`">{{ hash.value }}</router-link>
+              </template>
+              <template v-else>
+                {{ hash.value }}
+              </template>
+            </span>
           </p>
         </div>
       </div>
@@ -50,7 +57,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { ClockIcon, LinkIcon } from '@heroicons/vue/20/solid'
-import { useNuxtApp } from '#app'
 
 // Define props
 const props = defineProps({
@@ -62,6 +68,7 @@ const props = defineProps({
 
 // Reactive state
 const blockData = ref({})
+const previousBlockData = ref(null)
 const { $apiClient } = useNuxtApp()
 
 // Fetch API data
@@ -69,6 +76,17 @@ const fetchData = async () => {
   try {
     const response = await $apiClient.getBlockByIndex(props.blockIndex)
     blockData.value = response.data.result
+
+    if (blockData.value.previous_block_hash) {
+      try {
+        const prevBlockResponse = await $apiClient.getBlockByHash(blockData.value.previous_block_hash)
+        previousBlockData.value = prevBlockResponse.data.result
+      }
+      catch (e) {
+        console.error('Fetch previous block error:', e)
+        previousBlockData.value = null
+      }
+    }
   }
   catch (e) {
     console.error('Fetch error:', e)

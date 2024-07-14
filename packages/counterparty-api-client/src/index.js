@@ -17,6 +17,9 @@ const callApiWithHealthCheck = async (apiFunction, endpoint, config) => {
 }
 
 export default {
+  getStatus() {
+    return callApiWithHealthCheck(apiClient.get, '/v2')
+  },
   getBlocks(params) {
     const paginationParams = handlePagination(params)
     return callApiWithHealthCheck(apiClient.get, '/v2/blocks', { params: paginationParams })
