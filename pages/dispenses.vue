@@ -11,3 +11,15 @@
     <DispensesTable />
   </div>
 </template>
+
+<script setup>
+// SEO
+useSeoMeta({
+  title: `Counterparty Dispenses`,
+  ogTitle: `Counterparty Dispenses`,
+  description: 'Dispenses made by the Counterparty network.',
+  ogDescription: 'Detailed insights into Counterparty.',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
+  twitterCard: 'summary_large_image',
+})
+</script>

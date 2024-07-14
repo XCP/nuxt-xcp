@@ -11,3 +11,15 @@
     <IssuancesTable />
   </div>
 </template>
+
+<script setup>
+// SEO
+useSeoMeta({
+  title: `Counterparty Issuances`,
+  ogTitle: `Counterparty Issuances`,
+  description: 'Issuance messages on the Counterparty network.',
+  ogDescription: 'Detailed insights into Counterparty.',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
+  twitterCard: 'summary_large_image',
+})
+</script>

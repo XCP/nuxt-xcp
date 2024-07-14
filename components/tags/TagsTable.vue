@@ -134,7 +134,7 @@
                 <NuxtImg
                   :src="`https://api.xcp.io/img/icon/${tag.slug}`"
                   :alt="tag.name"
-                  class="h-10 w-10 bg-gray-800"
+                  class="h-10 w-10"
                   loading="lazy"
                 />
                 <NuxtLink

@@ -77,7 +77,7 @@
               <NuxtImg
                 :src="`https://api.xcp.io/img/icon/${asset.asset}`"
                 :alt="asset.asset"
-                class="h-10 w-10 bg-gray-800"
+                class="h-10 w-10"
                 loading="lazy"
               />
               <NuxtLink

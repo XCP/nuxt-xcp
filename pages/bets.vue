@@ -11,3 +11,15 @@
     <BetsTable />
   </div>
 </template>
+
+<script setup>
+// SEO
+useSeoMeta({
+  title: `Counterparty Bets`,
+  ogTitle: `Counterparty Bets`,
+  description: 'Latest bets created with Counterparty.',
+  ogDescription: 'Detailed insights into Counterparty.',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
+  twitterCard: 'summary_large_image',
+})
+</script>

@@ -53,7 +53,7 @@
             <NuxtImg
               :src="`https://api.xcp.io/img/icon/${item.asset_name}`"
               :alt="item.asset"
-              class="h-10 w-10 bg-gray-800"
+              class="h-10 w-10"
               loading="lazy"
             />
           </div>

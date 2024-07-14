@@ -58,7 +58,7 @@
             {{ block.block_hash }}
           </NuxtLink>
         </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300 hidden xl:table-cell">
+        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ block.transaction_count }}
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">

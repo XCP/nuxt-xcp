@@ -59,7 +59,7 @@
             <NuxtImg
               :src="`https://api.xcp.io/img/icon/${formatAssetName(receive.asset, receive.asset_info)}`"
               :alt="formatAssetName(receive.asset, receive.asset_info)"
-              class="h-10 w-10 bg-gray-800"
+              class="h-10 w-10"
               loading="lazy"
             />
             <NuxtLink

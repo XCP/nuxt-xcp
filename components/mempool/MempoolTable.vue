@@ -139,7 +139,7 @@
                 <NuxtImg
                   :src="`https://api.xcp.io/img/icon/${transaction.bindings.asset || transaction.bindings.give_asset}`"
                   :alt="transaction.bindings.asset || transaction.bindings.give_asset"
-                  class="h-10 w-10 bg-gray-800"
+                  class="h-10 w-10"
                   loading="lazy"
                 />
               </div>

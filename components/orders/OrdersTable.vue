@@ -65,7 +65,7 @@
             <NuxtImg
               :src="`https://api.xcp.io/img/icon/${formatAssetName(order.give_asset, order.give_asset_info)}`"
               :alt="formatAssetName(order.give_asset, order.give_asset_info)"
-              class="h-10 w-10 bg-gray-800"
+              class="h-10 w-10"
               loading="lazy"
             />
             <NuxtLink
@@ -84,7 +84,7 @@
             <NuxtImg
               :src="`https://api.xcp.io/img/icon/${formatAssetName(order.get_asset, order.get_asset_info)}`"
               :alt="formatAssetName(order.get_asset, order.get_asset_info)"
-              class="h-10 w-10 bg-gray-800"
+              class="h-10 w-10"
               loading="lazy"
             />
             <NuxtLink

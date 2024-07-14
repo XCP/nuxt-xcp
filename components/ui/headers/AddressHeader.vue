@@ -66,7 +66,10 @@ const { $apiClient } = useNuxtApp()
 // Fetch API data
 const fetchData = async () => {
   try {
-    const btcData = await $fetch(`https://blockstream.info/api/address/${props.address}`)
+    const btcData = await getCachedData(
+      `blockstream_${props.address}`,
+      async () => await $fetch(`https://blockstream.info/api/address/${props.address}`)
+    );
     const xcpData = await $apiClient.getAddressBalanceByAsset(props.address, 'XCP')
 
     apiData.value = {

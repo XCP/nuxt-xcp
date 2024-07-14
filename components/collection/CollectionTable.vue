@@ -158,7 +158,7 @@
               <NuxtImg
                 :src="`https://api.xcp.io/img/icon/${asset.asset_name}`"
                 :alt="formatAssetName(asset.asset_name, asset)"
-                class="h-10 w-10 bg-gray-800"
+                class="h-10 w-10"
                 loading="lazy"
               />
               <NuxtLink

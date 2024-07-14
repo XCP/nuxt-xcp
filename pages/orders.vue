@@ -11,3 +11,15 @@
     <OrdersTable />
   </div>
 </template>
+
+<script setup>
+// SEO
+useSeoMeta({
+  title: `Counterparty Orders`,
+  ogTitle: `Counterparty Orders`,
+  description: 'Orders placed on the Counterparty DEX.',
+  ogDescription: 'Detailed insights into Counterparty.',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
+  twitterCard: 'summary_large_image',
+})
+</script>

@@ -2,7 +2,7 @@
   <div class="lg:flex lg:items-center lg:justify-between">
     <div class="flex-1 mb-6">
       <h1 class="text-2xl font-bold leading-7 text-white sm:text-4xl sm:tracking-tight">
-        Mempool Activity
+        Mempool
       </h1>
       <!-- Main container for items, ensuring flex-wrap and responsive gap -->
       <div class="mt-1 flex flex-wrap items-center text-base text-gray-300 gap-x-3 sm:gap-x-6">

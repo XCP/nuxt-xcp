@@ -83,7 +83,7 @@
             <NuxtImg
               :src="`https://api.xcp.io/img/icon/${formatAssetName(dividend.asset, dividend.asset_info)}`"
               :alt="formatAssetName(dividend.asset, dividend.asset_info)"
-              class="h-10 w-10 bg-gray-800"
+              class="h-10 w-10"
               loading="lazy"
             />
             <NuxtLink
@@ -99,7 +99,7 @@
             <NuxtImg
               :src="`https://api.xcp.io/img/icon/${formatAssetName(dividend.dividend_asset, dividend.dividend_asset_info)}`"
               :alt="formatAssetName(dividend.dividend_asset, dividend.dividend_asset_info)"
-              class="h-10 w-10 bg-gray-800"
+              class="h-10 w-10"
               loading="lazy"
             />
             <NuxtLink

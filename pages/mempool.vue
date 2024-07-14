@@ -26,4 +26,14 @@ const tabs = [
   { name: 'Assets', hash: 'assets' },
 ]
 const { activeTab, handleTabChange } = useTabs('Activity', tabs)
+
+// SEO
+useSeoMeta({
+  title: `Mempool`,
+  ogTitle: `Mempool`,
+  description: 'Unconfirmed Counterparty protocol transactions.',
+  ogDescription: 'Detailed insights into Counterparty.',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
+  twitterCard: 'summary_large_image',
+})
 </script>

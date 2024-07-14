@@ -11,3 +11,15 @@
     <DividendsTable />
   </div>
 </template>
+
+<script setup>
+// SEO
+useSeoMeta({
+  title: `Counterparty Dividends`,
+  ogTitle: `Counterparty Dividends`,
+  description: 'Dividends distributed on the Counterparty network.',
+  ogDescription: 'Detailed insights into Counterparty.',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
+  twitterCard: 'summary_large_image',
+})
+</script>

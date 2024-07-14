@@ -79,7 +79,7 @@
             <NuxtImg
               :src="`https://api.xcp.io/img/icon/${formatAssetName(issuance.asset, issuance)}`"
               :alt="formatAssetName(issuance.asset, issuance)"
-              class="h-10 w-10 bg-gray-800"
+              class="h-10 w-10"
               loading="lazy"
             />
             <NuxtLink

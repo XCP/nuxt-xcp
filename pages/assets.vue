@@ -11,3 +11,15 @@
     <AssetsTable />
   </div>
 </template>
+
+<script setup>
+// SEO
+useSeoMeta({
+  title: `Counterparty Assets`,
+  ogTitle: `Counterparty Assets`,
+  description: 'Latest assets issued with Counterparty.',
+  ogDescription: 'Detailed insights into Counterparty.',
+  ogImage: 'https://api.xcp.io/img/full/default.png',
+  twitterCard: 'summary_large_image',
+})
+</script>
