@@ -83,11 +83,11 @@ const tabs = [
   { name: 'Orders', hash: 'orders' },
   { name: 'Dispensers', hash: 'dispensers' },
   { name: 'Dispenses', hash: 'dispenses' },
-  { name: 'Transactions', hash: 'transactions' },
   { name: 'Broadcasts', hash: 'broadcasts' },
   { name: 'Bets', hash: 'bets' },
   { name: 'Burns', hash: 'burns' },
   { name: 'Sweeps', hash: 'sweeps' },
+  { name: 'Transactions', hash: 'transactions' },
 ]
 const { activeTab, handleTabChange } = useTabs('Balances', tabs)
 

@@ -143,7 +143,7 @@ const apiClientFunction = (params = {}) => {
     return $apiClient.getBlockSweeps(props.blockIndex, params)
   }
   else {
-    throw new Error('Address or Index Block prop is required for API call')
+    return $apiClient.getSweeps(params)
   }
 }
 </script>

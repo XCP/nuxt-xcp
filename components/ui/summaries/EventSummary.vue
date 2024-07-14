@@ -3,7 +3,7 @@
   <span v-if="event.event === 'NEW_BLOCK'">
     Block Hash
     <NuxtLink
-      :to="`/block/${event.params.block_hash}`"
+      :to="`/block/${event.params.block_index}`"
       class="leading-6 font-medium text-white"
     >
       {{ event.params.block_hash }}
@@ -37,7 +37,7 @@
   <span v-else-if="event.event === 'BLOCK_PARSED'">
     Ledger Hash
     <NuxtLink
-      :to="`/block/${event.params.ledger_hash}`"
+      :to="`/block/${event.params.block_index}`"
       class="leading-6 font-medium text-white"
     >
       {{ event.params.ledger_hash }}
@@ -452,10 +452,6 @@
     >
       {{ event.params.source }}
     </NuxtLink>
-    <StatusBadge
-      :status="event.params.status"
-      class="ml-2"
-    />
   </span>
   <span v-else-if="event.event === 'ORDER_MATCH_EXPIRATION'">
     <NuxtLink
@@ -471,10 +467,6 @@
     >
       {{ event.params.tx1_address }}
     </NuxtLink>
-    <StatusBadge
-      :status="event.params.status"
-      class="ml-2"
-    />
   </span>
 
   <!-- Dispenser Handlers -->
@@ -493,10 +485,6 @@
     >
       {{ event.params.source }}
     </NuxtLink>
-    <StatusBadge
-      :status="event.params.status"
-      class="ml-2"
-    />
   </span>
   <span v-else-if="event.event === 'DISPENSER_UPDATE'">
     <NuxtLink
@@ -512,10 +500,6 @@
     >
       {{ event.params.source }}
     </NuxtLink>
-    <StatusBadge
-      :status="event.params.status"
-      class="ml-2"
-    />
   </span>
   <span v-else-if="event.event === 'REFILL_DISPENSER'">
     {{ event.params.dispense_quantity_normalized }}
@@ -552,10 +536,6 @@
     >
       {{ event.params.destination }}
     </NuxtLink>
-    <StatusBadge
-      :status="event.params.status"
-      class="ml-2"
-    />
   </span>
 
   <!-- Broadcast Handler -->

@@ -1,100 +1,82 @@
 <template>
-  <main class="mx-auto w-full max-w-7xl px-6 pb-16 pt-10 sm:pb-24 lg:px-8">
-    <div class="mx-auto mt-10 max-w-2xl text-center sm:mt-12">
-      <p class="text-base font-semibold leading-8 text-primary">
-        Under Construction
-      </p>
-      <h1 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-        New XCP Explorer
-      </h1>
-      <p class="mt-4 text-base leading-7 text-gray-300 sm:mt-6 sm:text-lg sm:leading-8">
-        Pardon the mess, development is still underway.
-      </p>
-    </div>
-    <div class="mx-auto mt-16 flow-root max-w-lg sm:mt-20">
-      <h2 class="sr-only">
-        Popular pages
-      </h2>
-      <ul
-        role="list"
-        class="-mt-6 divide-y divide-gray-900/5 border-b border-gray-900/5"
-      >
-        <li
-          v-for="(link, linkIdx) in links"
-          :key="linkIdx"
-          class="relative flex gap-x-6 py-6"
-        >
-          <div class="flex h-10 w-10 flex-none items-center justify-center rounded-lg shadow-sm ring-1 ring-gray-900/10">
-            <component
-              :is="link.icon"
-              class="h-6 w-6 text-white"
-              aria-hidden="true"
-            />
-          </div>
-          <div class="flex-auto">
-            <h3 class="text-sm font-semibold leading-6 text-primary">
-              <a :href="link.href">
-                <span
-                  class="absolute inset-0"
-                  aria-hidden="true"
-                />
-                {{ link.name }}
-              </a>
-            </h3>
-            <p class="mt-2 text-sm leading-6 text-gray-300">
-              {{ link.description }}
-            </p>
-          </div>
-          <div class="flex-none self-center">
-            <ChevronRightIcon
-              class="h-5 w-5 text-gray-300"
-              aria-hidden="true"
-            />
-          </div>
-        </li>
-      </ul>
-      <div class="mt-10 flex justify-center">
-        <a
-          href="/collection"
-          class="text-sm font-semibold leading-6 text-white flex items-center"
-        >
-          Click Here to Discover
-          <SparklesIcon
-            class="ml-1 h-5 w-5 flex-shrink-0 text-yellow-400"
-            aria-hidden="true"
-          />
-        </a>
+  <div>
+    <IndexHeader />
+
+    <div class="my-6">
+      <NavigationTabs
+        :tabs="tabs"
+        :active-tab="activeTab"
+        @tab-change="handleTabChange"
+      />
+
+      <!-- Tab content -->
+      <div v-if="activeTab === 'Assets'">
+        <AssetsTable />
+      </div>
+      <div v-if="activeTab === 'Blocks'">
+        <BlocksTable />
+      </div>
+      <div v-if="activeTab === 'Transactions'">
+        <TransactionsTable />
+      </div>
+      <div v-if="activeTab === 'Orders'">
+        <OrdersTable />
+      </div>
+      <div v-if="activeTab === 'Bets'">
+        <BetsTable />
+      </div>
+      <div v-if="activeTab === 'Burns'">
+        <BurnsTable />
+      </div>
+      <div v-if="activeTab === 'Dispensers'">
+        <DispensersTable />
+      </div>
+      <div v-if="activeTab === 'Dividends'">
+        <DividendsTable />
+      </div>
+      <div v-if="activeTab === 'Events'">
+        <EventsTable />
+      </div>
+      <div v-if="activeTab === 'Dispenses'">
+        <DispensesTable />
+      </div>
+      <div v-if="activeTab === 'Sends'">
+        <SendsTable />
+      </div>
+      <div v-if="activeTab === 'Issuances'">
+        <IssuancesTable />
+      </div>
+      <div v-if="activeTab === 'Sweeps'">
+        <SweepsTable />
+      </div>
+      <div v-if="activeTab === 'Broadcasts'">
+        <BroadcastsTable />
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <script setup>
-import { ChevronRightIcon } from '@heroicons/vue/20/solid'
-import { BookmarkSquareIcon, BookOpenIcon, QueueListIcon, RssIcon, SparklesIcon } from '@heroicons/vue/24/solid'
-
-const links = [
-  {
-    name: 'More NFT Collections',
-    href: '/collections',
-    description: 'There\'s at least 500 collections of more than 65k NFTs.',
-    icon: BookOpenIcon,
-  },
-  {
-    name: 'Counterparty Insights',
-    href: '/charts',
-    description: 'Usage & trend data of protocol messages and projects.',
-    icon: QueueListIcon,
-  },
-  {
-    name: 'Tools for Dispensers',
-    href: '/asset/XCP#dispensers',
-    description: 'Easily find the current floor price for XCP or collections.',
-    icon: BookmarkSquareIcon,
-  },
-  { name: 'Gallery View of Wallet', href: '/address/19QWXpMXeLkoEKEJv2xo9rn8wkPCyxACSX#balances', description: 'See your assets as images instead of icons, if you\'d like.', icon: RssIcon },
+// Tab navigation
+const tabs = [
+  { name: 'Blocks', hash: 'blocks' },
+  { name: 'Events', hash: 'events' },
+  { name: 'Assets', hash: 'assets' },
+  { name: 'Issuances', hash: 'issuances' },
+  { name: 'Dividends', hash: 'dividends' },
+  { name: 'Sends', hash: 'sends' },
+  { name: 'Orders', hash: 'orders' },
+  { name: 'Dispensers', hash: 'dispensers' },
+  { name: 'Dispenses', hash: 'dispenses' },
+  { name: 'Broadcasts', hash: 'broadcasts' },
+  { name: 'Bets', hash: 'bets' },
+  { name: 'Burns', hash: 'burns' },
+  { name: 'Sweeps', hash: 'sweeps' },
+  { name: 'Transactions', hash: 'transactions' },
 ]
+const { activeTab, handleTabChange } = useTabs('Assets', tabs)
 
+// SEO
 useSeoMeta({
   title: `Counterparty Explorer`,
   ogTitle: `Counterparty Explorer`,

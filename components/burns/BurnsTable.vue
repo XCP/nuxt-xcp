@@ -118,7 +118,7 @@ const apiClientFunction = (params = {}) => {
     return $apiClient.getAddressBurns(props.address, params)
   }
   else {
-    throw new Error('Address prop is required for API call')
+    return $apiClient.getBurns(params)
   }
 }
 </script>

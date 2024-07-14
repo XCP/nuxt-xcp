@@ -207,7 +207,7 @@ const apiClientFunction = (params = {}) => {
     return $apiClient.getBlockIssuances(props.blockIndex, params)
   }
   else {
-    throw new Error('Address or Index Block prop is required for API call')
+    return $apiClient.getIssuances(params)
   }
 }
 </script>

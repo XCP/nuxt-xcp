@@ -151,7 +151,7 @@ const apiClientFunction = (params = {}) => {
     return $apiClient.getAssetOrders(props.asset, params)
   }
   else {
-    throw new Error('Address or Asset prop is required for API call')
+    return $apiClient.getOrders(params)
   }
 }
 </script>

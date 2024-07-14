@@ -40,10 +40,11 @@
           {{ event.event }}
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          <EventSummary :event="event" />
+          <EventSummary v-if="isConfirmed !== false" :event="event" />
+          <MempoolSummary v-else :event="event" />
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ formatTimeAgo(blockTime) }}
+          {{ event.timestamp ? formatTimeAgo(event.timestamp) : '' }}
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right h-16">
           <NuxtLink
@@ -72,7 +73,7 @@ const props = defineProps({
   },
 })
 
-const blockTime = ref(null)
+const isConfirmed = ref(null)
 
 const { $apiClient } = useNuxtApp()
 
@@ -80,25 +81,21 @@ const apiClientFunction = async (params = {}) => {
   params.verbose = true
 
   if (props.blockIndex) {
-    const response = await $apiClient.getBlockEvents(props.blockIndex, params)
-    if (response && response.data.result && response.data.result.length > 0) {
-      blockTime.value = response.data.result[0].params.block_time
-    }
-    return response
+    return $apiClient.getBlockEvents(props.blockIndex, params)
   }
   else if (props.txHash) {
     try {
       const response = await $apiClient.getTransactionEventsByHash(props.txHash, params)
       if (response && response.data.result && response.data.result.length > 0) {
-        blockTime.value = response.data.result[0].timestamp
-        return response
+        isConfirmed.value = true
+        return $apiClient.getTransactionEventsByHash(props.txHash, params)
       }
       else {
         console.log('Transaction events not found, checking mempool')
         const mempoolResponse = await $apiClient.getMempoolEventsByTxHash(props.txHash, params)
         if (mempoolResponse && mempoolResponse.data.result && mempoolResponse.data.result.length > 0) {
-          blockTime.value = mempoolResponse.data.result[0].timestamp
-          return mempoolResponse
+          isConfirmed.value = false
+          return $apiClient.getMempoolEventsByTxHash(props.txHash, params)
         }
         else {
           throw new Error('Transaction not found in mempool')
@@ -111,7 +108,7 @@ const apiClientFunction = async (params = {}) => {
     }
   }
   else {
-    throw new Error('Block index prop is required for API call')
+    return $apiClient.getEvents(params)
   }
 }
 </script>

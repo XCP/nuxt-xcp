@@ -383,6 +383,38 @@ export default {
   getEventCountByName(event, params) {
     return callApiWithHealthCheck(apiClient.get, `/v2/events/${event}/count`, { params })
   },
+  getDispenses(params) {
+    const paginationParams = handlePagination(params)
+    return callApiWithHealthCheck(apiClient.get, '/v2/dispenses', { params: paginationParams })
+  },
+  getSends(params) {
+    const paginationParams = handlePagination(params)
+    return callApiWithHealthCheck(apiClient.get, '/v2/sends', { params: paginationParams })
+  },
+  getIssuances(params) {
+    const paginationParams = handlePagination(params)
+    return callApiWithHealthCheck(apiClient.get, '/v2/issuances', { params: paginationParams })
+  },
+  getIssuancesByHash(txHash, params) {
+    const paginationParams = handlePagination(params)
+    return callApiWithHealthCheck(apiClient.get, `/v2/issuances/${txHash}`, { params: paginationParams })
+  },
+  getSweeps(params) {
+    const paginationParams = handlePagination(params)
+    return callApiWithHealthCheck(apiClient.get, '/v2/sweeps', { params: paginationParams })
+  },
+  getSweepsByHash(txHash, params) {
+    const paginationParams = handlePagination(params)
+    return callApiWithHealthCheck(apiClient.get, `/v2/sweeps/${txHash}`, { params: paginationParams })
+  },
+  getBroadcasts(params) {
+    const paginationParams = handlePagination(params)
+    return callApiWithHealthCheck(apiClient.get, '/v2/broadcasts', { params: paginationParams })
+  },
+  getBroadcastsByHash(txHash, params) {
+    const paginationParams = handlePagination(params)
+    return callApiWithHealthCheck(apiClient.get, `/v2/broadcasts/${txHash}`, { params: paginationParams })
+  },
   getBitcoinAddressTransactions({ address, unconfirmed = true, only_tx_hashes = false, verbose = false }) {
     return callApiWithHealthCheck(apiClient.get, `/v2/bitcoin/addresses/${address}/transactions`, {
       params: { unconfirmed, only_tx_hashes, verbose },

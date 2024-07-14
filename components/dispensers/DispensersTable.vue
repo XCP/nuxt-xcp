@@ -138,7 +138,7 @@ const apiClientFunction = (params = {}) => {
     return $apiClient.getAssetDispensers(props.asset, params)
   }
   else {
-    throw new Error('Address or Asset prop is required for API call')
+    return $apiClient.getDispensers(params)
   }
 }
 </script>
