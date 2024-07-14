@@ -87,7 +87,7 @@
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
           {{ formatTimeAgo(dispenser.block_time) }}
         </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right">
+        <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right h-16">
           <NuxtLink
             :to="`/tx/${dispenser.tx_hash}`"
             class="text-primary"

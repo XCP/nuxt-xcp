@@ -56,7 +56,7 @@
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ formatTimeAgo(block.block_time) }}
         </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right">
+        <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right h-16">
           <NuxtLink
             :to="`/block/${block.block_index}`"
             class="text-primary"

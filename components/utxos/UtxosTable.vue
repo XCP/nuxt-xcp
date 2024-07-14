@@ -6,7 +6,7 @@
     <div v-else>
       <div class="mb-4 flex justify-between items-center">
         <h2 class="text-xl font-semibold">Inputs & Outputs</h2>
-        <button @click="toggleDetails" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+        <button @click="toggleDetails" class="bg-white/10 text-white px-4 py-2 rounded-md">
           {{ showDetails ? 'Hide Details' : 'Show Details' }}
         </button>
       </div>
@@ -81,16 +81,16 @@
       <div class="mt-4">
         <h2 class="text-xl font-semibold">Details</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 bg-gray-700/10 p-4 rounded-md">
-          <div class="space-y-1">
+          <div class="space-y-2">
             <div><span class="text-gray-400">Size:</span> {{ state.transaction.size }} B</div>
             <div><span class="text-gray-400">Virtual size:</span> {{ state.transaction.vsize }} vB</div>
             <div><span class="text-gray-400">Weight:</span> {{ state.transaction.weight }} WU</div>
           </div>
-          <div class="space-y-1">
-            <div><span class="text-gray-400">Fee:</span> {{ state.transactionDetails.fee }} satoshis</div>
+          <div class="space-y-2">
+            <div><span class="text-gray-400">Fee:</span> {{ state.transactionDetails?.fee }} satoshis</div>
             <div><span class="text-gray-400">Fee rate:</span> {{ feeRate }} sat/vB</div>
           </div>
-          <div class="space-y-1">
+          <div class="space-y-2">
             <div><span class="text-gray-400">Version:</span> {{ state.transaction.version }}</div>
             <div><span class="text-gray-400">Locktime:</span> {{ state.transaction.locktime }}</div>
           </div>
@@ -132,7 +132,7 @@ const toggleDetails = () => {
 
 // Compute fee rate
 const feeRate = computed(() => {
-  if (state.value.transactionDetails && state.value.transaction.vsize) {
+  if (state.value.transactionDetails?.fee && state.value.transaction.vsize) {
     return (state.value.transactionDetails.fee / state.value.transaction.vsize).toFixed(2);
   }
   return null;
@@ -157,34 +157,68 @@ const fetchTransaction = async () => {
       verbose: false,
     });
 
-    state.value.transaction = response.data.result;
+    if (response.data.result) {
+      state.value.transaction = response.data.result;
 
-    // Fetch additional transaction details
-    const transactionDetails = await fetchTransactionDetails(props.txHash);
-    state.value.transactionDetails = transactionDetails;
+      // Fetch additional transaction details
+      const transactionDetails = await fetchTransactionDetails(props.txHash);
+      state.value.transactionDetails = transactionDetails;
 
-    // Fetch inputs details
-    const inputs = await Promise.all(state.value.transaction.vin.map(async (input) => {
-      const inputResponse = await $apiClient.getBitcoinTransaction({
-        tx_hash: input.txid,
-        format: 'json',
-        verbose: false,
-      });
+      // Fetch inputs details
+      const inputs = await Promise.all(state.value.transaction.vin.map(async (input) => {
+        const inputResponse = await $apiClient.getBitcoinTransaction({
+          tx_hash: input.txid,
+          format: 'json',
+          verbose: false,
+        });
 
-      const inputTransaction = inputResponse.data.result;
-      const matchingOutput = inputTransaction.vout.find(vout => vout.n === input.vout);
+        const inputTransaction = inputResponse.data.result;
+        const matchingOutput = inputTransaction.vout.find(vout => vout.n === input.vout);
 
-      return {
-        txid: input.txid,
-        address: matchingOutput.scriptPubKey.address,
-        value: matchingOutput.value,
-        scriptSig: input.scriptSig,
-        sequence: input.sequence,
-      };
-    }));
+        return {
+          txid: input.txid,
+          address: matchingOutput.scriptPubKey.address,
+          value: matchingOutput.value,
+          scriptSig: input.scriptSig,
+          sequence: input.sequence,
+        };
+      }));
 
-    state.value.inputs = inputs;
+      state.value.inputs = inputs;
 
+    } else {
+      console.log('Transaction not found, checking mempool');
+      // Transaction not found, try fetching from the mempool
+      const mempoolResponse = await $apiClient.getMempoolEventsByTxHash(props.txHash);
+      if (mempoolResponse.data.result) {
+        state.value.transaction = mempoolResponse.data.result[0];
+        state.value.transactionDetails = null; // No fee details for unconfirmed transactions
+
+        // Fetch inputs details from mempool
+        const inputs = await Promise.all(state.value.transaction.vin.map(async (input) => {
+          const inputResponse = await $apiClient.getBitcoinTransaction({
+            tx_hash: input.txid,
+            format: 'json',
+            verbose: false,
+          });
+
+          const inputTransaction = inputResponse.data.result;
+          const matchingOutput = inputTransaction.vout.find(vout => vout.n === input.vout);
+
+          return {
+            txid: input.txid,
+            address: matchingOutput.scriptPubKey.address,
+            value: matchingOutput.value,
+            scriptSig: input.scriptSig,
+            sequence: input.sequence,
+          };
+        }));
+
+        state.value.inputs = inputs;
+      } else {
+        throw new Error('Transaction not found in mempool');
+      }
+    }
   } catch (error) {
     state.value.error = 'Error fetching transaction data';
   } finally {

@@ -42,7 +42,7 @@
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ formatTimeAgo(blockTime) }}
         </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right">
+        <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right h-16">
           <NuxtLink
             :to="`/tx/${event.tx_hash}`"
             class="text-primary"
@@ -74,24 +74,36 @@ const blockTime = ref(null)
 const { $apiClient } = useNuxtApp()
 
 const apiClientFunction = async (params = {}) => {
-  params.verbose = true
+  params.verbose = true;
 
   if (props.blockIndex) {
-    const response = await $apiClient.getBlockEvents(props.blockIndex, params)
+    const response = await $apiClient.getBlockEvents(props.blockIndex, params);
     if (response && response.data.result && response.data.result.length > 0) {
-      blockTime.value = response.data.result[0].params.block_time
+      blockTime.value = response.data.result[0].params.block_time;
     }
-    return response
-  }
-  else if (props.txHash) {
-    const response = await $apiClient.getTransactionEventsByHash(props.txHash, params)
-    if (response && response.data.result && response.data.result.length > 0) {
-      blockTime.value = response.data.result[0].timestamp
+    return response;
+  } else if (props.txHash) {
+    try {
+      const response = await $apiClient.getTransactionEventsByHash(props.txHash, params);
+      if (response && response.data.result && response.data.result.length > 0) {
+        blockTime.value = response.data.result[0].timestamp;
+        return response;
+      } else {
+        console.log('Transaction events not found, checking mempool');
+        const mempoolResponse = await $apiClient.getMempoolEventsByTxHash(props.txHash, params);
+        if (mempoolResponse && mempoolResponse.data.result && mempoolResponse.data.result.length > 0) {
+          blockTime.value = mempoolResponse.data.result[0].timestamp;
+          return mempoolResponse;
+        } else {
+          throw new Error('Transaction not found in mempool');
+        }
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+      throw error;
     }
-    return response
+  } else {
+    throw new Error('Block index prop is required for API call');
   }
-  else {
-    throw new Error('Block index prop is required for API call')
-  }
-}
+};
 </script>
