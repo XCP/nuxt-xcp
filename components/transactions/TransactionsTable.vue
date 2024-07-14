@@ -1,5 +1,8 @@
 <template>
-  <TableTemplate :api-client-function="apiClientFunction">
+  <TableTemplate
+    :api-client-function="apiClientFunction"
+    result-key="transactions"
+  >
     <template #table-headers>
       <tr>
         <th

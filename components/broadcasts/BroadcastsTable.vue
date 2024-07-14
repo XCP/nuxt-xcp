@@ -1,5 +1,8 @@
 <template>
-  <TableTemplate :api-client-function="apiClientFunction">
+  <TableTemplate
+    :api-client-function="apiClientFunction"
+    result-key="broadcasts"
+  >
     <template #table-headers>
       <tr>
         <th
@@ -19,6 +22,12 @@
           class="py-2 pr-2 font-semibold w-20"
         >
           Fee
+        </th>
+        <th
+          scope="col"
+          class="py-2 pr-2 font-semibold w-20"
+        >
+          Status
         </th>
         <th
           scope="col"
@@ -53,6 +62,9 @@
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ broadcast.fee_fraction_int_normalized }}
+        </td>
+        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
+          <StatusBadge :status="broadcast.status" />
         </td>
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
           <NuxtLink

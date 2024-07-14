@@ -27,8 +27,6 @@ apiClient.interceptors.response.use(
     const headers = response.headers
     const data = response.data
 
-    console.log(headers)
-
     if (data.error) {
       return Promise.reject({
         headers: {

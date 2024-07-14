@@ -1,5 +1,8 @@
 <template>
-  <TableTemplate :api-client-function="apiClientFunction">
+  <TableTemplate
+    :api-client-function="apiClientFunction"
+    result-key="events"
+  >
     <template #table-headers>
       <tr>
         <th
@@ -74,36 +77,41 @@ const blockTime = ref(null)
 const { $apiClient } = useNuxtApp()
 
 const apiClientFunction = async (params = {}) => {
-  params.verbose = true;
+  params.verbose = true
 
   if (props.blockIndex) {
-    const response = await $apiClient.getBlockEvents(props.blockIndex, params);
+    const response = await $apiClient.getBlockEvents(props.blockIndex, params)
     if (response && response.data.result && response.data.result.length > 0) {
-      blockTime.value = response.data.result[0].params.block_time;
+      blockTime.value = response.data.result[0].params.block_time
     }
-    return response;
-  } else if (props.txHash) {
+    return response
+  }
+  else if (props.txHash) {
     try {
-      const response = await $apiClient.getTransactionEventsByHash(props.txHash, params);
+      const response = await $apiClient.getTransactionEventsByHash(props.txHash, params)
       if (response && response.data.result && response.data.result.length > 0) {
-        blockTime.value = response.data.result[0].timestamp;
-        return response;
-      } else {
-        console.log('Transaction events not found, checking mempool');
-        const mempoolResponse = await $apiClient.getMempoolEventsByTxHash(props.txHash, params);
+        blockTime.value = response.data.result[0].timestamp
+        return response
+      }
+      else {
+        console.log('Transaction events not found, checking mempool')
+        const mempoolResponse = await $apiClient.getMempoolEventsByTxHash(props.txHash, params)
         if (mempoolResponse && mempoolResponse.data.result && mempoolResponse.data.result.length > 0) {
-          blockTime.value = mempoolResponse.data.result[0].timestamp;
-          return mempoolResponse;
-        } else {
-          throw new Error('Transaction not found in mempool');
+          blockTime.value = mempoolResponse.data.result[0].timestamp
+          return mempoolResponse
+        }
+        else {
+          throw new Error('Transaction not found in mempool')
         }
       }
-    } catch (error) {
-      console.error('Fetch error:', error);
-      throw error;
     }
-  } else {
-    throw new Error('Block index prop is required for API call');
+    catch (error) {
+      console.error('Fetch error:', error)
+      throw error
+    }
   }
-};
+  else {
+    throw new Error('Block index prop is required for API call')
+  }
+}
 </script>

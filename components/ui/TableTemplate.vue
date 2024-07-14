@@ -29,7 +29,7 @@
             <tr>
               <td
                 :colspan="columnCount"
-                class="py-48 text-center"
+                class="py-16 text-center"
                 role="cell"
                 aria-busy="true"
               >
@@ -42,7 +42,7 @@
             <tr>
               <td
                 :colspan="columnCount"
-                class="py-48 text-center"
+                class="py-16 text-center"
                 role="cell"
               >
                 <div>
@@ -60,12 +60,12 @@
             <tr>
               <td
                 :colspan="columnCount"
-                class="py-48 text-center"
+                class="py-16 text-center"
                 role="cell"
               >
                 <div>
                   <p class="text-lg text-gray-500">
-                    No results found.
+                    No {{ resultKey }} {{ foundKey }}.
                   </p>
                 </div>
               </td>
@@ -95,6 +95,14 @@ const props = defineProps({
   changeKey: {
     type: String,
     default: '',
+  },
+  resultKey: {
+    type: String,
+    default: 'results',
+  },
+  foundKey: {
+    type: String,
+    default: 'found',
   },
 })
 

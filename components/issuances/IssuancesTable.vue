@@ -1,5 +1,8 @@
 <template>
-  <TableTemplate :api-client-function="apiClientFunction">
+  <TableTemplate
+    :api-client-function="apiClientFunction"
+    result-key="issuances"
+  >
     <template #table-headers>
       <tr>
         <th
@@ -23,27 +26,27 @@
         </th>
         <th
           scope="col"
-          class="py-2 pr-2 font-semibold"
+          class="py-2 pr-2 font-semibold hidden xl:table-cell"
         >
-          Lock
+          Description
         </th>
         <th
           scope="col"
           class="py-2 pr-2 font-semibold"
         >
-          Reset
-        </th>
-        <th
-          scope="col"
-          class="py-2 pr-2 font-semibold"
-        >
-          Transfer
+          Action
         </th>
         <th
           scope="col"
           class="py-2 pr-2 font-semibold"
         >
           Fee Paid (XCP)
+        </th>
+        <th
+          scope="col"
+          class="py-2 pr-2 font-semibold w-20"
+        >
+          Status
         </th>
         <th
           v-if="!props.blockIndex"
@@ -101,17 +104,43 @@
             {{ issuance.source }}
           </NuxtLink>
         </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ issuance.locked ? 'Yes' : 'No' }}
+        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300 hidden xl:table-cell">
+          <div
+            class="truncate"
+            :title="issuance.description"
+          >
+            {{ formatDescription(issuance.description, 100) }}
+          </div>
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ issuance.reset ? 'Yes' : 'No' }}
-        </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ issuance.transfer ? 'Yes' : 'No' }}
+          <div class="flex gap-2 items-center">
+            <div v-if="issuance.locked" class="flex items-center gap-1">
+              <LockClosedIcon class="h-4 w-4 text-green-500" aria-hidden="true" />
+              <span class="text-xs text-green-500">Lock</span>
+            </div>
+            <div v-if="issuance.reset" class="flex items-center gap-1">
+              <ArrowPathIcon class="h-4 w-4 text-blue-500" aria-hidden="true" />
+              <span class="text-xs text-blue-500">Reset</span>
+            </div>
+            <div v-if="issuance.transfer" class="flex items-center gap-1">
+              <PaperAirplaneIcon class="h-4 w-4 text-purple-500" aria-hidden="true" />
+              <span class="text-xs text-purple-500">Transfer</span>
+            </div>
+            <div v-if="issuance.quantity > 0" class="flex items-center gap-1">
+              <PlusCircleIcon class="h-4 w-4 text-yellow-500" aria-hidden="true" />
+              <span class="text-xs text-yellow-500">Issue</span>
+            </div>
+            <div v-if="index < data.length - 1 && issuance.description !== data[index + 1].description" class="flex items-center gap-1">
+              <PencilSquareIcon class="h-4 w-4 text-red-500" aria-hidden="true" />
+              <span class="text-xs text-red-500">Edit</span>
+            </div>
+          </div>
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ issuance.fee_paid_normalized }}
+        </td>
+        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
+          <StatusBadge :status="issuance.status" />
         </td>
         <td
           v-if="!props.blockIndex"
@@ -141,6 +170,7 @@
 </template>
 
 <script setup>
+import { LockClosedIcon, ArrowPathIcon, PaperAirplaneIcon, PlusCircleIcon, PencilSquareIcon } from '@heroicons/vue/20/solid'
 import { useNuxtApp } from '#app'
 
 const props = defineProps({

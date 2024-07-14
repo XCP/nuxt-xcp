@@ -2,6 +2,7 @@
   <TableTemplate
     :api-client-function="apiClientFunction"
     :change-key="selectedType"
+    result-key="dispenses"
   >
     <template #table-controls>
       <!-- Category filter dropdown -->

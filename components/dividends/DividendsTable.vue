@@ -1,5 +1,8 @@
 <template>
-  <TableTemplate :api-client-function="apiClientFunction">
+  <TableTemplate
+    :api-client-function="apiClientFunction"
+    result-key="dividends"
+  >
     <template #table-headers>
       <tr>
         <th
@@ -32,6 +35,12 @@
           class="py-2 pr-2 font-semibold"
         >
           Fee Paid (XCP)
+        </th>
+        <th
+          scope="col"
+          class="py-2 pr-2 font-semibold w-20"
+        >
+          Status
         </th>
         <th
           scope="col"
@@ -107,6 +116,9 @@
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ dividend.fee_paid_normalized }}
         </td>
+        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
+          <StatusBadge :status="dividend.status" />
+        </td>
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
           <NuxtLink
             :to="`/block/${dividend.block_index}`"
@@ -154,7 +166,7 @@ const apiClientFunction = (params = {}) => {
     return $apiClient.getAddressDividends(props.address, params)
   }
   else if (props.asset) {
-    return $apiClient.getAssetIssuances(props.asset, params)
+    return $apiClient.getAssetDividends(props.asset, params)
   }
   else {
     throw new Error('Address or Asset prop is required for API call')

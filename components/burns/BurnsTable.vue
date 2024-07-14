@@ -1,5 +1,8 @@
 <template>
-  <TableTemplate :api-client-function="apiClientFunction">
+  <TableTemplate
+    :api-client-function="apiClientFunction"
+    result-key="burns"
+  >
     <template #table-headers>
       <tr>
         <th
@@ -20,6 +23,12 @@
           class="py-2 pr-2 font-semibold"
         >
           Earned (XCP)
+        </th>
+        <th
+          scope="col"
+          class="py-2 pr-2 font-semibold w-20"
+        >
+          Status
         </th>
         <th
           scope="col"
@@ -62,6 +71,9 @@
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ burn.earned_normalized }}
+        </td>
+        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
+          <StatusBadge :status="burn.status" />
         </td>
         <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
           <NuxtLink

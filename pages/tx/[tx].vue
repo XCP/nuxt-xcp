@@ -28,8 +28,8 @@ const route = useRoute()
 const txHash = ref(route.params.tx)
 
 const tabs = [
-{ name: 'UTXOs' },
-{ name: 'Events' },
+  { name: 'UTXOs' },
+  { name: 'Events' },
 ]
 const { activeTab, handleTabChange } = useTabs('UTXOs', tabs)
 

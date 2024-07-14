@@ -2,6 +2,7 @@
   <TableTemplate
     :api-client-function="apiClientFunction"
     :change-key="selectedStatus"
+    result-key="bets"
   >
     <template #table-controls>
       <!-- Status filter dropdown -->

@@ -185,8 +185,8 @@
                     as="template"
                   >
                     <li :class="['relative cursor-default select-none py-2 pl-3 pr-9', active ? 'bg-indigo-600 text-white' : 'text-gray-400']">
-                      <nuxt-link
-                        :to="`/${suggestion.type.toLowerCase()}/${suggestion.slug}`"
+                      <a
+                        :href="`/${suggestion.type.toLowerCase()}/${suggestion.slug}`"
                         class="flex items-center"
                       >
                         <img
@@ -196,7 +196,7 @@
                         >
                         <span class="ml-3 block truncate">{{ suggestion.name }}</span>
                         <span class="ml-auto text-sm text-gray-500">{{ suggestion.type }}</span>
-                      </nuxt-link>
+                      </a>
                     </li>
                   </ComboboxOption>
                 </ComboboxOptions>
@@ -240,13 +240,16 @@
                 {{ xcpChange }}%
               </span>
             </a>
-            <NuxtLink to="/mempool" class="bg-gray-900 text-white rounded-md px-2 py-2 text-sm flex lg:hidden 2xl:flex items-center">
+            <NuxtLink
+              to="/mempool"
+              class="bg-gray-900 text-white rounded-md px-2 py-2 text-sm flex lg:hidden 2xl:flex items-center"
+            >
               <span><CubeIcon
                 class="h-5 w-5 text-white mr-1"
                 aria-hidden="true"
               /></span>
               <span>{{ fastestFee }} sats/vB</span>
-              </NuxtLink>
+            </NuxtLink>
           </div>
           <div class="flex shrink-0 items-center">
             <button
