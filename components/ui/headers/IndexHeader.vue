@@ -123,7 +123,7 @@ const { $apiClient } = useNuxtApp()
 // Fetch event counts from the API
 const fetchEventCounts = async () => {
   try {
-    const response = await $apiClient.getEventCounts()
+    const response = await $apiClient.getEventCounts({useCache: true, ttl: 600})
     eventCounts.value = response.data.result
   }
   catch (e) {
@@ -135,7 +135,7 @@ const fetchEventCounts = async () => {
 // Fetch status info from the API
 const fetchStatusInfo = async () => {
   try {
-    const response = await $apiClient.getStatus()
+    const response = await $apiClient.getStatus({useCache: true, ttl: 600})
     version.value = response.data.result.version
     serverReady.value = response.data.result.server_ready
     network.value = response.data.result.network
