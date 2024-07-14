@@ -144,6 +144,7 @@ onMounted(() => {
 const dropdownItems = computed(() => [
   { href: `https://blockstream.info/tx/${props.txHash}`, imgSrc: '/img/blockstreaminfo.png', title: 'blockstream.info' },
   { href: `https://mempool.space/tx/${props.txHash}`, imgSrc: '/img/mempoolspace.png', title: 'mempool.space' },
+  { href: `https://memepool.wtf/tx/${props.txHash}`, imgSrc: '/img/memepoolwtf.png', title: 'mempool.space' },
   { href: `https://www.xchain.io/tx/${props.txHash}`, imgSrc: '/img/xchainio.png', title: 'xchain.io' },
   { href: `https://www.xcp.dev/tx/${props.txHash}`, imgSrc: '/img/xcpdev.png', title: 'xcp.dev' },
 ])

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div>
     <div class="lg:flex lg:items-start lg:justify-between lg:gap-x-8">
       <!-- Image Container -->
       <div

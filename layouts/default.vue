@@ -240,17 +240,13 @@
                 {{ xcpChange }}%
               </span>
             </a>
-            <a
-              href="https://mempool.space/"
-              class="bg-gray-900 text-white rounded-md px-2 py-2 text-sm flex lg:hidden 2xl:flex items-center"
-              target="_blank"
-            >
+            <NuxtLink to="/mempool" class="bg-gray-900 text-white rounded-md px-2 py-2 text-sm flex lg:hidden 2xl:flex items-center">
               <span><CubeIcon
                 class="h-5 w-5 text-white mr-1"
                 aria-hidden="true"
               /></span>
               <span>{{ fastestFee }} sats/vB</span>
-            </a>
+              </NuxtLink>
           </div>
           <div class="flex shrink-0 items-center">
             <button

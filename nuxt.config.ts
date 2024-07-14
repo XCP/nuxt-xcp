@@ -9,7 +9,19 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
     {
-      path: '~/components/badges',
+      path: '~/components/ui',
+      pathPrefix: false,
+    },
+    {
+      path: '~/components/ui/badges',
+      pathPrefix: false,
+    },
+    {
+      path: '~/components/ui/headers',
+      pathPrefix: false,
+    },
+    {
+      path: '~/components/ui/summaries',
       pathPrefix: false,
     },
   ],

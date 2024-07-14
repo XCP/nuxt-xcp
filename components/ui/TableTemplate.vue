@@ -67,9 +67,6 @@
                   <p class="text-lg text-gray-500">
                     No results found.
                   </p>
-                  <p class="text-base text-gray-400">
-                    Try adjusting your search to find what you're looking for.
-                  </p>
                 </div>
               </td>
             </tr>

@@ -89,6 +89,7 @@ const blockTimeAgo = computed(() => {
 const dropdownItems = computed(() => [
   { href: `https://blockstream.info/block/${blockData.value.block_hash}`, imgSrc: '/img/blockstreaminfo.png', title: 'blockstream.info' },
   { href: `https://mempool.space/block/${blockData.value.block_hash}`, imgSrc: '/img/mempoolspace.png', title: 'mempool.space' },
+  { href: `https://memepool.wtf/block/${blockData.value.block_index}`, imgSrc: '/img/memepoolwtf.png', title: 'mempool.space' },
   { href: `https://www.xchain.io/block/${blockData.value.block_index}`, imgSrc: '/img/xchainio.png', title: 'xchain.io' },
 ])
 
