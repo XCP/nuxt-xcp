@@ -10,11 +10,11 @@
       />
 
       <!-- Tab content -->
-      <div v-if="activeTab === 'Events'">
-        <EventsTable :tx-hash="txHash" />
-      </div>
       <div v-if="activeTab === 'UTXOs'">
         <UtxosTable :tx-hash="txHash" />
+      </div>
+      <div v-if="activeTab === 'Events'">
+        <EventsTable :tx-hash="txHash" />
       </div>
     </div>
   </div>
@@ -28,10 +28,10 @@ const route = useRoute()
 const txHash = ref(route.params.tx)
 
 const tabs = [
-  { name: 'Events' },
-  { name: 'UTXOs' },
+{ name: 'UTXOs' },
+{ name: 'Events' },
 ]
-const { activeTab, handleTabChange } = useTabs('Events', tabs)
+const { activeTab, handleTabChange } = useTabs('UTXOs', tabs)
 
 // Watchers and lifecycle hooks
 watchEffect(() => txHash.value = route.params.tx)
