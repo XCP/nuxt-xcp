@@ -3,13 +3,6 @@
     <template #table-headers>
       <tr>
         <th
-          v-if="!props.address"
-          scope="col"
-          class="py-2 pr-2 font-semibold min-w-[100px]"
-        >
-          Source
-        </th>
-        <th
           scope="col"
           class="py-2 pr-2 font-semibold"
         >
@@ -20,6 +13,13 @@
           class="py-2 pr-2 font-semibold"
         >
           TX Index
+        </th>
+        <th
+          v-if="!props.address"
+          scope="col"
+          class="py-2 pr-2 font-semibold min-w-[100px]"
+        >
+          Source
         </th>
         <th
           v-if="!props.blockIndex"
@@ -47,17 +47,6 @@
         v-for="(transaction, index) in data"
         :key="index"
       >
-        <td
-          v-if="!props.address"
-          class="whitespace-nowrap py-3 pr-3 min-w-[100px]"
-        >
-          <NuxtLink
-            :to="`/address/${transaction.source}`"
-            class="font-medium leading-6 text-base text-white"
-          >
-            {{ transaction.source }}
-          </NuxtLink>
-        </td>
         <td class="whitespace-nowrap py-3 pr-3 min-w-[100px]">
           <NuxtLink
             :to="`/tx/${transaction.tx_hash}`"
@@ -68,6 +57,17 @@
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
           {{ transaction.tx_index.toLocaleString() }}
+        </td>
+        <td
+          v-if="!props.address"
+          class="whitespace-nowrap py-3 pr-3 min-w-[100px]"
+        >
+          <NuxtLink
+            :to="`/address/${transaction.source}`"
+            class="font-medium leading-6 text-base text-white"
+          >
+            {{ transaction.source }}
+          </NuxtLink>
         </td>
         <td
           v-if="!props.blockIndex"
@@ -122,7 +122,7 @@ const apiClientFunction = (params = {}) => {
     return $apiClient.getBlockTransactions(props.blockIndex, params)
   }
   else {
-    throw new Error('Address or Block Index prop is required for API call')
+    return $apiClient.getTransactions(params)
   }
 }
 </script>

@@ -50,7 +50,6 @@
     >
       {{ event.params.tx_hash }}
     </NuxtLink>
-    ({{ event.params.supported ? 'Supported' : 'Not Supported' }})
   </span>
 
   <!-- Asset Movement Handlers -->
@@ -111,6 +110,10 @@
       {{ event.params.destination }}
     </NuxtLink>
     {{ event.params.memo ? `(Memo: ${event.params.memo})` : '' }}
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'MPMA_SEND'">
     <NuxtLink
@@ -127,6 +130,10 @@
       {{ event.params.destination }}
     </NuxtLink>
     {{ event.params.memo ? `(Memo: ${event.params.memo})` : '' }}
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'SEND'">
     {{ event.params.quantity_normalized === 0 ? event.params.quantity_normalized : '' }}
@@ -144,6 +151,10 @@
       {{ event.params.destination }}
     </NuxtLink>
     {{ event.params.memo ? `(Memo: ${event.params.memo})` : '' }}
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'ASSET_TRANSFER'">
     <NuxtLink
@@ -166,6 +177,10 @@
     >
       {{ event.params.source }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'SWEEP'">
     From
@@ -187,6 +202,10 @@
       :flags="event.params.flags"
       class="ml-3"
     />
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'ASSET_DIVIDEND'">
     {{ event.params.quantity_per_unit_normalized }}
@@ -204,6 +223,10 @@
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
     </NuxtLink>
     (Fee: {{ event.params.fee_paid_normalized }} XCP)
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
 
   <!-- Asset Creation and Destruction Handlers -->
@@ -221,6 +244,10 @@
     >
       {{ event.params.issuer }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'ASSET_CREATION'">
     <NuxtLink
@@ -246,6 +273,10 @@
       {{ event.params.issuer }}
     </NuxtLink>
     (Quantity: {{ event.params.quantity_normalized }})
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'ASSET_DESTRUCTION'">
     {{ event.params.quantity_normalized }}
@@ -262,6 +293,10 @@
     >
       {{ event.params.source }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
 
   <!-- DEX Handlers -->
@@ -288,6 +323,10 @@
     >
       {{ event.params.source }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'ORDER_MATCH'">
     {{ event.params.forward_quantity_normalized }}
@@ -319,6 +358,10 @@
     >
       {{ event.params.tx1_address }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'ORDER_UPDATE'">
     <NuxtLink
@@ -339,6 +382,10 @@
     >
       {{ event.params.tx_hash }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'ORDER_MATCH_UPDATE'">
     <NuxtLink
@@ -367,6 +414,10 @@
     >
       {{ event.params.order_match_id }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'CANCEL_ORDER'">
     <NuxtLink
@@ -382,6 +433,10 @@
     >
       {{ event.params.source }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'ORDER_EXPIRATION'">
     <NuxtLink
@@ -397,6 +452,10 @@
     >
       {{ event.params.source }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'ORDER_MATCH_EXPIRATION'">
     <NuxtLink
@@ -412,6 +471,10 @@
     >
       {{ event.params.tx1_address }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
 
   <!-- Dispenser Handlers -->
@@ -430,6 +493,10 @@
     >
       {{ event.params.source }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'DISPENSER_UPDATE'">
     <NuxtLink
@@ -445,6 +512,10 @@
     >
       {{ event.params.source }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'REFILL_DISPENSER'">
     {{ event.params.dispense_quantity_normalized }}
@@ -461,6 +532,10 @@
     >
       {{ event.params.source }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'DISPENSE'">
     {{ event.params.dispense_quantity_normalized }}
@@ -477,6 +552,10 @@
     >
       {{ event.params.destination }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
 
   <!-- Broadcast Handler -->
@@ -488,6 +567,10 @@
     >
       {{ event.params.source }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
 
   <!-- Bets Handlers -->
@@ -505,6 +588,10 @@
     >
       XCP
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'BET_UPDATE'">
     <NuxtLink
@@ -532,6 +619,10 @@
     >
       {{ event.params.tx1_address }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'BET_MATCH_UPDATE'">
     <NuxtLink
@@ -552,6 +643,10 @@
     >
       {{ event.params.bet_hash }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'BET_MATCH_EXPIRATION'">
     <NuxtLink
@@ -567,6 +662,10 @@
     >
       {{ event.params.tx1_address }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'BET_MATCH_RESOLUTION'">
     <NuxtLink
@@ -575,6 +674,10 @@
     >
       {{ event.params.bet_match_id }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else-if="event.event === 'CANCEL_BET'">
     <NuxtLink
@@ -590,6 +693,10 @@
     >
       {{ event.params.source }}
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
 
   <!-- Burns Handler -->
@@ -615,6 +722,10 @@
     >
       XCP
     </NuxtLink>
+    <StatusBadge
+      :status="event.params.status"
+      class="ml-2"
+    />
   </span>
   <span v-else>
     Unknown event: {{ event.event }}

@@ -157,3 +157,5 @@ const apiClientFunction = (params = {}) => {
   }
 }
 </script>
+
+getTransactionEventsByTypeHash

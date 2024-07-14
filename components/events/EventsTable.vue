@@ -63,10 +63,15 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  txHash: {
+    type: String,
+    default: '',
+  },
 })
 
-const { $apiClient } = useNuxtApp()
 const blockTime = ref(null)
+
+const { $apiClient } = useNuxtApp()
 
 const apiClientFunction = async (params = {}) => {
   params.verbose = true
@@ -75,6 +80,13 @@ const apiClientFunction = async (params = {}) => {
     const response = await $apiClient.getBlockEvents(props.blockIndex, params)
     if (response && response.data.result && response.data.result.length > 0) {
       blockTime.value = response.data.result[0].params.block_time
+    }
+    return response
+  }
+  else if (props.txHash) {
+    const response = await $apiClient.getTransactionEventsByHash(props.txHash, params)
+    if (response && response.data.result && response.data.result.length > 0) {
+      blockTime.value = response.data.result[0].timestamp
     }
     return response
   }

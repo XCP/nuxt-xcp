@@ -17,9 +17,11 @@ export function useFetchData(state, apiClientFunction) {
       state.value.items = data.result
       state.value.totalItems = data.result_count
       state.value.currentPage = offset / state.value.resultsPerPage + 1
-    } catch (error) {
+    }
+    catch (error) {
       state.value.error = 'Fetch error: ' + error
-    } finally {
+    }
+    finally {
       state.value.loading = false
     }
   }

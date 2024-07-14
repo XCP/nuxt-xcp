@@ -15,6 +15,9 @@ export default {
   },
   computed: {
     badgeText() {
+      if (this.status.startsWith('invalid:')) {
+        return formatTitleCase(this.status)
+      }
       switch (this.status) {
         case 'open':
           return 'Open'
@@ -46,6 +49,9 @@ export default {
       }
     },
     badgeClass() {
+      if (this.status.startsWith('invalid:')) {
+        return 'bg-red-400/10 text-red-400 ring-red-400/20'
+      }
       switch (this.status) {
         case 'open':
           return 'bg-green-400/10 text-green-400 ring-green-400/20'
