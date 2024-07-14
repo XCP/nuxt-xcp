@@ -56,7 +56,7 @@
               class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-green-400/10 text-green-400 ring-green-400/20"
             >
               <LockClosedIcon
-                class="h-4 w-4 flex-shrink-0 text-green-500"
+                class="h-4 w-4 flex-shrink-0 text-green-400"
                 aria-hidden="true"
               />
             </span>
@@ -65,7 +65,7 @@
               class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-yellow-400/10 text-yellow-400 ring-yellow-400/20"
             >
               <LockOpenIcon
-                class="h-4 w-4 flex-shrink-0 text-yellow-500"
+                class="h-4 w-4 flex-shrink-0 text-yellow-400"
                 aria-hidden="true"
               />
             </span>

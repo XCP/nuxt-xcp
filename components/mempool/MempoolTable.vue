@@ -43,7 +43,7 @@
       class="flex justify-center items-center my-20 py-20 text-gray-300"
     >
       <ArrowPathIcon
-        class="animate-spin h-8 w-8 text-gray-500"
+        class="animate-spin h-8 w-8 text-gray-400"
         aria-hidden="true"
       />
     </div>
@@ -54,7 +54,7 @@
       class="my-10 flex justify-center items-center"
     >
       <div class="text-center">
-        <p class="text-lg text-gray-500">
+        <p class="text-lg text-gray-400">
           No transactions found.
         </p>
         <p class="text-base text-gray-400">

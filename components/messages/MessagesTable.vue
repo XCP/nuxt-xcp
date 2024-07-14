@@ -19,7 +19,7 @@
       <div class="flex flex-1 justify-between sm:justify-end">
         <!-- First Page Button -->
         <button
-          class="relative inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
+          class="relative inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-400 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
           :disabled="state.currentPage === 1"
           @click="goToPage(1)"
         >
@@ -27,7 +27,7 @@
         </button>
         <!-- Previous Page Button -->
         <button
-          class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
+          class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-400 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
           :disabled="state.currentPage <= 1"
           @click="goToPage(state.currentPage - 1)"
         >
@@ -35,7 +35,7 @@
         </button>
         <!-- Next Page Button -->
         <button
-          class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
+          class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-400 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
           :disabled="state.currentPage >= state.lastPage"
           @click="goToPage(state.currentPage + 1)"
         >
@@ -43,7 +43,7 @@
         </button>
         <!-- Last Page Button -->
         <button
-          class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-500 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
+          class="relative ml-3 inline-flex items-center rounded-md bg-gray-800 px-3 py-2 text-base font-semibold text-gray-300 ring-1 ring-inset ring-gray-400 hover:bg-gray-700 focus-visible:outline-offset-0 disabled:hover:bg-gray-800"
           :disabled="state.currentPage === state.lastPage"
           @click="goToPage(state.lastPage)"
         >
@@ -57,7 +57,7 @@
       class="flex justify-center items-center my-10 text-gray-300"
     >
       <ArrowPathIcon
-        class="animate-spin h-8 w-8 text-gray-500"
+        class="animate-spin h-8 w-8 text-gray-400"
         aria-hidden="true"
       />
     </div>
@@ -67,7 +67,7 @@
       class="my-10 flex justify-center items-center"
     >
       <div class="text-center">
-        <p class="text-lg text-gray-500">
+        <p class="text-lg text-gray-400">
           No results found.
         </p>
         <p class="text-base text-gray-400">

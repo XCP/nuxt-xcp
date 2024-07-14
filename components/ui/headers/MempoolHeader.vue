@@ -9,7 +9,7 @@
         <!-- Item 1 -->
         <div class="flex items-center w-full lg:w-auto mt-2">
           <InformationCircleIcon
-            class="mr-1.5 h-5 w-5 text-gray-500"
+            class="mr-1.5 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
           Note: Divisible asset quantities need to be divided by 10^8

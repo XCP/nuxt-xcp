@@ -4,7 +4,7 @@
     class="flex justify-center items-center my-36 py-36 text-gray-300"
   >
     <ArrowPathIcon
-      class="animate-spin h-8 w-8 text-gray-500"
+      class="animate-spin h-8 w-8 text-gray-400"
       aria-hidden="true"
     />
   </div>

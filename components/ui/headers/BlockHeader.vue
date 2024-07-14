@@ -10,7 +10,7 @@
           <!-- Block Index -->
           <div class="flex items-center w-auto mt-2">
             <ClockIcon
-              class="mr-1.5 h-5 w-5 text-gray-500"
+              class="mr-1.5 h-5 w-5 text-gray-400"
               aria-hidden="true"
             />
             {{ blockTimeAgo }}
@@ -18,7 +18,7 @@
           <!-- Block Hash -->
           <div class="flex items-center w-auto mt-2">
             <LinkIcon
-              class="mr-1.5 h-5 w-5 text-gray-500"
+              class="mr-1.5 h-5 w-5 text-gray-400"
               aria-hidden="true"
             />
             Difficulty: {{ blockData.difficulty }}

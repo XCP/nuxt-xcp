@@ -46,7 +46,7 @@
                 role="cell"
               >
                 <div>
-                  <p class="text-lg text-gray-500">
+                  <p class="text-lg text-gray-400">
                     Failed to load data.
                   </p>
                   <p class="text-base text-gray-400">
@@ -64,7 +64,7 @@
                 role="cell"
               >
                 <div>
-                  <p class="text-lg text-gray-500">
+                  <p class="text-lg text-gray-400">
                     No {{ resultKey }} {{ foundKey }}.
                   </p>
                 </div>

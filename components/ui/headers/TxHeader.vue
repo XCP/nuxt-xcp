@@ -8,14 +8,14 @@
         <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
           <div class="mt-2 flex items-center text-base text-gray-300">
             <ClockIcon
-              class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500"
+              class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
               aria-hidden="true"
             />
             <span>{{ formatTimestamp(timestamp) }}</span>
           </div>
           <div class="mt-2 flex lg:items-center text-base text-gray-300 break-all">
             <LinkIcon
-              class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500"
+              class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
               aria-hidden="true"
             />
             {{ txHash }}

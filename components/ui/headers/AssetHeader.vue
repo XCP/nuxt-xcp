@@ -53,7 +53,7 @@
         >
           <div class="mt-2 flex items-center text-lg text-gray-300">
             <ArrowPathIcon
-              class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500 animate-spin"
+              class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400 animate-spin"
               aria-hidden="true"
             />
             <span>Loading...</span>
@@ -98,7 +98,7 @@
                   class="text-sm text-gray-400"
                 >
                   <LockClosedIcon
-                    class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500"
+                    class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                     aria-hidden="true"
                   />
                 </span>
@@ -107,7 +107,7 @@
                   class="text-sm text-gray-400"
                 >
                   <LockOpenIcon
-                    class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-500"
+                    class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                     aria-hidden="true"
                   />
                 </span>

@@ -195,7 +195,7 @@
                           class="h-6 w-6 flex-shrink-0 rounded-full"
                         >
                         <span class="ml-3 block truncate">{{ suggestion.name }}</span>
-                        <span class="ml-auto text-sm text-gray-500">{{ suggestion.type }}</span>
+                        <span class="ml-auto text-sm text-gray-400">{{ suggestion.type }}</span>
                       </a>
                     </li>
                   </ComboboxOption>
@@ -208,7 +208,7 @@
               <b class="mr-2">{{ btcPrice.symbol }}</b> {{ btcPrice.price }}
               <span
                 class="text-sm ml-2 flex items-center"
-                :class="{ 'text-green-500': btcChange > 0, 'text-red-500': btcChange < 0 }"
+                :class="{ 'text-green-400': btcChange > 0, 'text-red-400': btcChange < 0 }"
                 title="24 Hour Change"
               >
                 <span
@@ -226,7 +226,7 @@
               <b class="mr-2">{{ xcpPrice.symbol }}</b> {{ xcpPrice.price }}
               <span
                 class="text-sm ml-2 flex items-center"
-                :class="{ 'text-green-500': xcpChange > 0, 'text-red-500': xcpChange < 0 }"
+                :class="{ 'text-green-400': xcpChange > 0, 'text-red-400': xcpChange < 0 }"
                 title="24 Hour Change"
               >
                 <span
@@ -254,7 +254,7 @@
           <div class="flex shrink-0 items-center">
             <button
               type="button"
-              class="relative inline-flex items-center gap-x-1.5 rounded-md bg-primary px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-primary/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              class="relative inline-flex items-center gap-x-1.5 rounded-md bg-primary px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-primary/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
               @click="connectWalletDialogOpen = true; trackEvent('Connect Wallet')"
             >
               Connect Wallet
@@ -327,7 +327,7 @@
                       Wallet Functionality Not Ready Yet
                     </DialogTitle>
                     <div class="mt-2">
-                      <p class="text-sm text-gray-500">
+                      <p class="text-sm text-gray-400">
                         Are you a wallet developer? Get in touch!
                       </p>
                     </div>
@@ -336,7 +336,7 @@
                 <div class="mt-5 sm:mt-6">
                   <button
                     type="button"
-                    class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     @click="connectWalletDialogOpen = false"
                   >
                     Close Window

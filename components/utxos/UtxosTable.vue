@@ -29,7 +29,7 @@
             <div class="flex justify-between items-center mb-2">
               <NuxtLink
                 :to="`/address/${input.address}`"
-                class="font-medium leading-6 text-base text-red-500"
+                class="font-medium leading-6 text-base text-red-400"
               >
                 {{ input.address }}
               </NuxtLink>
@@ -81,13 +81,13 @@
               <NuxtLink
                 v-if="output.scriptPubKey.address"
                 :to="`/address/${output.scriptPubKey.address}`"
-                class="font-medium leading-6 text-base text-green-500"
+                class="font-medium leading-6 text-base text-green-400"
               >
                 {{ output.scriptPubKey.address }}
               </NuxtLink>
               <span
                 v-else
-                class="font-medium leading-6 text-base text-green-500"
+                class="font-medium leading-6 text-base text-green-400"
               >OP_RETURN</span>
               <span class="text-gray-400">{{ formatBalance(output.value) }} BTC</span>
             </div>
@@ -150,7 +150,7 @@
     </div>
     <div
       v-if="state.error"
-      class="text-red-500 text-center mt-4"
+      class="text-red-400 text-center mt-4"
     >
       {{ state.error }}
     </div>

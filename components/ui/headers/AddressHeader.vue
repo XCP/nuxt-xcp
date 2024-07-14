@@ -9,7 +9,7 @@
         <!-- Item 1 -->
         <div class="flex items-center w-full lg:w-auto mt-2">
           <BriefcaseIcon
-            class="mr-1.5 h-5 w-5 text-gray-500"
+            class="mr-1.5 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
           {{ address }}
@@ -17,7 +17,7 @@
         <!-- Item 2 -->
         <div class="flex items-center w-full lg:w-auto mt-2 order-last lg:order-none">
           <FireIcon
-            class="mr-1.5 h-5 w-5 text-gray-500"
+            class="mr-1.5 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
           {{ apiData.xcpValue }} XCP
@@ -25,7 +25,7 @@
         <!-- Item 3 -->
         <div class="flex items-center w-auto mt-2">
           <CurrencyDollarIcon
-            class="mr-1.5 h-5 w-5 text-gray-500"
+            class="mr-1.5 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
           {{ apiData.btcValue }} BTC
@@ -33,7 +33,7 @@
         <!-- Item 4 -->
         <div class="flex items-center w-auto mt-2">
           <LinkIcon
-            class="mr-1.5 h-5 w-5 text-gray-500"
+            class="mr-1.5 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
           {{ apiData.tx_count }} Transactions
