@@ -16,67 +16,63 @@
           src="/img/xcpio.png"
           alt="XCP.io"
         >
-        <div class="mt-16 grid grid-cols-2 gap-8 md:col-span-3 md:mt-0">
-          <div class="md:grid md:grid-cols-2 md:gap-8">
-            <div>
-              <h3 class="text-lg font-semibold leading-6 text-white">
-                Bitcoin
-              </h3>
-              <ul
-                role="list"
-                class="mt-6 space-y-2"
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 md:col-span-3 md:mt-0">
+          <div class="mt-10 md:mt-0 order-2 md:order-1">
+            <h3 class="text-lg font-semibold leading-6 text-white">
+              Bitcoin
+            </h3>
+            <ul
+              role="list"
+              class="mt-6 space-y-2"
+            >
+              <li
+                v-for="item in navigation.bitcoin"
+                :key="item.name"
               >
-                <li
-                  v-for="item in navigation.bitcoin"
-                  :key="item.name"
-                >
-                  <NuxtLink
-                    :to="item.href"
-                    class="text-base leading-6 text-gray-300 hover:text-white"
-                  >{{ item.name }}</NuxtLink>
-                </li>
-              </ul>
-            </div>
-            <div class="mt-10 md:mt-0">
-              <h3 class="text-lg font-semibold leading-6 text-white">
-                Counterparty
-              </h3>
-              <ul
-                role="list"
-                class="mt-6 space-y-2"
-              >
-                <li
-                  v-for="item in navigation.counterparty"
-                  :key="item.name"
-                >
-                  <NuxtLink
-                    :to="item.href"
-                    class="text-base leading-6 text-gray-300 hover:text-white"
-                  >{{ item.name }}</NuxtLink>
-                </li>
-              </ul>
-            </div>
+                <NuxtLink
+                  :to="item.href"
+                  class="text-base leading-6 text-gray-300 hover:text-white"
+                >{{ item.name }}</NuxtLink>
+              </li>
+            </ul>
           </div>
-          <div class="md:grid md:grid-cols-2 md:gap-8">
-            <div class="mt-10 md:mt-0">
-              <h3 class="text-lg font-semibold leading-6 text-white">
-                Legal
-              </h3>
-              <ul
-                role="list"
-                class="mt-6 space-y-2"
+          <div class="mt-10 md:mt-0 order-1 md:order-2">
+            <h3 class="text-lg font-semibold leading-6 text-white">
+              Counterparty
+            </h3>
+            <ul
+              role="list"
+              class="mt-6 space-y-2"
+            >
+              <li
+                v-for="item in navigation.counterparty"
+                :key="item.name"
               >
-                <li
-                  v-for="item in navigation.legal"
-                  :key="item.name"
-                >
-                  <NuxtLink
-                    :to="item.href"
-                    class="text-base leading-6 text-gray-300 hover:text-white"
-                  >{{ item.name }}</NuxtLink>
-                </li>
-              </ul>
-            </div>
+                <NuxtLink
+                  :to="item.href"
+                  class="text-base leading-6 text-gray-300 hover:text-white"
+                >{{ item.name }}</NuxtLink>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-10 md:mt-0 order-3">
+            <h3 class="text-lg font-semibold leading-6 text-white">
+              Legal
+            </h3>
+            <ul
+              role="list"
+              class="mt-6 space-y-2"
+            >
+              <li
+                v-for="item in navigation.legal"
+                :key="item.name"
+              >
+                <NuxtLink
+                  :to="item.href"
+                  class="text-base leading-6 text-gray-300 hover:text-white"
+                >{{ item.name }}</NuxtLink>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
