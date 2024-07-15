@@ -7,7 +7,17 @@
     },
     {
       "source": "/address",
-      "destination": "/addresses",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/block",
+      "destination": "/blocks",
+      "permanent": true
+    },
+    {
+      "source": "/tx",
+      "destination": "/transactions",
       "permanent": true
     }
   ]

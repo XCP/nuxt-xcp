@@ -1,18 +1,18 @@
 export function formatDispenserStatus(status) {
   switch (status) {
     case 0:
-      return 'Open';
+      return 'Open'
     case 1:
-      return 'Open';
+      return 'Open'
     case 20:
-      return 'Open (Oracle Price)';
+      return 'Open (Oracle Price)'
     case 21:
-      return 'Open (Oracle Price)';
+      return 'Open (Oracle Price)'
     case 10:
-      return 'Closed';
+      return 'Closed'
     case 11:
-      return 'Closing';
+      return 'Closing'
     default:
-      return 'Unknown';
+      return 'Unknown'
   }
 }

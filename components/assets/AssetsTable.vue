@@ -1,65 +1,147 @@
 <template>
-  <Table apiUrl="https://api.xcp.io/api/v1/assets" :queryParams="queryParams" :initialPage="props.initialPage">
-    <template v-slot:table-headers>
+  <TableTemplate
+    :api-client-function="apiClientFunction"
+    result-key="assets"
+    found-key="owned"
+  >
+    <template #table-headers>
       <tr>
-        <th scope="col" class="py-2 pr-2 font-semibold w-20">Lock</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Asset</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Supply</th>
-        <th scope="col" class="py-2 pr-2 font-semibold">Type</th>
-        <th scope="col" class="py-2 pr-2 font-semibold w-20 text-right">Block #</th>
-        <th scope="col" class="py-2 w-20"><span class="sr-only">View</span></th>
+        <th
+          scope="col"
+          class="py-2 pr-2 font-semibold w-20"
+        >
+          Lock
+        </th>
+        <th
+          scope="col"
+          class="py-2 pr-2 font-semibold min-w-[100px]"
+        >
+          Asset
+        </th>
+        <th
+          scope="col"
+          class="py-2 pr-2 font-semibold min-w-[200px] hidden xl:table-cell"
+        >
+          Description
+        </th>
+        <th
+          scope="col"
+          class="py-2 pr-2 font-semibold w-20"
+        >
+          Block #
+        </th>
+        <th
+          scope="col"
+          class="py-2 pr-2 font-semibold w-20"
+        >
+          Time
+        </th>
+        <th
+          scope="col"
+          class="py-2 pl-0 w-20"
+        >
+          <span class="sr-only">View</span>
+        </th>
       </tr>
     </template>
-    <template v-slot:table-rows="{ data }">
-      <tr v-for="(item, index) in data" :key="index">
-        <td class="whitespace-nowrap py-3 pr-2">
+    <template #table-rows="{ data }">
+      <tr
+        v-for="(asset, index) in data"
+        :key="index"
+      >
+        <td class="whitespace-nowrap py-3 pr-">
           <div class="flex items-center gap-x-4 leading-6">
-            <span v-if="item.locked" class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-green-400/10 text-green-400 ring-green-400/20">
-              <LockClosedIcon class="h-4 w-4 flex-shrink-0 text-green-500" aria-hidden="true" />
+            <span
+              v-if="asset.locked"
+              class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-green-400/10 text-green-400 ring-green-400/20"
+            >
+              <LockClosedIcon
+                class="h-4 w-4 flex-shrink-0 text-green-400"
+                aria-hidden="true"
+              />
             </span>
-            <span v-else class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-yellow-400/10 text-yellow-400 ring-yellow-400/20">
-              <LockOpenIcon class="h-4 w-4 flex-shrink-0 text-yellow-500" aria-hidden="true" />
+            <span
+              v-else
+              class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-yellow-400/10 text-yellow-400 ring-yellow-400/20"
+            >
+              <LockOpenIcon
+                class="h-4 w-4 flex-shrink-0 text-yellow-400"
+                aria-hidden="true"
+              />
             </span>
           </div>
         </td>
-        <td class="whitespace-nowrap py-3 pr-3 min-w-64">
+        <td class="whitespace-nowrap py-3 pr-3 min-w-[100px]">
+          <div class="flex items-center justify-between gap-x-4">
             <div class="flex items-center gap-x-4">
-              <NuxtImg :src="`https://api.xcp.io/img/icon/${item.asset_name}`" :alt="item.asset_name" class="h-10 w-10 bg-gray-800" loading="lazy" />
-              <NuxtLink :to="`/asset/${formatAssetName(item.asset_name, item)}`" class="font-medium leading-6 text-base text-white">{{ formatAssetName(item.asset_name, item) }}</NuxtLink>
+              <NuxtImg
+                :src="`https://api.xcp.io/img/icon/${asset.asset}`"
+                :alt="asset.asset"
+                class="h-10 w-10"
+                loading="lazy"
+              />
+              <NuxtLink
+                :to="`/asset/${asset.asset}`"
+                class="font-medium leading-6 text-base text-white"
+              >
+                {{ formatAssetName(asset.asset, asset) }}
+              </NuxtLink>
             </div>
-          </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ formatBalance(item.supply, item) }}
+          </div>
         </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300 capitalize">
-          {{ item.type }}{{ item.divisible ? ', Divisible' : '' }}
+        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300 hidden xl:table-cell">
+          <div
+            class="truncate"
+            :title="asset.description"
+          >
+            {{ formatDescription(asset.description, 50) }}
+          </div>
         </td>
-        <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300 text-right">
-          {{ item.block_index.toLocaleString() }}
+        <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
+          <NuxtLink
+            :to="`/block/${asset.first_issuance_block_index}`"
+            class="leading-6 text-white"
+          >
+            {{ asset.first_issuance_block_index.toLocaleString() }}
+          </NuxtLink>
         </td>
-        <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right">
-          <NuxtLink :to="`/asset/${formatAssetName(item.asset_name, item)}`" class="text-primary">View</NuxtLink>
+        <td class="whitespace-nowrap py-3 pl-0 pr-8 text-base leading-6 text-gray-300 md:table-cell">
+          {{ formatTimeAgo(asset.first_issuance_block_time) }}
+        </td>
+        <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right h-16">
+          <NuxtLink
+            :to="`/asset/${asset.asset}`"
+            class="text-primary"
+          >
+            View
+          </NuxtLink>
         </td>
       </tr>
     </template>
-  </Table>
+  </TableTemplate>
 </template>
 
 <script setup>
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/vue/20/solid'
+import { useNuxtApp } from '#app'
 
 const props = defineProps({
-  address: String,
-  initialPage: {
-    type: Number,
-    default: 1
-  }
+  address: {
+    type: String,
+    default: '',
+  },
 })
 
-const queryParams = computed(() => {
-  const params = {};  
-  if (props.address) params.address = props.address;
+const { $apiClient } = useNuxtApp()
 
-  return params;
-});
+const apiClientFunction = (params = {}) => {
+  params.verbose = true
+
+  if (props.address) {
+    return $apiClient.getAddressAssets(props.address, params)
+  }
+  else {
+    return $apiClient.getAssets(params)
+  }
+}
 </script>

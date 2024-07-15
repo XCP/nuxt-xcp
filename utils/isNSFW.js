@@ -10,9 +10,9 @@ const nsfwList = [
   'LEMONPARTY.ORG',
   'MEATSPIN',
   'MEATSPIN.MYSPACE',
-  'MEATSPIN.GODADDY'
-];
+  'MEATSPIN.GODADDY',
+]
 
 export const isNSFW = (assetName) => {
-  return nsfwList.includes(assetName);
-};
+  return nsfwList.includes(assetName)
+}
