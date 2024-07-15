@@ -70,7 +70,7 @@
       </div>
 
       <!-- Stats -->
-      <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 gap-x-8 text-base text-gray-300 bg-gray-700/10 p-4 rounded-md border-t border-white/5">
+      <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-2 gap-x-8 text-base text-gray-300 bg-gray-700/10 p-4 rounded-md border-t border-white/5">
         <div
           v-for="event in filteredEventCounts"
           :key="event.key"
