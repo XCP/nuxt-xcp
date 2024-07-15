@@ -147,7 +147,7 @@ const navigation = {
   social: [
     {
       name: 'GitHub',
-      href: 'https://github.com/xcp',
+      href: 'https://github.com/xcp/nuxt-app',
       icon: defineComponent({
         render: () =>
           h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
