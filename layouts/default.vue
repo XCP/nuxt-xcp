@@ -382,26 +382,35 @@ const fastestFee = ref('')
 // Function to fetch the BTC and XCP prices from CoinPaprika
 async function fetchPrices() {
   try {
-    const btcResponse = await fetch(`/api/prices?coinId=btc-bitcoin`)
-    const btcData = await btcResponse.json()
-    console.log(btcData)
-    const btcPriceValue = btcData.quotes.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    btcPrice.value = { symbol: 'BTC', price: `$${btcPriceValue}` }
-    btcChange.value = btcData.quotes.USD.percent_change_24h
+    const btcResponse = await fetch(`/api/prices?coinId=btc-bitcoin`);
+    const btcData = await btcResponse.json();
+    console.log(btcData);
 
-    const xcpResponse = await fetch(`/api/prices?coinId=xcp-counterparty`)
-    const xcpData = await xcpResponse.json()
-    console.log(xcpData)
-    const xcpPriceValue = xcpData.quotes.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    xcpPrice.value = { symbol: 'XCP', price: `$${xcpPriceValue}` }
-    xcpChange.value = xcpData.quotes.USD.percent_change_24h
-  }
-  catch (error) {
-    console.error('Failed to fetch prices:', error)
-    btcPrice.value = { symbol: 'BTC', price: 'N/A' }
-    xcpPrice.value = { symbol: 'XCP', price: 'N/A' }
-    btcChange.value = null
-    xcpChange.value = null
+    if (btcData.success) {
+      const btcPriceValue = btcData.data.quotes.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      btcPrice.value = { symbol: 'BTC', price: `$${btcPriceValue}` };
+      btcChange.value = btcData.data.quotes.USD.percent_change_24h;
+    } else {
+      throw new Error(btcData.error || 'Failed to fetch BTC price');
+    }
+
+    const xcpResponse = await fetch(`/api/prices?coinId=xcp-counterparty`);
+    const xcpData = await xcpResponse.json();
+    console.log(xcpData);
+
+    if (xcpData.success) {
+      const xcpPriceValue = xcpData.data.quotes.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      xcpPrice.value = { symbol: 'XCP', price: `$${xcpPriceValue}` };
+      xcpChange.value = xcpData.data.quotes.USD.percent_change_24h;
+    } else {
+      throw new Error(xcpData.error || 'Failed to fetch XCP price');
+    }
+  } catch (error) {
+    console.error('Failed to fetch prices:', error);
+    btcPrice.value = { symbol: 'BTC', price: 'N/A' };
+    xcpPrice.value = { symbol: 'XCP', price: 'N/A' };
+    btcChange.value = null;
+    xcpChange.value = null;
   }
 }
 
