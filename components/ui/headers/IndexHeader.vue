@@ -51,7 +51,10 @@
             </h2>
           </div>
           <p class="mt-2 text-xs leading-6 text-gray-400">
-            Counterparty's Height is {{ counterpartyHeight.toLocaleString() }}. <span v-if="!serverReady" class="text-white bg-red-500">(Sync in progress!)</span>
+            Counterparty's Height is {{ counterpartyHeight.toLocaleString() }}. <span
+              v-if="!serverReady"
+              class="text-white bg-red-500"
+            >(Sync in progress!)</span>
           </p>
         </div>
         <div class="hidden sm:flex flex-col flex-1 text-left border-white/5 sm:border-l sm:pl-4">
@@ -123,7 +126,7 @@ const { $apiClient } = useNuxtApp()
 // Fetch event counts from the API
 const fetchEventCounts = async () => {
   try {
-    const response = await $apiClient.getEventCounts({useCache: true, ttl: 600})
+    const response = await $apiClient.getEventCounts({ useCache: true, ttl: 600 })
     eventCounts.value = response.data.result
   }
   catch (e) {
@@ -135,7 +138,7 @@ const fetchEventCounts = async () => {
 // Fetch status info from the API
 const fetchStatusInfo = async () => {
   try {
-    const response = await $apiClient.getStatus({useCache: false})
+    const response = await $apiClient.getStatus({ useCache: false })
     version.value = response.data.result.version
     serverReady.value = response.data.result.server_ready
     network.value = response.data.result.network

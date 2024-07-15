@@ -382,14 +382,16 @@ const fastestFee = ref('')
 // Function to fetch the BTC and XCP prices from CoinPaprika
 async function fetchPrices() {
   try {
-    const btcResponse = await fetch('https://api.coinpaprika.com/v1/tickers/btc-bitcoin')
+    const btcResponse = await fetch(`/api/prices?coinId=btc-bitcoin`)
     const btcData = await btcResponse.json()
+    console.log(btcData)
     const btcPriceValue = btcData.quotes.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     btcPrice.value = { symbol: 'BTC', price: `$${btcPriceValue}` }
     btcChange.value = btcData.quotes.USD.percent_change_24h
 
-    const xcpResponse = await fetch('https://api.coinpaprika.com/v1/tickers/xcp-counterparty')
+    const xcpResponse = await fetch(`/api/prices?coinId=xcp-counterparty`)
     const xcpData = await xcpResponse.json()
+    console.log(xcpData)
     const xcpPriceValue = xcpData.quotes.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     xcpPrice.value = { symbol: 'XCP', price: `$${xcpPriceValue}` }
     xcpChange.value = xcpData.quotes.USD.percent_change_24h
@@ -406,8 +408,14 @@ async function fetchPrices() {
 // Function to fetch the fastest fee from mempool.space API
 async function fetchFastestFee() {
   try {
-    const response = await fetch('https://mempool.space/api/v1/fees/recommended')
-    const data = await response.json()
+    const data = await getCachedData(
+      'fastest_fee',
+      async () => {
+        const response = await fetch('https://mempool.space/api/v1/fees/recommended')
+        return response.json()
+      },
+      30,
+    )
     fastestFee.value = data.fastestFee
   }
   catch (error) {

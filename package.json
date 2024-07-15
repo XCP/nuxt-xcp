@@ -24,6 +24,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@coinpaprika/api-nodejs-client": "^2.0.0",
     "@headlessui/vue": "^1.7.17",
     "@heroicons/vue": "^2.1.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -33,7 +34,6 @@
     "chart.js": "^4.4.1",
     "counterparty-api-client": "file:packages/counterparty-api-client",
     "date-fns": "^3.6.0",
-    "dotenv": "^16.4.5",
     "vue-chartjs": "^5.3.0"
   }
 }
