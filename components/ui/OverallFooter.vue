@@ -58,25 +58,6 @@
             </div>
           </div>
           <div class="md:grid md:grid-cols-2 md:gap-8">
-            <div>
-              <h3 class="text-lg font-semibold leading-6 text-white">
-                Explore
-              </h3>
-              <ul
-                role="list"
-                class="mt-6 space-y-2"
-              >
-                <li
-                  v-for="item in navigation.explore"
-                  :key="item.name"
-                >
-                  <a
-                    :href="item.href"
-                    class="text-base leading-6 text-gray-300 hover:text-white"
-                  >{{ item.name }}</a>
-                </li>
-              </ul>
-            </div>
             <div class="mt-10 md:mt-0">
               <h3 class="text-lg font-semibold leading-6 text-white">
                 Legal

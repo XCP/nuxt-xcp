@@ -79,6 +79,7 @@
                         >
                           <nuxt-link
                             :to="item.href"
+                            @click="sidebarOpen = false"
                             :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-base leading-6 font-semibold']"
                           >
                             <component
@@ -104,7 +105,7 @@
       <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-gray-900 px-4 shadow-sm sm:px-6 lg:px-8">
         <button
           type="button"
-          class="lg:hidden -m-2.5 p-2.5 text-white"
+          class="-m-2.5 p-2.5 text-white"
           @click="sidebarOpen = true"
         >
           <span class="sr-only">Open sidebar</span>
@@ -134,25 +135,6 @@
             >
               Counterparty XCP
             </nuxt-link>
-          </div>
-          <div class="hidden lg:flex md:items-center md:space-x-3">
-            <template
-              v-for="item in navigation"
-              :key="item.name"
-            >
-              <nuxt-link
-                :to="item.href"
-                class="bg-gray-900 text-white rounded-md px-2 py-2 text-base font-medium flex items-center"
-              >
-                {{ item.name }}
-                <component
-                  :is="item.icon"
-                  v-if="item.name === 'Discover'"
-                  class="ml-1 h-5 w-5 flex-shrink-0 text-yellow-400"
-                  aria-hidden="true"
-                />
-              </nuxt-link>
-            </template>
           </div>
           <ClientOnly>
             <Combobox
@@ -203,7 +185,7 @@
               </div>
             </Combobox>
           </ClientOnly>
-          <div class="hidden xl:flex md:items-center md:space-x-3">
+          <div class="hidden lg:flex md:items-center md:space-x-3">
             <a class="bg-gray-900 text-white rounded-md px-2 py-2 text-base flex items-center">
               <b class="mr-2">{{ btcPrice.symbol }}</b> {{ btcPrice.price }}
               <span
@@ -242,7 +224,7 @@
             </a>
             <NuxtLink
               to="/mempool"
-              class="bg-gray-900 text-white rounded-md px-2 py-2 text-sm flex lg:hidden 2xl:flex items-center"
+              class="bg-gray-900 text-white rounded-md px-2 py-2 text-sm flex lg:hidden xl:flex items-center"
             >
               <span><CubeIcon
                 class="h-5 w-5 text-white mr-1"
@@ -353,18 +335,36 @@ import {
   CircleStackIcon,
   PhotoIcon,
   CubeIcon,
+  CubeTransparentIcon,
+  LinkIcon,
+  BriefcaseIcon,
+  BanknotesIcon,
+  CursorArrowRippleIcon,
+  ShareIcon,
+  FireIcon,
+  SpeakerWaveIcon,
   XMarkIcon,
-  AcademicCapIcon,
+  BuildingStorefrontIcon,
+  PaperAirplaneIcon,
 } from '@heroicons/vue/24/outline'
 import { SparklesIcon, Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const { trackEvent } = useFathom()
 
 const navigation = [
-  { name: 'Collect', href: '/collect', icon: PhotoIcon, current: false },
-  { name: 'Trade', href: '/trade', icon: CircleStackIcon, current: false },
-  { name: 'Learn', href: '/learn', icon: AcademicCapIcon, current: false },
-  { name: 'Discover', href: '/discover', icon: SparklesIcon, current: false },
+  { name: 'Mempool', href: '/mempool', icon: CubeTransparentIcon, current: false },
+  { name: 'Blocks', href: '/blocks', icon: CubeIcon, current: false },
+  { name: 'Transactions', href: '/transactions', icon: LinkIcon, current: false },
+  { name: 'Assets', href: '/assets', icon: BriefcaseIcon, current: false },
+  { name: 'Bets', href: '/bets', icon: BanknotesIcon, current: false },
+  { name: 'Broadcasts', href: '/broadcasts', icon: SpeakerWaveIcon, current: false },
+  { name: 'Burns', href: '/burns', icon: FireIcon, current: false },
+  { name: 'Dispensers', href: '/dispensers', icon: BuildingStorefrontIcon, current: false },
+  { name: 'Dispenses', href: '/dispenses', icon: CircleStackIcon, current: false },
+  { name: 'Dividends', href: '/dividends', icon: ShareIcon, current: false },
+  { name: 'Issuances', href: '/issuances', icon: PhotoIcon, current: false },
+  { name: 'Orders', href: '/orders', icon:   CursorArrowRippleIcon, current: false },
+  { name: 'Sends', href: '/sends', icon: PaperAirplaneIcon, current: false },
 ]
 const connectWalletDialogOpen = ref(false)
 
