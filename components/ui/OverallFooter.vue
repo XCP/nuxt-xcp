@@ -10,13 +10,13 @@
       Footer
     </h2>
     <div class="mx-auto px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
-      <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      <div class="md:grid md:grid-cols-4 md:gap-8">
         <img
           class="h-10"
           src="/img/xcpio.png"
           alt="XCP.io"
         >
-        <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+        <div class="mt-16 grid grid-cols-2 gap-8 md:col-span-3 md:mt-0">
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
               <h3 class="text-lg font-semibold leading-6 text-white">
@@ -30,10 +30,10 @@
                   v-for="item in navigation.bitcoin"
                   :key="item.name"
                 >
-                  <a
-                    :href="item.href"
+                  <NuxtLink
+                    :to="item.href"
                     class="text-base leading-6 text-gray-300 hover:text-white"
-                  >{{ item.name }}</a>
+                  >{{ item.name }}</NuxtLink>
                 </li>
               </ul>
             </div>
@@ -49,10 +49,10 @@
                   v-for="item in navigation.counterparty"
                   :key="item.name"
                 >
-                  <a
-                    :href="item.href"
+                  <NuxtLink
+                    :to="item.href"
                     class="text-base leading-6 text-gray-300 hover:text-white"
-                  >{{ item.name }}</a>
+                  >{{ item.name }}</NuxtLink>
                 </li>
               </ul>
             </div>
@@ -70,10 +70,10 @@
                   v-for="item in navigation.legal"
                   :key="item.name"
                 >
-                  <a
-                    :href="item.href"
+                  <NuxtLink
+                    :to="item.href"
                     class="text-base leading-6 text-gray-300 hover:text-white"
-                  >{{ item.name }}</a>
+                  >{{ item.name }}</NuxtLink>
                 </li>
               </ul>
             </div>
@@ -145,6 +145,18 @@ const navigation = {
     { name: 'Terms', href: '/terms' },
   ],
   social: [
+    {
+      name: 'X',
+      href: 'https://x.com/xcp_io',
+      icon: defineComponent({
+        render: () =>
+          h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
+            h('path', {
+              d: 'M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z',
+            }),
+          ]),
+      }),
+    },
     {
       name: 'GitHub',
       href: 'https://github.com/xcp/nuxt-app',

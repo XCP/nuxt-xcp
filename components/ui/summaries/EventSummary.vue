@@ -52,6 +52,26 @@
     </NuxtLink>
   </span>
 
+  <!-- Address Option Updates -->
+  <span v-else-if="event.event === 'NEW_ADDRESS_OPTIONS'">
+    <NuxtLink
+      :to="`/address/${event.params.address}`"
+      class="leading-6 font-medium text-white"
+    >
+      {{ event.params.address }}
+    </NuxtLink>
+    (Options: {{ event.params.options }})
+  </span>
+  <span v-else-if="event.event === 'ADDRESS_OPTIONS_UPDATE'">
+    <NuxtLink
+      :to="`/address/${event.params.address}`"
+      class="leading-6 font-medium text-white"
+    >
+      {{ event.params.address }}
+    </NuxtLink>
+    (Options: {{ event.params.options }})
+  </span>
+
   <!-- Asset Movement Handlers -->
   <span v-else-if="event.event === 'DEBIT'">
     -{{ event.params.quantity_normalized }}
@@ -263,7 +283,7 @@
       :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
-      {{ formatAssetName(event.params.asset, event.params.asset_info) }}
+      {{ formatAssetName(event.params.asset, event.params) }}
     </NuxtLink>
     by
     <NuxtLink

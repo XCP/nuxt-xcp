@@ -1,7 +1,7 @@
 <template>
   <div>
     <AssetHeader
-      :assetName="assetName"
+      :asset-name="assetName"
     />
 
     <div class="my-6">
@@ -13,31 +13,31 @@
 
       <!-- Tab content -->
       <div v-if="activeTab === 'Balances'">
-        <BalancesTable :assetName="assetName" />
+        <BalancesTable :asset-name="assetName" />
       </div>
       <div v-if="activeTab === 'Credits'">
-        <CreditsTable :assetName="assetName" />
+        <CreditsTable :asset-name="assetName" />
       </div>
       <div v-if="activeTab === 'Debits'">
-        <DebitsTable :assetName="assetName" />
+        <DebitsTable :asset-name="assetName" />
       </div>
       <div v-if="activeTab === 'Sends'">
-        <SendsTable :assetName="assetName" />
+        <SendsTable :asset-name="assetName" />
       </div>
       <div v-if="activeTab === 'Dispensers'">
-        <DispensersTable :assetName="assetName" />
+        <DispensersTable :asset-name="assetName" />
       </div>
       <div v-if="activeTab === 'Dispenses'">
-        <DispensesTable :assetName="assetName" />
+        <DispensesTable :asset-name="assetName" />
       </div>
       <div v-if="activeTab === 'Orders'">
-        <OrdersTable :assetName="assetName" />
+        <OrdersTable :asset-name="assetName" />
       </div>
       <div v-if="activeTab === 'Dividends'">
-        <DividendsTable :assetName="assetName" />
+        <DividendsTable :asset-name="assetName" />
       </div>
       <div v-if="activeTab === 'Issuances'">
-        <IssuancesTable :assetName="assetName" />
+        <IssuancesTable :asset-name="assetName" />
       </div>
     </div>
   </div>

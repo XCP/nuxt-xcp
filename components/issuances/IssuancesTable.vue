@@ -91,7 +91,7 @@
           </div>
         </td>
         <td class="whitespace-nowrap py-3 pr-3 text-base leading-6 text-gray-300">
-          {{ formatBalance(issuance.quantity, issuance) }}
+          {{ issuance.quantity_normalized }}
         </td>
         <td
           v-if="!props.address"

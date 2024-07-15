@@ -260,7 +260,7 @@ export default {
     return callApiWithHealthCheck(apiClient.get, '/v2/assets', { params: paginationParams })
   },
   getAsset(asset, params) {
-    return callApiWithHealthCheck(apiClient.get, `/v2/assets/${asset}`, { params })
+    return callApiWithHealthCheck(apiClient.get, `/v2/assets/${asset}/info`, { params })
   },
   getAssetBalances(asset, params) {
     const paginationParams = handlePagination(params)

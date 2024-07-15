@@ -79,8 +79,8 @@
                         >
                           <nuxt-link
                             :to="item.href"
-                            @click="sidebarOpen = false"
                             :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-base leading-6 font-semibold']"
+                            @click="sidebarOpen = false"
                           >
                             <component
                               :is="item.icon"
@@ -347,7 +347,7 @@ import {
   BuildingStorefrontIcon,
   PaperAirplaneIcon,
 } from '@heroicons/vue/24/outline'
-import { SparklesIcon, Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
+import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const { trackEvent } = useFathom()
 
@@ -363,7 +363,7 @@ const navigation = [
   { name: 'Dispenses', href: '/dispenses', icon: CircleStackIcon, current: false },
   { name: 'Dividends', href: '/dividends', icon: ShareIcon, current: false },
   { name: 'Issuances', href: '/issuances', icon: PhotoIcon, current: false },
-  { name: 'Orders', href: '/orders', icon:   CursorArrowRippleIcon, current: false },
+  { name: 'Orders', href: '/orders', icon: CursorArrowRippleIcon, current: false },
   { name: 'Sends', href: '/sends', icon: PaperAirplaneIcon, current: false },
 ]
 const connectWalletDialogOpen = ref(false)
@@ -382,29 +382,31 @@ const fastestFee = ref('')
 // Function to fetch the BTC and XCP prices from CoinGecko
 async function fetchPrices() {
   try {
-    const response = await fetch(`/api/prices`);
-    const data = await response.json();
+    const response = await fetch(`/api/prices`)
+    const data = await response.json()
 
     if (data.success) {
-      const btcData = data.data.bitcoin;
-      const xcpData = data.data.counterparty;
+      const btcData = data.data.bitcoin
+      const xcpData = data.data.counterparty
 
-      const btcPriceValue = btcData.usd.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      btcPrice.value = { symbol: 'BTC', price: `$${btcPriceValue}` };
-      btcChange.value = btcData.usd_24h_change.toFixed(2);
+      const btcPriceValue = btcData.usd.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      btcPrice.value = { symbol: 'BTC', price: `$${btcPriceValue}` }
+      btcChange.value = btcData.usd_24h_change.toFixed(2)
 
-      const xcpPriceValue = xcpData.usd.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      xcpPrice.value = { symbol: 'XCP', price: `$${xcpPriceValue}` };
-      xcpChange.value = xcpData.usd_24h_change.toFixed(2);
-    } else {
-      throw new Error(data.error || 'Failed to fetch prices');
+      const xcpPriceValue = xcpData.usd.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      xcpPrice.value = { symbol: 'XCP', price: `$${xcpPriceValue}` }
+      xcpChange.value = xcpData.usd_24h_change.toFixed(2)
     }
-  } catch (error) {
-    console.error('Failed to fetch prices:', error);
-    btcPrice.value = { symbol: 'BTC', price: 'N/A' };
-    xcpPrice.value = { symbol: 'XCP', price: 'N/A' };
-    btcChange.value = null;
-    xcpChange.value = null;
+    else {
+      throw new Error(data.error || 'Failed to fetch prices')
+    }
+  }
+  catch (error) {
+    console.error('Failed to fetch prices:', error)
+    btcPrice.value = { symbol: 'BTC', price: 'N/A' }
+    xcpPrice.value = { symbol: 'XCP', price: 'N/A' }
+    btcChange.value = null
+    xcpChange.value = null
   }
 }
 
