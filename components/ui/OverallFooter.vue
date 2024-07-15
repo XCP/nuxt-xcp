@@ -1,42 +1,42 @@
 <template>
   <footer class="bg-gray-900" aria-labelledby="footer-heading">
     <h2 id="footer-heading" class="sr-only">Footer</h2>
-    <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+    <div class="mx-auto px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-        <img class="h-7" src="/img/xcpio.png" alt="XCP.io" />
+        <img class="h-10" src="/img/xcpio.png" alt="XCP.io" />
         <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="text-sm font-semibold leading-6 text-white">Bitcoin</h3>
-              <ul role="list" class="mt-6 space-y-4">
+              <h3 class="text-lg font-semibold leading-6 text-white">Bitcoin</h3>
+              <ul role="list" class="mt-6 space-y-2">
                 <li v-for="item in navigation.bitcoin" :key="item.name">
-                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
+                  <a :href="item.href" class="text-base leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
                 </li>
               </ul>
             </div>
             <div class="mt-10 md:mt-0">
-              <h3 class="text-sm font-semibold leading-6 text-white">Counterparty</h3>
-              <ul role="list" class="mt-6 space-y-4">
+              <h3 class="text-lg font-semibold leading-6 text-white">Counterparty</h3>
+              <ul role="list" class="mt-6 space-y-2">
                 <li v-for="item in navigation.counterparty" :key="item.name">
-                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
+                  <a :href="item.href" class="text-base leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
                 </li>
               </ul>
             </div>
           </div>
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="text-sm font-semibold leading-6 text-white">Explore</h3>
-              <ul role="list" class="mt-6 space-y-4">
+              <h3 class="text-lg font-semibold leading-6 text-white">Explore</h3>
+              <ul role="list" class="mt-6 space-y-2">
                 <li v-for="item in navigation.explore" :key="item.name">
-                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
+                  <a :href="item.href" class="text-base leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
                 </li>
               </ul>
             </div>
             <div class="mt-10 md:mt-0">
-              <h3 class="text-sm font-semibold leading-6 text-white">Legal</h3>
-              <ul role="list" class="mt-6 space-y-4">
+              <h3 class="text-lg font-semibold leading-6 text-white">Legal</h3>
+              <ul role="list" class="mt-6 space-y-2">
                 <li v-for="item in navigation.legal" :key="item.name">
-                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
+                  <a :href="item.href" class="text-base leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
                 </li>
               </ul>
             </div>
