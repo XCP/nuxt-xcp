@@ -15,7 +15,7 @@
         <span class="hidden sm:inline">&nbsp;results</span>
       </p>
     </div>
-    <div class="hidden lg:flex items-center">
+    <div class="items-center">
       <slot name="table-controls" />
     </div>
     <div class="flex flex-1 items-center justify-end">
