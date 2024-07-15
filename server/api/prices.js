@@ -21,7 +21,7 @@ const fetchPrices = async () => {
 
 export default defineEventHandler(async (event) => {
   try {
-    const data = await getCachedData('prices', fetchPrices, 60);
+    const data = await getCachedData('prices', fetchPrices, 300);
     return {
       success: true,
       data: data
