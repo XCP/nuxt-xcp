@@ -10,11 +10,14 @@ export default defineEventHandler(async (event) => {
   const { coinId } = getQuery(event)
   const apiKey = process.env.COINPAPRIKA_API_KEY
 
+  console.log(process.env.COINPAPRIKA_API_KEY)
+
   try {
     const ticker = await getCachedData(
       `price_${coinId}`,
       async () => {
         const response = await client.getTicker({ coinId, headers: { Authorization: apiKey } })
+        console.log(response)
         return response
       },
       30, // Cache TTL in seconds
