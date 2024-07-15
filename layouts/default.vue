@@ -451,17 +451,6 @@ async function fetchSuggestions(query) {
 function processSuggestions(data) {
   const mappedSuggestions = []
 
-  if (data.tags && data.tags.length > 0) {
-    const tagSuggestions = data.tags.map(item => ({
-      id: item.id,
-      name: item.name,
-      slug: item.slug,
-      type: 'Collection',
-      imageUrl: `https://api.xcp.io/img/logo-icon/${item.slug}`,
-    }))
-    mappedSuggestions.push(...tagSuggestions)
-  }
-
   if (data.assets && data.assets.length > 0) {
     const assetSuggestions = data.assets.map(item => ({
       id: item.id,
