@@ -10,9 +10,9 @@
         <span class="font-medium">{{ startItem.toLocaleString() }}</span>
         to
         <span class="font-medium">{{ endItem.toLocaleString() }}</span>
-        of
-        <span class="font-medium">{{ totalItems.toLocaleString() }}</span>
-        results
+        <span class="hidden sm:inline">of</span>
+        <span class="font-medium hidden sm:inline">{{ totalItems.toLocaleString() }}</span>
+        <span class="hidden sm:inline">results</span>
       </p>
     </div>
     <div class="hidden lg:flex items-center">
