@@ -92,7 +92,7 @@
     <span v-else-if="event.category === 'order_matches'">
       {{ formatBalance(parsedBindings.forward_quantity, event.asset_two) }}
       <NuxtLink
-        :to="`/asset/${formatAssetName(parsedBindings.forward_asset, event.asset_two)}`"
+        :to="`/asset/${parsedBindings.forward_asset}`"
         class="leading-6 font-medium text-white"
       >
         {{ formatAssetName(parsedBindings.forward_asset, event.asset_two) }}
@@ -100,7 +100,7 @@
       for
       {{ formatBalance(parsedBindings.backward_quantity, event.asset) }}
       <NuxtLink
-        :to="`/asset/${formatAssetName(parsedBindings.backward_asset, event.asset)}`"
+        :to="`/asset/${parsedBindings.backward_asset}`"
         class="leading-6 font-medium text-white"
       >
         {{ formatAssetName(parsedBindings.backward_asset, event.asset) }}
@@ -122,7 +122,7 @@
           Remaining:
           {{ formatBalance(parsedBindings.give_remaining, event.asset) }}
           <NuxtLink
-            :to="`/asset/${formatAssetName(parsedBindings.give_asset, event.asset)}`"
+            :to="`/asset/${parsedBindings.give_asset}`"
             class="leading-6 font-medium text-white"
           >
             {{ formatAssetName(parsedBindings.give_asset, event.asset) }}
@@ -135,7 +135,7 @@
       <span v-else-if="parsedBindings.status === 'open'">
         {{ formatBalance(parsedBindings.give_quantity, event.asset) }}
         <NuxtLink
-          :to="`/asset/${formatAssetName(parsedBindings.give_asset, event.asset)}`"
+          :to="`/asset/${parsedBindings.give_asset}`"
           class="leading-6 font-medium text-white"
         >
           {{ formatAssetName(parsedBindings.give_asset, event.asset) }}
@@ -143,7 +143,7 @@
         for
         {{ formatBalance(parsedBindings.get_quantity, event.asset_two) }}
         <NuxtLink
-          :to="`/asset/${formatAssetName(parsedBindings.get_asset, event.asset_two)}`"
+          :to="`/asset/${parsedBindings.get_asset}`"
           class="leading-6 font-medium text-white"
         >
           {{ formatAssetName(parsedBindings.get_asset, event.asset_two) }}
@@ -187,7 +187,7 @@
       <span v-if="parsedBindings.transfer">
         Transfer
         <NuxtLink
-          :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+          :to="`/asset/${parsedBindings.asset}`"
           class="leading-6 font-medium text-white"
         >
           {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -203,7 +203,7 @@
       <span v-else-if="parsedBindings.locked">
         Lock asset
         <NuxtLink
-          :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+          :to="`/asset/${parsedBindings.asset}`"
           class="leading-6 font-medium text-white"
         >
           {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -212,7 +212,7 @@
       <span v-else-if="parsedBindings.reset">
         Reset asset
         <NuxtLink
-          :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+          :to="`/asset/${parsedBindings.asset}`"
           class="leading-6 font-medium text-white"
         >
           {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -221,7 +221,7 @@
       <span v-else-if="parsedBindings.quantity === 0">
         Update info
         <NuxtLink
-          :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+          :to="`/asset/${parsedBindings.asset}`"
           class="leading-6 font-medium text-white"
         >
           {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -231,7 +231,7 @@
         Issue
         {{ formatBalance(parsedBindings.quantity, event.asset) }}
         <NuxtLink
-          :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+          :to="`/asset/${parsedBindings.asset}`"
           class="leading-6 font-medium text-white"
         >
           {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -241,7 +241,7 @@
     <span v-else-if="event.category === 'sends'">
       {{ formatBalance(parsedBindings.quantity, event.asset) }}
       <NuxtLink
-        :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+        :to="`/asset/${parsedBindings.asset}`"
         class="leading-6 font-medium text-white"
       >
         {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -258,7 +258,7 @@
       <span v-if="event.command === 'update' && parsedBindings.give_remaining">
         Remaining: {{ formatBalance(parsedBindings.give_remaining, event.asset) }}
         <NuxtLink
-          :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+          :to="`/asset/${parsedBindings.asset}`"
           class="leading-6 font-medium text-white"
         >
           {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -267,7 +267,7 @@
       <span v-else-if="event.command === 'update' && parsedBindings.status">
         Status: {{ formatDispenserStatus(parsedBindings.status) }}
         <NuxtLink
-          :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+          :to="`/asset/${parsedBindings.asset}`"
           class="leading-6 font-medium text-white"
         >
           {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -277,7 +277,7 @@
         Dispensing:
         {{ formatBalance(parsedBindings.give_remaining, event.asset) }}
         <NuxtLink
-          :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+          :to="`/asset/${parsedBindings.asset}`"
           class="leading-6 font-medium text-white"
         >
           {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -292,7 +292,7 @@
     <span v-else-if="event.category === 'dispenses'">
       {{ formatBalance(parsedBindings.dispense_quantity, event.asset) }}
       <NuxtLink
-        :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+        :to="`/asset/${parsedBindings.asset}`"
         class="leading-6 font-medium text-white"
       >
         {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -308,14 +308,14 @@
     <span v-else-if="event.category === 'dividends'">
       {{ formatBalance(parsedBindings.quantity_per_unit, event.asset_two) }}
       <NuxtLink
-        :to="`/asset/${formatAssetName(parsedBindings.dividend_asset, event.asset_two)}`"
+        :to="`/asset/${parsedBindings.dividend_asset}`"
         class="leading-6 font-medium text-white"
       >
         {{ formatAssetName(parsedBindings.dividend_asset, event.asset_two) }}
       </NuxtLink>
       per unit of
       <NuxtLink
-        :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+        :to="`/asset/${parsedBindings.asset}`"
         class="leading-6 font-medium text-white"
       >
         {{ formatAssetName(parsedBindings.asset, event.asset) }}
@@ -324,7 +324,7 @@
     <span v-else-if="event.category === 'destructions'">
       {{ formatBalance(parsedBindings.quantity, event.asset) }}
       <NuxtLink
-        :to="`/asset/${formatAssetName(parsedBindings.asset, event.asset)}`"
+        :to="`/asset/${parsedBindings.asset}`"
         class="leading-6 font-medium text-white"
       >
         {{ formatAssetName(parsedBindings.asset, event.asset) }}

@@ -69,7 +69,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${formatAssetName(dispenser.asset, dispenser.asset_info)}`"
+              :to="`/asset/${dispenser.asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(dispenser.asset, dispenser.asset_info) }}

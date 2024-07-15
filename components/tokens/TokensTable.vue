@@ -83,7 +83,7 @@
         class="flex flex-col overflow-hidden rounded-2xl border border-gray-700 rounded bg-gray-800"
       >
         <!-- Nuxt Link Wrapping the Image and Asset Name -->
-        <NuxtLink :to="`/asset/${formatAssetName(asset.asset_name, asset)}`">
+        <NuxtLink :to="`/asset/${asset.asset_name}`">
           <!-- Aspect Ratio Block -->
           <div class="aspect-w-5 aspect-h-7 w-full">
             <NuxtImg
@@ -166,7 +166,7 @@
                   loading="lazy"
                 />
                 <NuxtLink
-                  :to="`/asset/${formatAssetName(asset.asset_name, asset)}`"
+                  :to="`/asset/${asset.asset_name}`"
                   class="font-medium leading-6 text-white"
                 >
                   {{ formatAssetName(asset.asset_name, asset) }}
@@ -184,7 +184,7 @@
             </td>
             <td class="whitespace-nowrap py-3 pl-3 text-base font-medium text-right">
               <NuxtLink
-                :to="`/asset/${formatAssetName(asset.asset_name, asset)}`"
+                :to="`/asset/${asset.asset_name}`"
                 class="text-primary"
               >
                 View

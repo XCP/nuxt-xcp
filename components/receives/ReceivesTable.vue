@@ -63,7 +63,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${formatAssetName(receive.asset, receive.asset_info)}`"
+              :to="`/asset/${receive.asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(receive.asset, receive.asset_info) }}

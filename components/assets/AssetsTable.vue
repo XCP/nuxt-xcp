@@ -81,7 +81,7 @@
                 loading="lazy"
               />
               <NuxtLink
-                :to="`/asset/${formatAssetName(asset.asset, asset)}`"
+                :to="`/asset/${asset.asset}`"
                 class="font-medium leading-6 text-base text-white"
               >
                 {{ formatAssetName(asset.asset, asset) }}
@@ -110,7 +110,7 @@
         </td>
         <td class="whitespace-nowrap py-3 pl-0 text-base font-medium text-right h-16">
           <NuxtLink
-            :to="`/asset/${formatAssetName(asset.asset, asset)}`"
+            :to="`/asset/${asset.asset}`"
             class="text-primary"
           >
             View

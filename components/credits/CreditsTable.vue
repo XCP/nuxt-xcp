@@ -66,7 +66,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${formatAssetName(credit.asset, credit.asset_info)}`"
+              :to="`/asset/${credit.asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(credit.asset, credit.asset_info) }}

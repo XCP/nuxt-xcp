@@ -134,7 +134,7 @@
             </td>
             <td class="py-3 pl-0 pr-4 sm:table-cell sm:pr-8">
               <NuxtLink
-                :to="`/asset/${formatAssetName(item.asset_name, item.asset)}`"
+                :to="`/asset/${item.asset_name}`"
                 class="leading-6 font-medium text-white"
               >
                 {{ formatAssetName(item.asset_name, item.asset) }}

@@ -87,7 +87,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${formatAssetName(dividend.asset, dividend.asset_info)}`"
+              :to="`/asset/${dividend.asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(dividend.asset, dividend.asset_info) }}
@@ -103,7 +103,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${formatAssetName(dividend.dividend_asset, dividend.dividend_asset_info)}`"
+              :to="`/asset/${dividend.asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(dividend.dividend_asset, dividend.dividend_asset_info) }}

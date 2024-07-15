@@ -66,7 +66,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${formatAssetName(debit.asset, debit.asset_info)}`"
+              :to="`/asset/${debit.asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(debit.asset, debit.asset_info) }}

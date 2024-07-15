@@ -48,7 +48,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${formatAssetName(balance.asset, balance.asset_info)}`"
+              :to="`/asset/${balance.asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(balance.asset, balance.asset_info) }}
@@ -76,7 +76,7 @@
           class="whitespace-nowrap py-3 pl-3 text-base font-medium text-right"
         >
           <NuxtLink
-            :to="`/asset/${formatAssetName(balance.asset, balance.asset_info)}`"
+            :to="`/asset/${balance.asset}`"
             class="text-primary"
           >
             View

@@ -56,7 +56,7 @@
   <span v-else-if="event.event === 'DEBIT'">
     -{{ event.params.quantity_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -77,7 +77,7 @@
   <span v-else-if="event.event === 'CREDIT'">
     +{{ event.params.quantity_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -97,7 +97,7 @@
   </span>
   <span v-else-if="event.event === 'ENHANCED_SEND'">
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -117,7 +117,7 @@
   </span>
   <span v-else-if="event.event === 'MPMA_SEND'">
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -138,7 +138,7 @@
   <span v-else-if="event.event === 'SEND'">
     {{ event.params.quantity_normalized === 0 ? event.params.quantity_normalized : '' }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -158,7 +158,7 @@
   </span>
   <span v-else-if="event.event === 'ASSET_TRANSFER'">
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -210,14 +210,14 @@
   <span v-else-if="event.event === 'ASSET_DIVIDEND'">
     {{ event.params.quantity_per_unit_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.dividend_asset, event.params.dividend_asset_info)}`"
+      :to="`/asset/${event.params.dividend_asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.dividend_asset, event.params.dividend_asset_info) }}
     </NuxtLink>
     per unit of
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -232,7 +232,7 @@
   <!-- Asset Creation and Destruction Handlers -->
   <span v-else-if="event.event === 'RESET_ISSUANCE'">
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -260,7 +260,7 @@
   </span>
   <span v-else-if="event.event === 'ASSET_ISSUANCE'">
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -281,7 +281,7 @@
   <span v-else-if="event.event === 'ASSET_DESTRUCTION'">
     {{ event.params.quantity_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -303,7 +303,7 @@
   <span v-else-if="event.event === 'OPEN_ORDER'">
     {{ event.params.give_quantity_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.give_asset, event.params.give_asset_info)}`"
+      :to="`/asset/${event.params.give_asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.give_asset, event.params.give_asset_info) }}
@@ -311,7 +311,7 @@
     for
     {{ event.params.get_quantity_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.get_asset, event.params.get_asset_info)}`"
+      :to="`/asset/${event.params.get_asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.get_asset, event.params.get_asset_info) }}
@@ -331,7 +331,7 @@
   <span v-else-if="event.event === 'ORDER_MATCH'">
     {{ event.params.forward_quantity_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.forward_asset, event.params.forward_asset_info)}`"
+      :to="`/asset/${event.params.forward_asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.forward_asset, event.params.forward_asset_info) }}
@@ -339,7 +339,7 @@
     for
     {{ event.params.backward_quantity_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.backward_asset, event.params.backward_asset_info)}`"
+      :to="`/asset/${event.params.backward_asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.backward_asset, event.params.backward_asset_info) }}
@@ -473,7 +473,7 @@
   <span v-else-if="event.event === 'OPEN_DISPENSER'">
     {{ event.params.give_quantity_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -488,7 +488,7 @@
   </span>
   <span v-else-if="event.event === 'DISPENSER_UPDATE'">
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -504,7 +504,7 @@
   <span v-else-if="event.event === 'REFILL_DISPENSER'">
     {{ event.params.dispense_quantity_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}
@@ -524,7 +524,7 @@
   <span v-else-if="event.event === 'DISPENSE'">
     {{ event.params.dispense_quantity_normalized }}
     <NuxtLink
-      :to="`/asset/${formatAssetName(event.params.asset, event.params.asset_info)}`"
+      :to="`/asset/${event.params.asset}`"
       class="leading-6 font-medium text-white"
     >
       {{ formatAssetName(event.params.asset, event.params.asset_info) }}

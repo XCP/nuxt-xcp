@@ -57,7 +57,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${formatAssetName(destruction.asset, destruction.asset_info)}`"
+              :to="`/asset/${destruction.asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(destruction.asset, destruction.asset_info) }}

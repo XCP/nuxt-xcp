@@ -69,7 +69,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${formatAssetName(order.give_asset, order.give_asset_info)}`"
+              :to="`/asset/${order.give_asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(order.give_asset, order.give_asset_info) }}
@@ -88,7 +88,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${formatAssetName(order.get_asset, order.get_asset_info)}`"
+              :to="`/asset/${order.give_asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(order.get_asset, order.get_asset_info) }}
