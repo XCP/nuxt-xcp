@@ -6,7 +6,7 @@
   >
     <div>
       <p class="text-base text-gray-300">
-        Showing
+        <span class="hidden sm:inline">Showing&nbsp;</span>
         <span class="font-medium">{{ startItem.toLocaleString() }}</span>
         to
         <span class="font-medium">{{ endItem.toLocaleString() }}</span>
