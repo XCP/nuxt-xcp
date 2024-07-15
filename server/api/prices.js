@@ -7,6 +7,8 @@ const CACHE_KEY = 'prices'
 const CACHE_TTL = 300 // 5 minutes in seconds
 
 export default defineEventHandler(async () => {
+  const config = useRuntimeConfig()
+
   try {
     // Check if the data is already cached
     const cachedData = await kv.get(CACHE_KEY)
@@ -21,7 +23,7 @@ export default defineEventHandler(async () => {
     const response = await fetch(API_URL, {
       headers: {
         'accept': 'application/json',
-        'x-cg-demo-api-key': process.env.COINGECKO_API_KEY,
+        'x-cg-demo-api-key': config.coinGeckoApiKey,
       },
     })
 

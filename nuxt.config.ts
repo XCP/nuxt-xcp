@@ -52,4 +52,8 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-12',
+
+  runtimeConfig: {
+    coinGeckoApiKey: process.env.COINGECKO_API_KEY || 'default_secret',
+  },
 })
