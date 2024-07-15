@@ -379,31 +379,26 @@ const btcChange = ref(null)
 const xcpChange = ref(null)
 const fastestFee = ref('')
 
-// Function to fetch the BTC and XCP prices from CoinPaprika
+// Function to fetch the BTC and XCP prices from CoinGecko
 async function fetchPrices() {
   try {
-    const btcResponse = await fetch(`/api/prices?coinId=btc-bitcoin`);
-    const btcData = await btcResponse.json();
-    console.log(btcData);
+    const response = await fetch(`/api/prices`);
+    const data = await response.json();
+    console.log(data);
 
-    if (btcData.success) {
-      const btcPriceValue = btcData.data.quotes.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    if (data.success) {
+      const btcData = data.data.bitcoin;
+      const xcpData = data.data.counterparty;
+
+      const btcPriceValue = btcData.usd.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       btcPrice.value = { symbol: 'BTC', price: `$${btcPriceValue}` };
-      btcChange.value = btcData.data.quotes.USD.percent_change_24h;
-    } else {
-      throw new Error(btcData.error || 'Failed to fetch BTC price');
-    }
+      btcChange.value = btcData.usd_24h_change;
 
-    const xcpResponse = await fetch(`/api/prices?coinId=xcp-counterparty`);
-    const xcpData = await xcpResponse.json();
-    console.log(xcpData);
-
-    if (xcpData.success) {
-      const xcpPriceValue = xcpData.data.quotes.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      const xcpPriceValue = xcpData.usd.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       xcpPrice.value = { symbol: 'XCP', price: `$${xcpPriceValue}` };
-      xcpChange.value = xcpData.data.quotes.USD.percent_change_24h;
+      xcpChange.value = xcpData.usd_24h_change;
     } else {
-      throw new Error(xcpData.error || 'Failed to fetch XCP price');
+      throw new Error(data.error || 'Failed to fetch prices');
     }
   } catch (error) {
     console.error('Failed to fetch prices:', error);
@@ -423,7 +418,7 @@ async function fetchFastestFee() {
         const response = await fetch('https://mempool.space/api/v1/fees/recommended')
         return response.json()
       },
-      30,
+      60,
     )
     fastestFee.value = data.fastestFee
   }

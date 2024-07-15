@@ -1,22 +1,30 @@
-// server/api/prices.js
-import { defineEventHandler, getQuery } from 'h3';
-import CoinpaprikaAPI from '@coinpaprika/api-nodejs-client';
+import { defineEventHandler } from 'h3';
+import { getCachedData } from '~/utils/getCachedData';
 
-const client = new CoinpaprikaAPI({
-  baseURL: 'https://api-pro.coinpaprika.com/v1',
-});
+const API_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,counterparty&vs_currencies=usd&include_24hr_change=true';
+
+const fetchPrices = async () => {
+  const response = await fetch(API_URL, {
+    headers: {
+      'accept': 'application/json',
+      'x-cg-demo-api-key': process.env.COINGECKO_API_KEY
+    }
+  });
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Failed to fetch prices');
+  }
+
+  return data;
+};
 
 export default defineEventHandler(async (event) => {
-  const { coinId } = getQuery(event);
-  const apiKey = process.env.COINPAPRIKA_API_KEY;
-
   try {
-    const response = await client.getTicker({ coinId, headers: { Authorization: apiKey } });
-    console.log('API Response:', response);
-
+    const data = await getCachedData('prices', fetchPrices, 60);
     return {
       success: true,
-      data: response
+      data: data
     };
   } catch (error) {
     console.error('API Error:', error);
