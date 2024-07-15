@@ -384,7 +384,6 @@ async function fetchPrices() {
   try {
     const response = await fetch(`/api/prices`);
     const data = await response.json();
-    console.log(data);
 
     if (data.success) {
       const btcData = data.data.bitcoin;
@@ -392,11 +391,11 @@ async function fetchPrices() {
 
       const btcPriceValue = btcData.usd.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       btcPrice.value = { symbol: 'BTC', price: `$${btcPriceValue}` };
-      btcChange.value = btcData.usd_24h_change;
+      btcChange.value = btcData.usd_24h_change.toFixed(2);
 
       const xcpPriceValue = xcpData.usd.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       xcpPrice.value = { symbol: 'XCP', price: `$${xcpPriceValue}` };
-      xcpChange.value = xcpData.usd_24h_change;
+      xcpChange.value = xcpData.usd_24h_change.toFixed(2);
     } else {
       throw new Error(data.error || 'Failed to fetch prices');
     }
