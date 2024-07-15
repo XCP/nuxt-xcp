@@ -189,7 +189,7 @@ const filteredEventCounts = computed(() => {
 const dropdownItems = computed(() => [
   { href: `https://blockstream.info/`, imgSrc: '/img/blockstreaminfo.png', title: 'blockstream.info' },
   { href: `https://mempool.space/`, imgSrc: '/img/mempoolspace.png', title: 'mempool.space' },
-  { href: `https://memepool.wtf/`, imgSrc: '/img/memepoolwtf.png', title: 'mempool.space' },
+  { href: `https://memepool.wtf/`, imgSrc: '/img/memepoolwtf.png', title: 'memepool.wtf' },
   { href: `https://scarce.city/`, imgSrc: '/img/scarcecity.png', title: 'scarce.city' },
   { href: `https://pepe.wtf/`, imgSrc: '/img/pepewtf.png', title: 'pepe.wtf' },
   { href: `https://www.xchain.io/`, imgSrc: '/img/xchainio.png', title: 'xchain.io' },
