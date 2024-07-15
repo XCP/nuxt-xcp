@@ -72,7 +72,7 @@
           </NuxtLink>
         </td>
         <td
-          v-if="!props.asset"
+          v-if="!props.assetName"
           class="whitespace-nowrap py-3 pl-3 text-base font-medium text-right"
         >
           <NuxtLink
@@ -106,7 +106,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  asset: {
+  assetName: {
     type: String,
     default: '',
   },
@@ -120,8 +120,8 @@ const apiClientFunction = (params = {}) => {
   if (props.address) {
     return $apiClient.getAddressBalances(props.address, params)
   }
-  else if (props.asset) {
-    return $apiClient.getAssetBalances(props.asset, params)
+  else if (props.assetName) {
+    return $apiClient.getAssetBalances(props.assetName, params)
   }
   else {
     throw new Error('Address or Asset prop is required for API call')

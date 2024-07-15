@@ -190,8 +190,8 @@ async function fetchData(page = state.currentPage) {
   state.loading = true
   let query = `page=${page}`
 
-  if (props.asset) {
-    query += `&asset_name=${props.asset}`
+  if (props.assetName) {
+    query += `&asset_name=${props.assetName}`
   }
 
   if (props.address) {

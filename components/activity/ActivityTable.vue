@@ -130,7 +130,7 @@ const queryParams = computed(() => {
   if (props.collection) params.collection = props.collection
   if (selectedCategory.value) params.category = selectedCategory.value
   if (props.address) params.address = props.address
-  if (props.asset) params.asset_name = props.asset
+  if (props.assetName) params.asset_name = props.assetName
 
   return params
 })

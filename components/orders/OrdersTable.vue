@@ -133,7 +133,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  asset: {
+  assetName: {
     type: String,
     default: '',
   },
@@ -147,8 +147,8 @@ const apiClientFunction = (params = {}) => {
   if (props.address) {
     return $apiClient.getAddressOrders(props.address, params)
   }
-  else if (props.asset) {
-    return $apiClient.getAssetOrders(props.asset, params)
+  else if (props.assetName) {
+    return $apiClient.getAssetOrders(props.assetName, params)
   }
   else {
     return $apiClient.getOrders(params)

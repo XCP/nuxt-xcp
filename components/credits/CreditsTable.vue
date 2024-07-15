@@ -131,7 +131,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  asset: {
+  assetName: {
     type: String,
     default: '',
   },
@@ -149,8 +149,8 @@ const apiClientFunction = (params = {}) => {
   if (props.address) {
     return $apiClient.getAddressCredits(props.address, params)
   }
-  else if (props.asset) {
-    return $apiClient.getAssetCredits(props.asset, params)
+  else if (props.assetName) {
+    return $apiClient.getAssetCredits(props.assetName, params)
   }
   else if (props.blockIndex) {
     return $apiClient.getBlockCredits(props.blockIndex, params)

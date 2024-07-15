@@ -165,7 +165,7 @@
               <span class="text-xs text-indigo-400">Edit</span>
             </div>
             <div
-              v-if="props.asset && index === data.length - 1"
+              v-if="props.assetName && index === data.length - 1"
               class="flex items-center gap-1"
             >
               <SparklesIcon
@@ -218,7 +218,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  asset: {
+  assetName: {
     type: String,
     default: '',
   },
@@ -236,8 +236,8 @@ const apiClientFunction = (params = {}) => {
   if (props.address) {
     return $apiClient.getAddressIssuances(props.address, params)
   }
-  else if (props.asset) {
-    return $apiClient.getAssetIssuances(props.asset, params)
+  else if (props.assetName) {
+    return $apiClient.getAssetIssuances(props.assetName, params)
   }
   else if (props.blockIndex) {
     return $apiClient.getBlockIssuances(props.blockIndex, params)
