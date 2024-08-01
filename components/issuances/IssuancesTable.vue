@@ -1,7 +1,8 @@
 <template>
   <TableTemplate
     :api-client-function="apiClientFunction"
-    result-key="issuances"
+    result-key="assets"
+    found-key="issued"
   >
     <template #table-headers>
       <tr>

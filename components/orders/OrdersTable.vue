@@ -114,7 +114,7 @@
               loading="lazy"
             />
             <NuxtLink
-              :to="`/asset/${order.give_asset}`"
+              :to="`/asset/${order.get_asset}`"
               class="font-medium leading-6 text-base text-white"
             >
               {{ formatAssetName(order.get_asset, order.get_asset_info) }}
