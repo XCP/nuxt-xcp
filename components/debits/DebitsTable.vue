@@ -136,8 +136,8 @@ const props = defineProps({
     default: '',
   },
   blockIndex: {
-    type: Number,
-    default: 0,
+    type: String,
+    default: '',
   },
 })
 
