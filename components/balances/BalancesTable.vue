@@ -118,9 +118,11 @@ const apiClientFunction = (params = {}) => {
   params.verbose = true
 
   if (props.address) {
+    params.sort = 'asset:asc'
     return $apiClient.getAddressBalances(props.address, params)
   }
   else if (props.assetName) {
+    params.sort = 'quantity:desc'
     return $apiClient.getAssetBalances(props.assetName, params)
   }
   else {
