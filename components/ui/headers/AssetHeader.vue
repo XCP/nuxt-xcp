@@ -74,7 +74,7 @@ const { $apiClient } = useNuxtApp()
 
 const fetchData = async () => {
   try {
-    const response = await $apiClient.getAsset(props.assetName)
+    const response = await $apiClient.getAsset(props.assetName, {verbose: true})
     apiData.value = response.data.result
   }
   catch (error) {
