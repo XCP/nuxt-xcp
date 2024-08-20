@@ -376,8 +376,8 @@ export default {
     return callApiWithHealthCheck(apiClient.get, `/v2/events/${eventIndex}`, { params })
   },
   getEventCounts(params) {
-    const paginationParams = handlePagination(params)
-    return callApiWithHealthCheck(apiClient.get, '/v2/events/counts', { params: paginationParams })
+    const paginationParams = handlePagination(params);
+    return callApiWithHealthCheck(apiClient.get, 'https://api.xcp.io/api/v1/event-counts', { params: paginationParams });
   },
   getEventsByName(event, params) {
     const paginationParams = handlePagination(params)
