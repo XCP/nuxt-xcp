@@ -156,7 +156,7 @@
           <td class="whitespace-nowrap py-3 pr-3">
             <div class="flex items-center gap-x-4">
               <NuxtImg
-                :src="`https://api.xcp.io/img/icon/${asset.asset_name}`"
+                :src="`https://app.xcp.io/img/icon/${asset.asset_name}`"
                 :alt="formatAssetName(asset.asset_name, asset)"
                 class="h-10 w-10"
                 loading="lazy"
@@ -224,7 +224,7 @@ const fetchData = async () => {
   const query = `slug=${props.collection}&page=${Math.floor(state.assets.length / 30) + 1}`
 
   try {
-    const response = await fetch(`https://api.xcp.io/api/v1/collections?${query}`)
+    const response = await fetch(`https://app.xcp.io/api/v1/collections?${query}`)
     if (!response.ok) throw new Error('Network response was not ok')
     const data = await response.json()
 

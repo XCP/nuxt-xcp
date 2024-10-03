@@ -438,7 +438,7 @@ async function fetchSuggestions(query) {
 
   try {
     const data = await $fetch(`/api/v1/search?query=${encodeURIComponent(query)}`, {
-      baseURL: 'https://api.xcp.io',
+      baseURL: 'https://app.xcp.io',
     })
 
     suggestions.value = processSuggestions(data)
@@ -459,7 +459,7 @@ function processSuggestions(data) {
       name: item.asset_longname || item.asset_name,
       slug: item.asset_longname || item.asset_name,
       type: 'Asset',
-      imageUrl: `https://api.xcp.io/img/icon/${item.asset_name}`,
+      imageUrl: `https://app.xcp.io/img/icon/${item.asset_name}`,
     }))
     mappedSuggestions.push(...assetSuggestions)
   }
@@ -470,7 +470,7 @@ function processSuggestions(data) {
       name: item.address,
       slug: item.address,
       type: 'Address',
-      imageUrl: 'https://api.xcp.io/img/icon/default.png',
+      imageUrl: 'https://app.xcp.io/img/icon/default.png',
     }))
     mappedSuggestions.push(...addressSuggestions)
   }
@@ -481,7 +481,7 @@ function processSuggestions(data) {
       name: item.tx_hash,
       slug: item.tx_hash,
       type: 'TX',
-      imageUrl: 'https://api.xcp.io/img/icon/default.png',
+      imageUrl: 'https://app.xcp.io/img/icon/default.png',
     }))
     mappedSuggestions.push(...txSuggestions)
   }

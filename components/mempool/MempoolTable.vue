@@ -137,7 +137,7 @@
             <td class="whitespace-nowrap py-3 pr-3">
               <div class="flex items-center gap-x-4">
                 <NuxtImg
-                  :src="`https://api.xcp.io/img/icon/${transaction.bindings.asset || transaction.bindings.give_asset}`"
+                  :src="`https://app.xcp.io/img/icon/${transaction.bindings.asset || transaction.bindings.give_asset}`"
                   :alt="transaction.bindings.asset || transaction.bindings.give_asset"
                   class="h-10 w-10"
                   loading="lazy"

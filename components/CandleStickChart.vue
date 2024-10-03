@@ -82,7 +82,7 @@
   // Fetch OHLC data from API
   const fetchData = async (pairName, interval) => {
     try {
-      const response = await fetch(`http://api.xcp.io.test/api/v1/ohlc/${pairName}?interval=${interval}`);
+      const response = await fetch(`http://app.xcp.io.test/api/v1/ohlc/${pairName}?interval=${interval}`);
       const data = await response.json();
       if (!Array.isArray(data.data)) {
         throw new Error('API response data is not an array');

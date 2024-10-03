@@ -20,7 +20,7 @@ const router = useRouter()
 
 const fetchTagsAndRedirect = async () => {
   try {
-    const response = await fetch('https://api.xcp.io/api/v1/tags?type=collection')
+    const response = await fetch('https://app.xcp.io/api/v1/tags?type=collection')
     if (!response.ok) throw new Error('Network response was not ok')
     const data = await response.json()
 

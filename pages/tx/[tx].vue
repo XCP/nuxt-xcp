@@ -41,7 +41,7 @@ useSeoMeta({
   ogTitle: `Transaction: ${txHash.value}`,
   description: 'Explore detailed information about Counterparty txs.',
   ogDescription: 'Detailed insights into Counterparty txs and their activities.',
-  ogImage: 'https://api.xcp.io/img/full/default.png',
+  ogImage: 'https://app.xcp.io/img/full/default.png',
   twitterCard: 'summary_large_image',
 })
 </script>

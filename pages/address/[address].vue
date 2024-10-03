@@ -100,7 +100,7 @@ useSeoMeta({
   ogTitle: address.value,
   description: 'Explore detailed information about Counterparty addresses.',
   ogDescription: 'Detailed insights into Counterparty addresses and their activities.',
-  ogImage: 'https://api.xcp.io/img/full/default.png',
+  ogImage: 'https://app.xcp.io/img/full/default.png',
   twitterCard: 'summary_large_image',
 })
 </script>

@@ -78,7 +78,7 @@
         <td class="whitespace-nowrap py-3 pr-3 min-w-64">
           <div class="flex items-center gap-x-4">
             <NuxtImg
-              :src="`https://api.xcp.io/img/icon/${formatAssetName(issuance.asset, issuance)}`"
+              :src="`https://app.xcp.io/img/icon/${formatAssetName(issuance.asset, issuance)}`"
               :alt="formatAssetName(issuance.asset, issuance)"
               class="h-10 w-10"
               loading="lazy"

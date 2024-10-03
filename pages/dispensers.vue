@@ -19,7 +19,7 @@ useSeoMeta({
   ogTitle: `Counterparty Dispensers`,
   description: 'Dispensers created to dispense Counterparty assets.',
   ogDescription: 'Detailed insights into Counterparty.',
-  ogImage: 'https://api.xcp.io/img/full/default.png',
+  ogImage: 'https://app.xcp.io/img/full/default.png',
   twitterCard: 'summary_large_image',
 })
 </script>

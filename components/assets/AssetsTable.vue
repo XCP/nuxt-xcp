@@ -75,7 +75,7 @@
           <div class="flex items-center justify-between gap-x-4">
             <div class="flex items-center gap-x-4">
               <NuxtImg
-                :src="`https://api.xcp.io/img/icon/${asset.asset}`"
+                :src="`https://app.xcp.io/img/icon/${asset.asset}`"
                 :alt="asset.asset"
                 class="h-10 w-10"
                 loading="lazy"

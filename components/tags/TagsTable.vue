@@ -72,7 +72,7 @@
           <!-- Aspect Ratio Block -->
           <div class="aspect-w-5 aspect-h-7 w-full">
             <NuxtImg
-              :src="`https://api.xcp.io/img/logo/${tag.slug}`"
+              :src="`https://app.xcp.io/img/logo/${tag.slug}`"
               :alt="tag.name"
               class="rounded-2xl object-contain w-full h-full"
               :style="tag.stamp ? 'image-rendering: pixelated' : null"
@@ -132,7 +132,7 @@
             <td class="whitespace-nowrap py-3 pr-3">
               <div class="flex items-center gap-x-4">
                 <NuxtImg
-                  :src="`https://api.xcp.io/img/icon/${tag.slug}`"
+                  :src="`https://app.xcp.io/img/icon/${tag.slug}`"
                   :alt="tag.name"
                   class="h-10 w-10"
                   loading="lazy"
@@ -190,7 +190,7 @@ const fetchData = async () => {
   state.loading = true
 
   try {
-    const response = await fetch(`https://api.xcp.io/api/v1/tags?type=${props.type}`)
+    const response = await fetch(`https://app.xcp.io/api/v1/tags?type=${props.type}`)
     if (!response.ok) throw new Error('Network response was not ok')
     const data = await response.json()
 

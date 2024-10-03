@@ -72,7 +72,7 @@ const resolvedAssetName = computed(() => {
 const isNsfw = computed(() => isNSFW(resolvedAssetName.value))
 
 const computedImageUrl = computed(() => {
-  return `https://api.xcp.io/img/full/${resolvedAssetName.value}`
+  return `https://app.xcp.io/img/full/${resolvedAssetName.value}`
 })
 
 const computedAltText = computed(() => {

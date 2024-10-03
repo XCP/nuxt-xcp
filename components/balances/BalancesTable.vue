@@ -42,7 +42,7 @@
         >
           <div class="flex items-center gap-x-4">
             <NuxtImg
-              :src="`https://api.xcp.io/img/icon/${balance.asset}`"
+              :src="`https://app.xcp.io/img/icon/${balance.asset}`"
               :alt="formatAssetName(balance.asset, balance.asset_info)"
               class="h-10 w-10"
               loading="lazy"

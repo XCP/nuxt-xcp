@@ -96,7 +96,7 @@ const chartRef = ref(null)
 let myChart = null
 
 const fetchData = async (metricType, periodType) => {
-  const url = `https://api.xcp.io/api/v1/metrics?period_type=${periodType}&metric_type=${metricType}`
+  const url = `https://app.xcp.io/api/v1/metrics?period_type=${periodType}&metric_type=${metricType}`
 
   try {
     const response = await fetch(url)

@@ -33,7 +33,7 @@ useSeoMeta({
   ogTitle: `Mempool`,
   description: 'Unconfirmed Counterparty protocol transactions.',
   ogDescription: 'Detailed insights into Counterparty.',
-  ogImage: 'https://api.xcp.io/img/full/default.png',
+  ogImage: 'https://app.xcp.io/img/full/default.png',
   twitterCard: 'summary_large_image',
 })
 </script>

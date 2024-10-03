@@ -89,7 +89,7 @@
         <td class="whitespace-nowrap py-3 pr-3 min-w-64">
           <div class="flex items-center gap-x-4">
             <NuxtImg
-              :src="`https://api.xcp.io/img/icon/${formatAssetName(order.give_asset, order.give_asset_info)}`"
+              :src="`https://app.xcp.io/img/icon/${formatAssetName(order.give_asset, order.give_asset_info)}`"
               :alt="formatAssetName(order.give_asset, order.give_asset_info)"
               class="h-10 w-10"
               loading="lazy"
@@ -108,7 +108,7 @@
         <td class="whitespace-nowrap py-3 pr-3 min-w-64">
           <div class="flex items-center gap-x-4">
             <NuxtImg
-              :src="`https://api.xcp.io/img/icon/${formatAssetName(order.get_asset, order.get_asset_info)}`"
+              :src="`https://app.xcp.io/img/icon/${formatAssetName(order.get_asset, order.get_asset_info)}`"
               :alt="formatAssetName(order.get_asset, order.get_asset_info)"
               class="h-10 w-10"
               loading="lazy"

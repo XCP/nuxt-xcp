@@ -81,7 +81,7 @@
         <td class="whitespace-nowrap py-3 pr-3 min-w-64">
           <div class="flex items-center gap-x-4">
             <NuxtImg
-              :src="`https://api.xcp.io/img/icon/${formatAssetName(dividend.asset, dividend.asset_info)}`"
+              :src="`https://app.xcp.io/img/icon/${formatAssetName(dividend.asset, dividend.asset_info)}`"
               :alt="formatAssetName(dividend.asset, dividend.asset_info)"
               class="h-10 w-10"
               loading="lazy"
@@ -97,7 +97,7 @@
         <td class="whitespace-nowrap py-3 pr-3 min-w-64">
           <div class="flex items-center gap-x-4">
             <NuxtImg
-              :src="`https://api.xcp.io/img/icon/${formatAssetName(dividend.dividend_asset, dividend.dividend_asset_info)}`"
+              :src="`https://app.xcp.io/img/icon/${formatAssetName(dividend.dividend_asset, dividend.dividend_asset_info)}`"
               :alt="formatAssetName(dividend.dividend_asset, dividend.dividend_asset_info)"
               class="h-10 w-10"
               loading="lazy"

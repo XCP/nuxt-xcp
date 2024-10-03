@@ -82,7 +82,7 @@ useSeoMeta({
   ogTitle: blockIndex.value,
   description: 'Explore detailed information about Counterparty block.',
   ogDescription: 'Detailed insights into Counterparty block and their activities.',
-  ogImage: 'https://api.xcp.io/img/full/default.png',
+  ogImage: 'https://app.xcp.io/img/full/default.png',
   twitterCard: 'summary_large_image',
 })
 </script>

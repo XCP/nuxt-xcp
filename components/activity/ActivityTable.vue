@@ -1,6 +1,6 @@
 <template>
   <TableTemplate
-    api-url="https://api.xcp.io/api/v1/messages"
+    api-url="https://app.xcp.io/api/v1/messages"
     :query-params="queryParams"
     :initial-page="props.initialPage"
   >
@@ -51,7 +51,7 @@
         <td class="whitespace-nowrap py-3 pr-3">
           <div class="flex items-center gap-x-4">
             <NuxtImg
-              :src="`https://api.xcp.io/img/icon/${item.asset_name}`"
+              :src="`https://app.xcp.io/img/icon/${item.asset_name}`"
               :alt="item.asset"
               class="h-10 w-10"
               loading="lazy"
